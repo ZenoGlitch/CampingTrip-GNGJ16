@@ -12,6 +12,8 @@ config_version=5
 
 config/name="CampingTrip"
 run/main_scene="res://Scenes/main.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="CampingTrip"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 

@@ -1,9 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cob7ftic4wlcx"]
+[gd_scene load_steps=3 format=3 uid="uid://cob7ftic4wlcx"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_f3t7l"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_srr2q"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_f3t7l")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.913659, 0.406482, 0, -0.406482, 0.913659, 0, 0.469599, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(154.951, 96.5552)
+scale = Vector2(-308.902, 194.11)
+texture = SubResource("PlaceholderTexture2D_srr2q")
