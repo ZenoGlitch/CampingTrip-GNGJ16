@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvycicjo0t63q"]
+
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_yf5oc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7egbm"]
+
+[node name="UI" type="Node2D"]
+script = ExtResource("1_yf5oc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(1069, 21)
+scale = Vector2(26.75, 25.75)
+texture = SubResource("PlaceholderTexture2D_7egbm")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 1086.0
+offset_top = 7.0
+offset_right = 1200.0
+offset_bottom = 76.0
+scale = Vector2(0.1, 0.0990003)
+theme_override_font_sizes/font_size = 200

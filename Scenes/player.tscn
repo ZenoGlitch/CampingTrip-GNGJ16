@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cob7ftic4wlcx"]
+[gd_scene load_steps=5 format=3 uid="uid://cob7ftic4wlcx"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_f3t7l"]
+[ext_resource type="PackedScene" uid="uid://bvycicjo0t63q" path="res://Scenes/ui.tscn" id="2_gi2r7"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cdsc0"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_srr2q"]
 
@@ -11,10 +14,17 @@ script = ExtResource("1_f3t7l")
 transform = Transform3D(1, 0, 0, 0, 0.913659, 0.406482, 0, -0.406482, 0.913659, 0, 0.469599, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+attributes = SubResource("CameraAttributesPractical_cdsc0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(154.951, 96.5552)
 scale = Vector2(-308.902, 194.11)
 texture = SubResource("PlaceholderTexture2D_srr2q")
 
+[node name="BlurTimer" type="Timer" parent="."]
+
 [node name="Timer" type="Timer" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("2_gi2r7")]
+
+[connection signal="pictureTaken" from="." to="UI" method="_on_player_picture_taken"]
