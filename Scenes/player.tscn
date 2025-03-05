@@ -16,3 +16,5 @@ transform = Transform3D(1, 0, 0, 0, 0.913659, 0.406482, 0, -0.406482, 0.913659, 
 position = Vector2(154.951, 96.5552)
 scale = Vector2(-308.902, 194.11)
 texture = SubResource("PlaceholderTexture2D_srr2q")
+
+[node name="Timer" type="Timer" parent="."]
