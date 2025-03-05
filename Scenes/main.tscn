@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dca86t7mk5ui0"]
+[gd_scene load_steps=5 format=3 uid="uid://dca86t7mk5ui0"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="PackedScene" uid="uid://cob7ftic4wlcx" path="res://Scenes/player.tscn" id="2_aocs0"]
 [ext_resource type="PackedScene" uid="uid://dc2bfcpkq7c0o" path="res://Assets/Jellyfish_Character2.fbx" id="3_h8mb5"]
+[ext_resource type="PackedScene" uid="uid://d0qynteuh2qo8" path="res://Scenes/animal.tscn" id="4_sk0rl"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t5j2i")
@@ -15,3 +16,6 @@ transform = Transform3D(0.0150412, 0, 0, 0, 0.0150412, 0, 0, 0, 0.0150412, 0.027
 
 [node name="Jellyfish_Character3" parent="." instance=ExtResource("3_h8mb5")]
 transform = Transform3D(-0.0225619, 0, 0.00892662, 0, -0.00919652, 0, -0.00924961, 0, -0.021774, -0.613713, 0.167484, -0.0176832)
+
+[node name="Animal" parent="." instance=ExtResource("4_sk0rl")]
+transform = Transform3D(1, 0, 0, 0, 0.890753, 0.454488, 0, -0.454488, 0.890753, 0, 0, -0.657105)

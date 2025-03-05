@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0qynteuh2qo8"]
+
+[ext_resource type="Script" path="res://Scripts/animal.gd" id="1_kdst4"]
+[ext_resource type="Texture2D" uid="uid://bm53ca4jewtxv" path="res://Assets/birbTest.png" id="2_bgofe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvhtx"]
+atlas = ExtResource("2_bgofe")
+region = Rect2(0, 0, 1000, 1395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56664"]
+atlas = ExtResource("2_bgofe")
+region = Rect2(1000, 0, 1000, 1395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4v0r"]
+atlas = ExtResource("2_bgofe")
+region = Rect2(2000, 0, 1000, 1395)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_203gk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvhtx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56664")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4v0r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Animal" type="Node3D"]
+script = ExtResource("1_kdst4")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.0191768, 0, 0, 0, 0.0191768, 0, 0, 0, 0.0191768, 0, 0, 0)
+sprite_frames = SubResource("SpriteFrames_203gk")

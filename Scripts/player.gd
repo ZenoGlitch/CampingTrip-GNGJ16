@@ -46,10 +46,7 @@ func _input(InputEvent):
 		
 	if Input.is_action_just_pressed("TakePhoto"):
 		Screenshot()
-		print("Neeerp")
-	
-	
-	
+		LoadScreenshot()
 	
 func RotateLeft():
 	self.rotate_y(deg90InRad)
@@ -80,11 +77,12 @@ func Screenshot():
 	var texture = viewport.get_texture()
 	var img = texture.get_image()
 	img.save_png("user://activeImage.png")
-	LoadScreenshot()
 	
 func LoadScreenshot():
 	var image = Image.load_from_file("user://activeImage.png")
+	image.flip_x()
 	var texture = ImageTexture.create_from_image(image)
 	texture.set_size_override(Vector2i(1,1))
 	$Sprite2D.texture = texture
+	
 	
