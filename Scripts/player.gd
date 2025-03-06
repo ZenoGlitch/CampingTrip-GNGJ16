@@ -27,6 +27,8 @@ signal pictureTaken
 
 var screenshotCount : int = 0
 
+var screenshotArr : Array[Sprite2D] = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var dir = DirAccess.open("user://")
@@ -137,6 +139,18 @@ func LoadLastScreenshot():
 	var texture = ImageTexture.create_from_image(image)
 	texture.set_size_override(Vector2i(1,1))
 	$Sprite2D.texture = texture
+
+func LoadAllScreenshots():
+	var dir = DirAccess.open("User://screenshots")
+	for n in dir.get_files():
+		var img = n
+		var texture = ImageTexture.create_from_image(img)
+		texture.set_size_override(Vector2i(1,1))
+		var newSprite = Sprite2D.new()
+		newSprite.texture = texture
+		screenshotArr.push_back(newSprite)
+		pass
+	pass
 
 func InitializeCameraAttributes():
 	camAttribs = CameraAttributesPractical.new()
