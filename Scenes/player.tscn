@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cob7ftic4wlcx"]
+[gd_scene load_steps=5 format=3 uid="uid://cgrl70lsfotbm"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_f3t7l"]
-[ext_resource type="PackedScene" uid="uid://bvycicjo0t63q" path="res://Scenes/ui.tscn" id="2_gi2r7"]
+[ext_resource type="PackedScene" path="res://Scenes/ui.tscn" id="2_gi2r7"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cdsc0"]
 
@@ -15,6 +15,7 @@ transform = Transform3D(1, 0, 0, 0, 0.913659, 0.406482, 0, -0.406482, 0.913659, 
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 attributes = SubResource("CameraAttributesPractical_cdsc0")
+far = 2.47
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(154.951, 96.5552)
