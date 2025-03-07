@@ -1,9 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://dca86t7mk5ui0"]
+[gd_scene load_steps=25 format=3 uid="uid://dca86t7mk5ui0"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="PackedScene" uid="uid://cgrl70lsfotbm" path="res://Scenes/player.tscn" id="2_aocs0"]
 [ext_resource type="Shader" path="res://addons/hypercasualGradientShader/shaders/hypercasualSky.gdshader" id="2_wbsk0"]
-[ext_resource type="PackedScene" uid="uid://d0qynteuh2qo8" path="res://Scenes/animal.tscn" id="4_sk0rl"]
+[ext_resource type="PackedScene" path="res://Scenes/animal.tscn" id="4_sk0rl"]
 [ext_resource type="PackedScene" uid="uid://b2jnj3o27hwry" path="res://Assets/3D Models/sm_bush_01.fbx" id="5_iwd85"]
 [ext_resource type="PackedScene" uid="uid://bcsf0rjgcw3dg" path="res://Assets/3D Models/sm_mushroom_01.fbx" id="6_q6pc0"]
 [ext_resource type="PackedScene" uid="uid://bb5i6uvfrqerp" path="res://Assets/3D Models/sm_mushroom_02.fbx" id="7_4mv25"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://doxn2jsknncdy" path="res://Assets/3D Models/sm_grass_01.fbx" id="16_n37cp"]
 [ext_resource type="PackedScene" uid="uid://nj2b52h2sv2l" path="res://Assets/3D Models/sm_grass_02.fbx" id="17_dvetc"]
 [ext_resource type="PackedScene" uid="uid://c5oh47pky4ekv" path="res://Assets/3D Models/sm_grass_03.fbx" id="18_tc4tk"]
+[ext_resource type="AudioStream" uid="uid://b5km526w43vs" path="res://Assets/Audio/Forest with dad lofi loop.wav" id="19_t73a1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fd7n7"]
 shader = ExtResource("2_wbsk0")
@@ -83,7 +84,6 @@ light_energy = 2.848
 light_volumetric_fog_energy = 3.957
 
 [node name="Player" parent="." instance=ExtResource("2_aocs0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Animal" parent="." instance=ExtResource("4_sk0rl")]
 transform = Transform3D(1, 0.000380868, 3.53152e-05, -0.000382494, 0.995108, 0.0987972, 2.48382e-06, -0.0987973, 0.995108, 0.020071, 0.123025, -0.764067)
@@ -488,3 +488,10 @@ transform = Transform3D(1.95415, 0, 0, 0, 1.95415, 0, 0, 0, 1.95415, 0.519285, -
 
 [node name="sm_grass_62" parent="." instance=ExtResource("18_tc4tk")]
 transform = Transform3D(1.95415, 0, 0, 0, 1.95415, 0, 0, 0, 1.95415, 0.480729, -1.19209e-07, -0.123533)
+
+[node name="ForestWithDadLofiLoop" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000705257, 0.462994, 0.00115466)
+stream = ExtResource("19_t73a1")
+volume_db = -66.796
+max_db = 1.0
+autoplay = true

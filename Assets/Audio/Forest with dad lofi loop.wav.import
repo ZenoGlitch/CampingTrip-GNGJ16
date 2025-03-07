@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b5km526w43vs"
+path="res://.godot/imported/Forest with dad lofi loop.wav-baf5ec3f91a2c68b57833137a16a5432.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Forest with dad lofi loop.wav"
+dest_files=["res://.godot/imported/Forest with dad lofi loop.wav-baf5ec3f91a2c68b57833137a16a5432.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
