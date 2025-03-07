@@ -1,14 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvycicjo0t63q"]
+[gd_scene load_steps=11 format=3 uid="uid://bvycicjo0t63q"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_yf5oc"]
+[ext_resource type="Texture2D" uid="uid://cravmvd0c4ye7" path="res://Assets/ScrapBook PNGs/scrapbook_pigeons.PNG" id="2_3cxg4"]
 [ext_resource type="Texture2D" uid="uid://dqup7mkp3bowf" path="res://Assets/scrapbookPlaceholder.png" id="2_gyqk1"]
 [ext_resource type="Script" path="res://Scripts/photo.gd" id="3_ptlve"]
+[ext_resource type="Texture2D" uid="uid://c5aur80va4kju" path="res://Assets/ScrapBook PNGs/scrapbook_crows.PNG" id="3_wiyu7"]
 [ext_resource type="Texture2D" uid="uid://bo3ltxqced1qx" path="res://Assets/transparentPlaceholder.png" id="3_xmlcn"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7egbm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dg4s"]
-size = Vector2(635.556, 391.667)
+size = Vector2(1220.74, 657.195)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1p5n"]
+size = Vector2(1220.74, 657.195)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dh5f"]
 
 [node name="UI" type="Node2D"]
 script = ExtResource("1_yf5oc")
@@ -17,24 +24,26 @@ script = ExtResource("1_yf5oc")
 
 [node name="ImageStackIcon" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(1069, 21)
-scale = Vector2(26.75, 25.75)
+position = Vector2(1730, 53)
+scale = Vector2(50.375, 47.875)
 texture = SubResource("PlaceholderTexture2D_7egbm")
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 1086.0
-offset_top = 7.0
-offset_right = 1200.0
-offset_bottom = 280.0
+offset_left = 1769.0
+offset_top = 36.0
+offset_right = 2339.0
+offset_bottom = 339.0
 scale = Vector2(0.1, 0.0990003)
 theme_override_font_sizes/font_size = 200
+text = "1"
 
 [node name="Scrapbook" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(577, 320)
-scale = Vector2(0.45, 0.45)
-texture = ExtResource("2_gyqk1")
+position = Vector2(984, 477)
+scale = Vector2(0.388, 0.388)
+texture = ExtResource("2_3cxg4")
 
 [node name="Label" type="Label" parent="CanvasLayer/Scrapbook"]
+visible = false
 z_index = 1
 offset_left = -564.444
 offset_top = -408.889
@@ -46,19 +55,21 @@ theme_override_font_sizes/font_size = 200
 text = "Pigeons 
      Gambling??"
 
-[node name="Area2D" type="Area2D" parent="CanvasLayer/Scrapbook"]
+[node name="scrapbook1Area2D" type="Area2D" parent="CanvasLayer"]
+z_index = 1
+position = Vector2(742, 524)
+scale = Vector2(0.388, 0.388)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Scrapbook/Area2D"]
-position = Vector2(-313.333, 140)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/scrapbook1Area2D"]
 shape = SubResource("RectangleShape2D_2dg4s")
 
 [node name="Scrapbook2" type="Sprite2D" parent="CanvasLayer"]
-visible = false
-position = Vector2(577, 320)
-scale = Vector2(0.45, 0.45)
-texture = ExtResource("2_gyqk1")
+position = Vector2(984, 477)
+scale = Vector2(0.388, 0.388)
+texture = ExtResource("3_wiyu7")
 
 [node name="Label" type="Label" parent="CanvasLayer/Scrapbook2"]
+visible = false
 offset_left = 155.556
 offset_top = -417.778
 offset_right = 3163.56
@@ -69,11 +80,25 @@ theme_override_font_sizes/font_size = 200
 text = "Are the frogs 
 watching me??"
 
+[node name="scraobook2Area2D" type="Area2D" parent="CanvasLayer"]
+z_index = 1
+position = Vector2(743, 451)
+scale = Vector2(0.388, 0.388)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/scraobook2Area2D"]
+shape = SubResource("RectangleShape2D_e1p5n")
+
 [node name="Scrapbook3" type="Sprite2D" parent="CanvasLayer"]
 visible = false
 position = Vector2(577, 320)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_gyqk1")
+
+[node name="Area2D" type="Area2D" parent="CanvasLayer"]
+position = Vector2(1761, 987)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Area2D"]
+shape = SubResource("RectangleShape2D_5dh5f")
 
 [node name="Scrapbook4" type="Sprite2D" parent="CanvasLayer"]
 visible = false
@@ -83,77 +108,77 @@ texture = ExtResource("2_gyqk1")
 
 [node name="Sprite1" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(124, 98)
-scale = Vector2(240, 135)
+position = Vector2(239, 190)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="Sprite2" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(126, 255)
-scale = Vector2(240, 135)
+position = Vector2(221, 437)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="Sprite3" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(126, 402)
-scale = Vector2(240, 135)
+position = Vector2(232, 691)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="Sprite4" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(126, 555)
-scale = Vector2(240, 135)
+position = Vector2(216, 903)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="Sprite5" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(1029, 125)
-scale = Vector2(240, 135)
+position = Vector2(1717, 237)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="Sprite6" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(1029, 269)
-scale = Vector2(240, 135)
+position = Vector2(1699, 539)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="Sprite7" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(1030, 416)
-scale = Vector2(240, 135)
+position = Vector2(1692, 789)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="Sprite8" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
-position = Vector2(1032, 562)
-scale = Vector2(240, 135)
+position = Vector2(1709, 940)
 texture = ExtResource("3_xmlcn")
 script = ExtResource("3_ptlve")
 
 [node name="FlipPageLeftButton" type="Button" parent="CanvasLayer"]
-offset_left = 426.0
-offset_top = 584.0
-offset_right = 548.0
-offset_bottom = 865.0
+offset_left = 789.0
+offset_top = 960.0
+offset_right = 911.0
+offset_bottom = 1241.0
 scale = Vector2(0.441944, 0.190338)
 theme_override_font_sizes/font_size = 200
 text = "<"
 
 [node name="FlipPageRightButton" type="Button" parent="CanvasLayer"]
-offset_left = 678.0
-offset_top = 585.0
-offset_right = 800.0
-offset_bottom = 866.0
+offset_left = 1156.0
+offset_top = 958.0
+offset_right = 1278.0
+offset_bottom = 1239.0
 scale = Vector2(0.441944, 0.190338)
 theme_override_font_sizes/font_size = 200
 text = ">"
 
+[connection signal="pictureGrabbed" from="CanvasLayer/Sprite1" to="." method="_on_sprite_1_picture_grabbed"]
+[connection signal="pictureReleased" from="CanvasLayer/Sprite1" to="." method="_on_sprite_1_picture_released"]
+[connection signal="pictureGrabbed" from="CanvasLayer/Sprite2" to="." method="_on_sprite_2_picture_grabbed"]
+[connection signal="pictureReleased" from="CanvasLayer/Sprite2" to="." method="_on_sprite_2_picture_released"]
+[connection signal="pictureGrabbed" from="CanvasLayer/Sprite3" to="." method="_on_sprite_3_picture_grabbed"]
+[connection signal="pictureReleased" from="CanvasLayer/Sprite3" to="." method="_on_sprite_3_picture_released"]
+[connection signal="pictureGrabbed" from="CanvasLayer/Sprite4" to="." method="_on_sprite_4_picture_grabbed"]
+[connection signal="pictureReleased" from="CanvasLayer/Sprite4" to="." method="_on_sprite_4_picture_released"]
 [connection signal="pressed" from="CanvasLayer/FlipPageLeftButton" to="." method="_on_flip_page_left_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/FlipPageRightButton" to="." method="_on_flip_page_right_button_pressed"]

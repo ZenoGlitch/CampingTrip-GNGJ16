@@ -6,15 +6,18 @@ extends Node2D
 @onready var scrapbook2 = $CanvasLayer/Scrapbook2
 @onready var scrapbook3 = $CanvasLayer/Scrapbook3
 @onready var scrapbook4 = $CanvasLayer/Scrapbook4
-
-@onready var scrapbookCollisionShape2d = $CanvasLayer/Scrapbook/Area2D/CollisionShape2D
 @onready var sprite1 = $CanvasLayer/Sprite1
 
+@onready var sb1area2d = $CanvasLayer/scrapbook1Area2D
+@onready var scrapbookCollider1 = $CanvasLayer/scrapbook1Area2D/CollisionShape2D
+
+@onready var sb2area2d = $CanvasLayer/scraobook2Area2D
+@onready var scrapbookCollider2 = $CanvasLayer/scraobook2Area2D/CollisionShape2D
 
 var pictureCounter : int = 0
 
 var currentPage : int = 1
-
+var currentlyGrabbedPhoto : int = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,19 +25,12 @@ func _ready():
 	scrapbook2.visible = false
 	scrapbook3.visible = false
 	scrapbook4.visible = false
-	
-	
-	
-	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	#var collRect : Rect2 = scrapbookCollisionShape2d.shape.get_rect()
-	#if sprite1.get_rect().intersects(scrapbookCollisionShape2d.shape.get_rect()):
-		#print("YOUR MOM")
-	#if scrapbookCollisionShape2d.shape.get_rect().intersects(sprite1.get_rect()):
-		#print("YOURDADDDDD")
-	pass
+
+	CheckFullOverlap(currentlyGrabbedPhoto)
+
 	
 func setPhotoArrTexture(index : int, tex : Texture):
 	photoArr[index].texture = tex
@@ -82,3 +78,102 @@ func FlipPageRight():
 			currentPage = 4
 		4:
 			return
+
+func CheckFullOverlap(grabbedPhoto : int):
+	
+	match grabbedPhoto:
+		-1:
+			return
+		0:
+			if currentPage == 1:
+				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
+				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
+				
+				var collider1LeftX = sb1area2d.position.x - (scrapbookCollider1.shape.size.x / 2)
+				var collider1RightX = sb1area2d.position.x + (scrapbookCollider1.shape.size.x / 2)
+				var collider1TopY = sb1area2d.position.y - (scrapbookCollider1.shape.size.y / 2)
+				var collider1BottomY = sb1area2d.position.y + (scrapbookCollider1.shape.size.y / 2)
+				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
+					print("uff")
+		1:
+			if currentPage == 2:
+				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
+				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
+
+				var collider1LeftX = sb2area2d.position.x - (scrapbookCollider2.shape.size.x / 2)
+				var collider1RightX = sb2area2d.position.x + (scrapbookCollider2.shape.size.x / 2)
+				var collider1TopY = sb2area2d.position.y - (scrapbookCollider2.shape.size.y / 2)
+				var collider1BottomY = sb2area2d.position.y + (scrapbookCollider2.shape.size.y / 2)
+
+				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
+					print("Bummmmmm")
+		2:
+			#if currentPage == 3:
+				#var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
+				#var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
+				#var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
+				#var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
+#
+				#var collider1LeftX = sb2area2d.position.x - (scrapbookCollider2.shape.size.x / 2)
+				#var collider1RightX = sb2area2d.position.x + (scrapbookCollider2.shape.size.x / 2)
+				#var collider1TopY = sb2area2d.position.y - (scrapbookCollider2.shape.size.y / 2)
+				#var collider1BottomY = sb2area2d.position.y + (scrapbookCollider2.shape.size.y / 2)
+#
+				#if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
+					#print("Bummmmmm")
+			pass
+		3:
+			pass
+	
+	
+	
+#SPRITE SIGNAL CONNECTIONS	
+func _on_sprite_1_picture_grabbed():
+	currentlyGrabbedPhoto = 0
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+	CheckFullOverlap(currentlyGrabbedPhoto)
+
+func _on_sprite_1_picture_released():
+	currentlyGrabbedPhoto = -1
+
+func _on_sprite_2_picture_grabbed():
+	currentlyGrabbedPhoto = 1
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+
+func _on_sprite_2_picture_released():
+	currentlyGrabbedPhoto = -1
+
+func _on_sprite_3_picture_grabbed():
+	currentlyGrabbedPhoto = 2
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+
+func _on_sprite_3_picture_released():
+	currentlyGrabbedPhoto = -1
+
+func _on_sprite_4_picture_grabbed():
+	currentlyGrabbedPhoto = 3
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+	pass # Replace with function body.
+
+func _on_sprite_4_picture_released():
+	currentlyGrabbedPhoto = -1

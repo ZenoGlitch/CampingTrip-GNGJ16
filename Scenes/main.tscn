@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="PackedScene" uid="uid://cgrl70lsfotbm" path="res://Scenes/player.tscn" id="2_aocs0"]
 [ext_resource type="Shader" path="res://addons/hypercasualGradientShader/shaders/hypercasualSky.gdshader" id="2_wbsk0"]
-[ext_resource type="PackedScene" path="res://Scenes/animal.tscn" id="4_sk0rl"]
+[ext_resource type="PackedScene" uid="uid://d0qynteuh2qo8" path="res://Scenes/animal.tscn" id="4_sk0rl"]
 [ext_resource type="PackedScene" uid="uid://b2jnj3o27hwry" path="res://Assets/3D Models/sm_bush_01.fbx" id="5_iwd85"]
 [ext_resource type="PackedScene" uid="uid://bcsf0rjgcw3dg" path="res://Assets/3D Models/sm_mushroom_01.fbx" id="6_q6pc0"]
 [ext_resource type="PackedScene" uid="uid://bb5i6uvfrqerp" path="res://Assets/3D Models/sm_mushroom_02.fbx" id="7_4mv25"]

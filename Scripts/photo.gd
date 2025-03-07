@@ -2,6 +2,8 @@ extends Sprite2D
 
 var grabbed : bool = false
 var mouseOffset : Vector2 = Vector2(0, 0)
+signal pictureGrabbed
+signal pictureReleased
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,9 +19,12 @@ func _input(event):
 		if get_rect().has_point(to_local(event.position)):
 			mouseOffset = position - get_global_mouse_position()
 			grabbed = true
+			pictureGrabbed.emit()
 	if Input.is_action_just_released("TakePhoto"):
 		grabbed = false
+		pictureReleased.emit()
 
 func followMouse():
 	position = get_global_mouse_position() + mouseOffset
 	pass
+	

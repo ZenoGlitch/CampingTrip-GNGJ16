@@ -29,6 +29,7 @@ signal pictureTaken
 var screenshotCount : int = 0
 
 var scrapBookOpen : bool = false
+const screenshotSize : Vector2i = Vector2i(384,216)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -158,7 +159,8 @@ func LoadAllScreenshots():
 	for n in range(screenshotCount):
 		var img = Image.load_from_file("user://screenshots/screenshot" +str(n+1) + ".png")
 		var texture = ImageTexture.create_from_image(img)
-		texture.set_size_override(Vector2i(1,1))
+		texture.set_size_override(screenshotSize)
+		
 		ui.setPhotoArrTexture(n, texture)
 		
 func InitializeCameraAttributes():
@@ -178,4 +180,3 @@ func OnBlurAmountChanged():
 func OnPictureTaken():
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	LoadLastScreenshot()
-	
