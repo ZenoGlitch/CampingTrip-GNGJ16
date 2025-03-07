@@ -22,12 +22,13 @@ const camZoomSpeed : float = 1.0
 var camAttribs : CameraAttributesPractical
 const blurAmount : float = 0.05
 
+#signals
 signal blurAmountChanged
 signal pictureTaken
 
 var screenshotCount : int = 0
 
-var screenshotArr : Array[Sprite2D] = []
+var scrapBookOpen : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -43,8 +44,10 @@ func _ready():
 	timer.set_wait_time(1)
 	
 	InitializeCameraAttributes()
-	connect("blurAmountChanged", onBlurAmountChanged)
-	connect("pictureTaken", onPictureTaken)
+	connect("blurAmountChanged", OnBlurAmountChanged)
+	connect("pictureTaken", OnPictureTaken)
+	var uiCanvas = ui.get_child(0)
+	uiCanvas.visible = false
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -52,7 +55,7 @@ func _process(_delta):
 	pass
 
 func _unhandled_input(event: InputEvent):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and not scrapBookOpen:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		if not gameFocused:
 			timer.start()
@@ -66,12 +69,13 @@ func _unhandled_input(event: InputEvent):
 		if event is InputEventMouseMotion:
 			pivot.rotate_y(-event.relative.x * mouseSensitivity)
 			camera.rotate_x(-event.relative.y * mouseSensitivity)
-			pivot.rotation.y = clamp(pivot.rotation.y, deg_to_rad(-30), deg_to_rad(30))
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-30), deg_to_rad(30))
-		#if event is InputEventMouseButton and gameFocused:
-			#pass
-	
-	
+			
+			var lookSidewaysAngle = 30
+			var lookUpAngle = 15
+			var lookDownAngle = 30
+			
+			pivot.rotation.y = clamp(pivot.rotation.y, deg_to_rad(-lookSidewaysAngle), deg_to_rad(lookSidewaysAngle))
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-lookDownAngle), deg_to_rad(lookUpAngle))
 
 func _input(_event: InputEvent):
 	if Input.is_action_just_pressed("TurnLeft"):
@@ -95,9 +99,20 @@ func _input(_event: InputEvent):
 			blurAmountChanged.emit()
 			
 	if Input.is_action_just_pressed("TakePhoto"):
-		if gameFocused:
+		if gameFocused and not scrapBookOpen:
 			Screenshot()
-			
+	
+	if Input.is_action_just_pressed("OpenScrapbook"):
+		var uiCanvas = ui.get_child(0)
+		if uiCanvas.visible == false:
+			scrapBookOpen = true
+			uiCanvas.visible = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			LoadAllScreenshots()
+		else:
+			uiCanvas.visible = false
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			scrapBookOpen = false
 	
 func RotateLeft():
 	self.rotate_y(deg90InRad)
@@ -124,34 +139,28 @@ func RotateRight():
 			facingDir = direction.SOUTH
 
 func Screenshot():
-	
-	var viewport = camera.get_viewport()
-	var texture = viewport.get_texture()
-	var img = texture.get_image()
-	img.save_png("user://screenshots/screenshot" + str(screenshotCount) + ".png")
-	screenshotCount += 1
-	pictureTaken.emit()
+	if screenshotCount <= 7:
+		var viewport = camera.get_viewport()
+		var texture = viewport.get_texture()
+		var img = texture.get_image()
+		screenshotCount += 1
+		img.save_png("user://screenshots/screenshot" + str(screenshotCount) + ".png")
+		pictureTaken.emit()
 	
 func LoadLastScreenshot():
-	
-	var image = Image.load_from_file("user://screenshots/screenshot" + str(screenshotCount-1) + ".png")
+	var image = Image.load_from_file("user://screenshots/screenshot" + str(screenshotCount) + ".png")
 	image.flip_x()
 	var texture = ImageTexture.create_from_image(image)
 	texture.set_size_override(Vector2i(1,1))
 	$Sprite2D.texture = texture
 
 func LoadAllScreenshots():
-	var dir = DirAccess.open("User://screenshots")
-	for n in dir.get_files():
-		var img = n
+	for n in range(screenshotCount):
+		var img = Image.load_from_file("user://screenshots/screenshot" +str(n+1) + ".png")
 		var texture = ImageTexture.create_from_image(img)
 		texture.set_size_override(Vector2i(1,1))
-		var newSprite = Sprite2D.new()
-		newSprite.texture = texture
-		screenshotArr.push_back(newSprite)
-		pass
-	pass
-
+		ui.setPhotoArrTexture(n, texture)
+		
 func InitializeCameraAttributes():
 	camAttribs = CameraAttributesPractical.new()
 	camAttribs.dof_blur_amount = 0.0
@@ -159,14 +168,14 @@ func InitializeCameraAttributes():
 	camAttribs.dof_blur_far_enabled = true
 	camera.set_attributes(camAttribs)
 	
-func onBlurAmountChanged():
+func OnBlurAmountChanged():
 	blur_timer.set_wait_time(0.5)
 	blur_timer.start()
 	await blur_timer.timeout
 	camAttribs.dof_blur_amount = 0.0
 	camera.set_attributes(camAttribs)
 	
-func onPictureTaken():
+func OnPictureTaken():
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	LoadLastScreenshot()
 	

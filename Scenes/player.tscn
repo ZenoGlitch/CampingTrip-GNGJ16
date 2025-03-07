@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cgrl70lsfotbm"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_f3t7l"]
-[ext_resource type="PackedScene" path="res://Scenes/ui.tscn" id="2_gi2r7"]
+[ext_resource type="PackedScene" uid="uid://bvycicjo0t63q" path="res://Scenes/ui.tscn" id="2_gi2r7"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cdsc0"]
 

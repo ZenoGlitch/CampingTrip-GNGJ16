@@ -12,7 +12,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if animated_sprite_3d.frame == 2 and not messageSent:
-		print("squawk!")
+		#print("squawk!")
 		messageSent = true
 	elif animated_sprite_3d.frame == 1 and messageSent:
 		messageSent = false
