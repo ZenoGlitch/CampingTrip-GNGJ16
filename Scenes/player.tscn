@@ -15,7 +15,7 @@ transform = Transform3D(1, 0, 0, 0, 0.913659, 0.406482, 0, -0.406482, 0.913659, 
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 attributes = SubResource("CameraAttributesPractical_cdsc0")
-far = 2.47
+far = 455.93
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(154.951, 96.5552)
