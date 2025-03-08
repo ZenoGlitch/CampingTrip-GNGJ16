@@ -167,7 +167,6 @@ func Screenshot():
 		var uiCanvas2 = ui.get_child(1)
 		uiCanvas2.visible = true
 
-	
 func LoadLastScreenshot():
 	var image = Image.load_from_file("user://screenshots/screenshot" + str(screenshotCount) + ".png")
 	image.flip_x()

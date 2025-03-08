@@ -1,7 +1,8 @@
 extends Node2D
 
-@onready var scrapbookCanvasLayer = $CanvasLayer
-@onready var cameraCanvasLayer = $CanvasLayer2
+@onready var scrapbookCanvas = $CanvasLayer
+@onready var cameraCanvas = $CanvasLayer2
+@onready var mainMenuCanvas = $MainMenuCanvas
 
 @onready var pictureCounterLabel = $CanvasLayer/Label
 @onready var photoArr : Array[Sprite2D] = [$CanvasLayer/Sprite1, $CanvasLayer/Sprite2, $CanvasLayer/Sprite3, $CanvasLayer/Sprite4, $CanvasLayer/Sprite5, $CanvasLayer/Sprite6, $CanvasLayer/Sprite7, $CanvasLayer/Sprite8]
@@ -41,6 +42,11 @@ func _ready():
 	scrapbook2.visible = false
 	scrapbook3.visible = false
 	scrapbook4.visible = false
+	
+	scrapbookCanvas.visible = false
+	cameraCanvas.visible = false
+	mainMenuCanvas.visible = true
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -241,3 +247,9 @@ func _on_sprite_4_picture_grabbed():
 
 func _on_sprite_4_picture_released():
 	currentlyGrabbedPhoto = -1
+
+
+func _on_start_game_button_pressed():
+	mainMenuCanvas.visible = false
+	cameraCanvas.visible = true
+	pass # Replace with function body.

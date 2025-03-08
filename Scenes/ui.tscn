@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvycicjo0t63q"]
+[gd_scene load_steps=15 format=3 uid="uid://bvycicjo0t63q"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_yf5oc"]
 [ext_resource type="Texture2D" uid="uid://cravmvd0c4ye7" path="res://Assets/ScrapBook PNGs/scrapbook_pigeons.PNG" id="2_3cxg4"]
@@ -23,10 +23,14 @@ size = Vector2(1220.74, 877.567)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ao4"]
 size = Vector2(1220.74, 657.195)
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pk60o"]
+size = Vector2(1920, 1080)
+
 [node name="UI" type="Node2D"]
 script = ExtResource("1_yf5oc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ImageStackIcon" type="Sprite2D" parent="CanvasLayer"]
 z_index = 2
@@ -187,10 +191,35 @@ theme_override_font_sizes/font_size = 200
 text = ">"
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2"]
 position = Vector2(960, 540)
 texture = ExtResource("8_e48dm")
+
+[node name="MainMenuCanvas" type="CanvasLayer" parent="."]
+
+[node name="Background" type="Sprite2D" parent="MainMenuCanvas"]
+position = Vector2(960, 540)
+texture = SubResource("PlaceholderTexture2D_pk60o")
+
+[node name="Logo" type="Sprite2D" parent="MainMenuCanvas"]
+z_index = 1
+position = Vector2(960, 540)
+
+[node name="Title" type="Sprite2D" parent="MainMenuCanvas"]
+z_index = 1
+position = Vector2(960, 740)
+
+[node name="StartGameButton" type="Button" parent="MainMenuCanvas"]
+z_index = 1
+offset_left = 798.0
+offset_top = 872.0
+offset_right = 1895.0
+offset_bottom = 1153.0
+scale = Vector2(0.297659, 0.297276)
+theme_override_font_sizes/font_size = 200
+text = "Start Game"
 
 [connection signal="pictureGrabbed" from="CanvasLayer/Sprite1" to="." method="_on_sprite_1_picture_grabbed"]
 [connection signal="pictureReleased" from="CanvasLayer/Sprite1" to="." method="_on_sprite_1_picture_released"]
@@ -202,3 +231,4 @@ texture = ExtResource("8_e48dm")
 [connection signal="pictureReleased" from="CanvasLayer/Sprite4" to="." method="_on_sprite_4_picture_released"]
 [connection signal="pressed" from="CanvasLayer/FlipPageLeftButton" to="." method="_on_flip_page_left_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/FlipPageRightButton" to="." method="_on_flip_page_right_button_pressed"]
+[connection signal="pressed" from="MainMenuCanvas/StartGameButton" to="." method="_on_start_game_button_pressed"]
