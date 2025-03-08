@@ -1,32 +1,34 @@
 extends Node2D
 
-@onready var scrapbookCanvas = $CanvasLayer
-@onready var cameraCanvas = $CanvasLayer2
+#CANVASES
+@onready var scrapbookCanvas = $ScrapbookCanvas
+@onready var cameraCanvas = $CameraCanvas
 @onready var mainMenuCanvas = $MainMenuCanvas
+@onready var greyedOutBackground = $ScrapbookCanvas/GreyedOutBackground
+@onready var lastPhotoCanvas = $LastPhotoCanvas
 
-@onready var pictureCounterLabel = $CanvasLayer/Label
-@onready var photoArr : Array[Sprite2D] = [$CanvasLayer/Sprite1, $CanvasLayer/Sprite2, $CanvasLayer/Sprite3, $CanvasLayer/Sprite4, $CanvasLayer/Sprite5, $CanvasLayer/Sprite6, $CanvasLayer/Sprite7, $CanvasLayer/Sprite8]
-@onready var scrapbook = $CanvasLayer/Scrapbook
-@onready var scrapbook2 = $CanvasLayer/Scrapbook2
-@onready var scrapbook3 = $CanvasLayer/Scrapbook3
-@onready var scrapbook4 = $CanvasLayer/Scrapbook4
-@onready var sprite1 = $CanvasLayer/Sprite1
+#PHOTOS
+@onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
+
+#SCRAPBOOK STUFF
+@onready var scrapbook = $ScrapbookCanvas/Scrapbook
+@onready var scrapbook2 = $ScrapbookCanvas/Scrapbook2
+@onready var scrapbook3 = $ScrapbookCanvas/Scrapbook3
+@onready var scrapbook4 = $ScrapbookCanvas/Scrapbook4
+@onready var sprite1 = $ScrapbookCanvas/Sprite1
 
 #COLLIDERS
-@onready var sb1area2d = $CanvasLayer/scrapbook1Area2D
-@onready var scrapbookCollider1 = $CanvasLayer/scrapbook1Area2D/CollisionShape2D
-
-@onready var sb2area2d = $CanvasLayer/scraobook2Area2D
-@onready var scrapbookCollider2 = $CanvasLayer/scraobook2Area2D/CollisionShape2D
-
-@onready var sb3area2d = $CanvasLayer/scrapbook3Area2D
-@onready var scrapbookCollider3 = $CanvasLayer/scrapbook3Area2D/CollisionShape2D
-
-@onready var sb4area2d = $CanvasLayer/scrapbook4Area2D
-@onready var scrapbookCollider4 = $CanvasLayer/scrapbook4Area2D/CollisionShape2D
-
+@onready var sb1area2d = $ScrapbookCanvas/scrapbook1Area2D
+@onready var scrapbookCollider1 = $ScrapbookCanvas/scrapbook1Area2D/CollisionShape2D
+@onready var sb2area2d = $ScrapbookCanvas/scraobook2Area2D
+@onready var scrapbookCollider2 = $ScrapbookCanvas/scraobook2Area2D/CollisionShape2D
+@onready var sb3area2d = $ScrapbookCanvas/scrapbook3Area2D
+@onready var scrapbookCollider3 = $ScrapbookCanvas/scrapbook3Area2D/CollisionShape2D
+@onready var sb4area2d = $ScrapbookCanvas/scrapbook4Area2D
+@onready var scrapbookCollider4 = $ScrapbookCanvas/scrapbook4Area2D/CollisionShape2D
 
 var pictureCounter : int = 0
+@onready var pictureCounterLabel = $ScrapbookCanvas/Label
 
 var currentPage : int = 1
 var currentlyGrabbedPhoto : int = -1
@@ -36,15 +38,20 @@ var crowPicCorrect : bool = false
 var beePicCorrect : bool = false
 var skunkPicCorrect : bool = false
 
+@onready var lastPhoto = $LastPhotoCanvas/LastPhoto
+
+signal savePhoto
+signal deletePhoto
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pictureCounterLabel.text = str(pictureCounter)
 	scrapbook2.visible = false
 	scrapbook3.visible = false
 	scrapbook4.visible = false
 	
 	scrapbookCanvas.visible = false
 	cameraCanvas.visible = false
+	lastPhotoCanvas.visible = false
 	mainMenuCanvas.visible = true
 	
 
@@ -195,6 +202,11 @@ func CheckFullOverlap(grabbedPhoto : int):
 				else:
 					skunkPicCorrect = false
 	
+func setLastPhoto(tex : ImageTexture):
+	tex.set_size_override(Vector2(1600, 900))
+	lastPhoto.texture = tex
+
+
 #SPRITE SIGNAL CONNECTIONS	
 func _on_sprite_1_picture_grabbed():
 	currentlyGrabbedPhoto = 0
@@ -252,4 +264,19 @@ func _on_sprite_4_picture_released():
 func _on_start_game_button_pressed():
 	mainMenuCanvas.visible = false
 	cameraCanvas.visible = true
-	pass # Replace with function body.
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+func _on_save_photo_button_pressed():
+	var tex = lastPhoto.texture
+	tex.set_size_override(Vector2(384,216))
+	photoArr[pictureCounter].texture = lastPhoto.texture
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	lastPhotoCanvas.visible = false
+	cameraCanvas.visible = true
+	savePhoto.emit()
+
+func _on_delete_photo_button_pressed():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	lastPhotoCanvas.visible = false
+	cameraCanvas.visible = true
+	deletePhoto.emit()
