@@ -37,6 +37,14 @@ var uiCamCanvas : CanvasLayer
 var uiMainMenuCanvas : CanvasLayer
 var uiLastPhotoCanvas : CanvasLayer
 
+var crowsAreSus : bool = false
+var pigeonsAreSus : bool = false
+var beesAreSus : bool = false
+var skunksAreSus : bool = false
+
+var photoToLoad : int = -1
+var photoSlotsTaken : Array[int] = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var dir = DirAccess.open("user://")
@@ -45,6 +53,11 @@ func _ready():
 	dir = DirAccess.open("user://screenshots")
 	for n in dir.get_files():
 		screenshotCount += 1
+	
+	for m in dir.get_files():
+		for n in range(8):
+			if m.ends_with(str(n)+".png"):
+				photoSlotsTaken.append(n)
 	
 	uiScrapbookCanvas = ui.get_child(0)
 	uiCamCanvas = ui.get_child(1)
@@ -70,7 +83,7 @@ func _ready():
 func _process(_delta):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		gameFocused = true
-	pass
+	
 
 func _unhandled_input(event: InputEvent):
 
@@ -84,7 +97,7 @@ func _unhandled_input(event: InputEvent):
 			camera.rotate_x(-event.relative.y * mouseSensitivity)
 			
 			var lookSidewaysAngle = 30
-			var lookUpAngle = 20
+			var lookUpAngle = 30
 			var lookDownAngle = 30
 			
 			pivot.rotation.y = clamp(pivot.rotation.y, deg_to_rad(-lookSidewaysAngle), deg_to_rad(lookSidewaysAngle))
@@ -118,25 +131,27 @@ func _input(_event: InputEvent):
 			
 			photoTimer.start()
 			await photoTimer.timeout
+			
+			
+			
+			
 			Screenshot()
 			ui.get_child(3).visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if Input.is_action_just_pressed("OpenScrapbook"):
-		var uiCanvas = ui.get_child(0)
-		var uiCanvas2 = ui.get_child(1)
-		
-		if uiCanvas.visible == false:
+
+		if uiScrapbookCanvas.visible == false:
 			sprite.visible = false
-			uiCanvas2.visible = false
+			uiCamCanvas.visible = false
 			scrapBookOpen = true
-			uiCanvas.visible = true
+			uiScrapbookCanvas.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			LoadAllScreenshots()
 		else:
-			uiCanvas.visible = false
+			uiScrapbookCanvas.visible = false
 			sprite.visible = true
-			uiCanvas2.visible = true
+			uiCamCanvas.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			scrapBookOpen = false
 	
@@ -170,26 +185,58 @@ func Screenshot():
 		var texture = viewport.get_texture()
 		var img = texture.get_image()
 		screenshotCount += 1
-		img.save_png("user://screenshots/screenshot" + str(screenshotCount) + ".png")
 		
-		#ui.setLastPhoto(texture)
+		if pigeonsAreSus and facingDir == direction.NORTH:
+			photoToLoad = 1
+			
+			photoSlotsTaken.append(1)
+		elif crowsAreSus and facingDir == direction.EAST:
+			photoToLoad = 2
+
+			photoSlotsTaken.append(2)
+		elif beesAreSus and facingDir == direction.WEST:
+			photoToLoad = 3
+
+			photoSlotsTaken.append(3)
+		elif skunksAreSus and facingDir == direction.SOUTH:
+			photoToLoad = 4
+			
+			photoSlotsTaken.append(4)
+			pass
+		elif not photoSlotsTaken.has(5):
+			photoToLoad = 5
+
+			photoSlotsTaken.append(5)
+		elif not photoSlotsTaken.has(6):
+			photoToLoad = 6
+
+			photoSlotsTaken.append(6)
+		elif not photoSlotsTaken.has(7):
+			photoToLoad = 7
+			photoSlotsTaken.append(7)
+		elif not photoSlotsTaken.has(8):
+			photoToLoad = 8
+			photoSlotsTaken.append(8)
+			
+		img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			
 		pictureTaken.emit()
 
 func LoadLastScreenshot():
-	var image = Image.load_from_file("user://screenshots/screenshot" + str(screenshotCount) + ".png")
+	var image = Image.load_from_file("user://screenshots/screenshot" + str(photoToLoad) + ".png")
 	#image.flip_x()
 	var texture = ImageTexture.create_from_image(image)
 	#texture.set_size_override(Vector2i(1,1))
 	#$Sprite2D.texture = texture
-	ui.setLastPhoto(texture)
+	ui.setLastPhoto(texture, photoToLoad)
 
 func LoadAllScreenshots():
-	for n in range(screenshotCount):
-		var img = Image.load_from_file("user://screenshots/screenshot" +str(n+1) + ".png")
+	for m in photoSlotsTaken:
+			
+		var img = Image.load_from_file("user://screenshots/screenshot" + str(m) + ".png")
 		var texture = ImageTexture.create_from_image(img)
 		texture.set_size_override(screenshotSize)
-		
-		ui.setPhotoArrTexture(n, texture)
+		ui.setPhotoArrTexture(m-1, texture)
 		
 func InitializeCameraAttributes():
 	camAttribs = CameraAttributesPractical.new()
@@ -211,8 +258,10 @@ func OnPictureTaken():
 	
 func OnPictureSaved():
 	print("PHOTO SAVED")
+	ui.lastPhotoIndex = photoToLoad
 	
 func OnPictureDeleted():
-	DirAccess.remove_absolute("user://screenshots/screenshot" +str(screenshotCount)+".png")
+	DirAccess.remove_absolute("user://screenshots/screenshot" +str(photoToLoad)+".png")
+	photoSlotsTaken.remove_at(photoSlotsTaken.find(photoToLoad))
 	screenshotCount -= 1
 	ui.pictureCounterLabel.text = str(screenshotCount)

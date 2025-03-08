@@ -2,10 +2,12 @@ extends Node3D
 
 @onready var player = $Player
 @onready var animal = $Animal
+@onready var crow = $Crow
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("Hello GN!")
+	crow.connect("crowsAreSus", OnCrowsSus)
 	pass # Replace with function body.
 
 
@@ -19,3 +21,9 @@ func toggleAnimalAnimation():
 		animal.animated_sprite_3d.play()
 	else:
 		animal.animated_sprite_3d.stop()
+
+func OnCrowsSus(isCrowSus):
+
+		
+	player.crowsAreSus = isCrowSus
+	

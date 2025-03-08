@@ -1,9 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://dca86t7mk5ui0"]
+[gd_scene load_steps=58 format=3 uid="uid://dca86t7mk5ui0"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="Texture2D" uid="uid://5krnbwrdu32m" path="res://Assets/Sky_texture (2).png" id="2_a20lf"]
 [ext_resource type="PackedScene" uid="uid://cgrl70lsfotbm" path="res://Scenes/player.tscn" id="2_aocs0"]
-[ext_resource type="PackedScene" path="res://Scenes/animal.tscn" id="4_sk0rl"]
+[ext_resource type="PackedScene" uid="uid://d0qynteuh2qo8" path="res://Scenes/animal.tscn" id="4_sk0rl"]
 [ext_resource type="PackedScene" uid="uid://b2jnj3o27hwry" path="res://Assets/3D Models/sm_bush_01.fbx" id="5_iwd85"]
 [ext_resource type="PackedScene" uid="uid://bcsf0rjgcw3dg" path="res://Assets/3D Models/sm_mushroom_01.fbx" id="6_q6pc0"]
 [ext_resource type="PackedScene" uid="uid://bb5i6uvfrqerp" path="res://Assets/3D Models/sm_mushroom_02.fbx" id="7_4mv25"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://54dwu6wjues3" path="res://Assets/Grass_flat_01.png" id="16_nbu84"]
 [ext_resource type="PackedScene" uid="uid://nj2b52h2sv2l" path="res://Assets/3D Models/sm_grass_02.fbx" id="17_dvetc"]
 [ext_resource type="Texture2D" uid="uid://7u6acfntipc1" path="res://Assets/Grass_flat_02.png" id="17_qrfnb"]
+[ext_resource type="PackedScene" uid="uid://clxiisnrrvim" path="res://Scenes/crow.tscn" id="18_o406a"]
 [ext_resource type="PackedScene" uid="uid://c5oh47pky4ekv" path="res://Assets/3D Models/sm_grass_03.fbx" id="18_tc4tk"]
 [ext_resource type="AudioStream" uid="uid://b5km526w43vs" path="res://Assets/Audio/Forest with dad lofi loop.wav" id="19_t73a1"]
 [ext_resource type="Texture2D" uid="uid://bv2mb37i8ykvk" path="res://fireflyVFX_png.png" id="20_wu5bl"]
@@ -612,6 +613,9 @@ mesh = SubResource("PlaneMesh_cu2ud")
 transform = Transform3D(1.63643, 0, 0, 0, 1.63643, 0, 0, 0, 1.63643, -0.00314479, 0.000591529, -0.0106756)
 material_override = SubResource("StandardMaterial3D_xgjqx")
 mesh = SubResource("PlaneMesh_cu2ud")
+
+[node name="Crow" parent="." instance=ExtResource("18_o406a")]
+transform = Transform3D(-0.102175, 0, -0.263997, 0, 0.28308, 0, 0.263997, 0, -0.102175, 0.782321, 0.044078, 0.0226516)
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.652179, 0, -0.655992, 0, 0.925021, 0, 0.655992, 0, -0.652179, 1.10072, 0.005, -0.589169)

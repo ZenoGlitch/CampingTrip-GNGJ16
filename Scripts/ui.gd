@@ -39,6 +39,7 @@ var beePicCorrect : bool = false
 var skunkPicCorrect : bool = false
 
 @onready var lastPhoto = $LastPhotoCanvas/LastPhoto
+var lastPhotoIndex = -1
 
 signal savePhoto
 signal deletePhoto
@@ -202,9 +203,10 @@ func CheckFullOverlap(grabbedPhoto : int):
 				else:
 					skunkPicCorrect = false
 	
-func setLastPhoto(tex : ImageTexture):
+func setLastPhoto(tex : ImageTexture, idx : int):
 	tex.set_size_override(Vector2(1600, 900))
 	lastPhoto.texture = tex
+	lastPhotoIndex = idx
 
 
 #SPRITE SIGNAL CONNECTIONS	
@@ -269,11 +271,11 @@ func _on_start_game_button_pressed():
 func _on_save_photo_button_pressed():
 	var tex = lastPhoto.texture
 	tex.set_size_override(Vector2(384,216))
-	photoArr[pictureCounter].texture = lastPhoto.texture
+	savePhoto.emit()
+	photoArr[lastPhotoIndex-1].texture = lastPhoto.texture
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	lastPhotoCanvas.visible = false
 	cameraCanvas.visible = true
-	savePhoto.emit()
 
 func _on_delete_photo_button_pressed():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
