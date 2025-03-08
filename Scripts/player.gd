@@ -44,7 +44,7 @@ func _ready():
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	
 	timer.set_wait_time(1)
-	photoTimer.set_wait_time(1)
+	photoTimer.set_wait_time(0.2)
 	
 	InitializeCameraAttributes()
 	connect("blurAmountChanged", OnBlurAmountChanged)
@@ -105,7 +105,13 @@ func _input(_event: InputEvent):
 			
 	if Input.is_action_just_pressed("TakePhoto"):
 		if gameFocused and not scrapBookOpen:
-				Screenshot()
+			sprite.visible = false
+			var uiCanvas2 = ui.get_child(1)
+			uiCanvas2.visible = false
+			
+			photoTimer.start()
+			await photoTimer.timeout
+			Screenshot()
 	
 	if Input.is_action_just_pressed("OpenScrapbook"):
 		var uiCanvas = ui.get_child(0)
@@ -155,6 +161,11 @@ func Screenshot():
 		screenshotCount += 1
 		img.save_png("user://screenshots/screenshot" + str(screenshotCount) + ".png")
 		pictureTaken.emit()
+		photoTimer.start()
+		await photoTimer.timeout
+		sprite.visible = true
+		var uiCanvas2 = ui.get_child(1)
+		uiCanvas2.visible = true
 
 	
 func LoadLastScreenshot():
