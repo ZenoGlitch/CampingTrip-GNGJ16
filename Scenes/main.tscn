@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dca86t7mk5ui0"]
+[gd_scene load_steps=57 format=3 uid="uid://dca86t7mk5ui0"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="Texture2D" uid="uid://5krnbwrdu32m" path="res://Assets/Sky_texture (2).png" id="2_a20lf"]
@@ -25,6 +25,16 @@
 [ext_resource type="Texture2D" uid="uid://bv2mb37i8ykvk" path="res://fireflyVFX_png.png" id="20_wu5bl"]
 [ext_resource type="PackedScene" uid="uid://8xn6heaita3t" path="res://Assets/3D Models/sm_rock_04.fbx" id="21_ahqyp"]
 [ext_resource type="Texture2D" uid="uid://csjc0ac6mwsa" path="res://Assets/3D Models/dustVFX_png.png" id="25_ippql"]
+[ext_resource type="Texture2D" uid="uid://f4gp478c03p2" path="res://Assets/3D Models/Fire1.png" id="26_r6udf"]
+[ext_resource type="Texture2D" uid="uid://mafkajc4vdou" path="res://Assets/3D Models/Fire2.png" id="27_qjo7j"]
+[ext_resource type="Texture2D" uid="uid://k3njm214i4a" path="res://Assets/3D Models/Fire3.png" id="28_jn5p2"]
+[ext_resource type="Texture2D" uid="uid://cu1qs2v2j8es8" path="res://Assets/3D Models/Rock1.png" id="29_fmdau"]
+[ext_resource type="Texture2D" uid="uid://bna33edfa77ab" path="res://Assets/3D Models/Rock2.png" id="30_0w614"]
+[ext_resource type="Texture2D" uid="uid://bgsivf66xkm0d" path="res://Assets/3D Models/Bush2.png" id="30_2s0fq"]
+[ext_resource type="Texture2D" uid="uid://cv33s5mdf7e72" path="res://Assets/3D Models/Cloud1.png" id="31_4stc0"]
+[ext_resource type="Texture2D" uid="uid://cp2sgvmur48cx" path="res://Assets/3D Models/Bush1.png" id="31_jhmjs"]
+[ext_resource type="Texture2D" uid="uid://d1jv370e0uxdy" path="res://Assets/3D Models/Pigeon_Idle2.png" id="31_mcdyy"]
+[ext_resource type="Texture2D" uid="uid://0iqwl3cuhwpl" path="res://Assets/3D Models/Cloud2.png" id="32_mo6l3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hb7kf"]
 panorama = ExtResource("2_a20lf")
@@ -58,8 +68,8 @@ transparency = 1
 blend_mode = 1
 albedo_texture = ExtResource("16_2gtoc")
 emission_enabled = true
-emission = Color(0.936169, 0.764288, 0.820396, 1)
-emission_energy_multiplier = 6.2
+emission = Color(0.93456, 0.758633, 0.816201, 1)
+emission_energy_multiplier = 8.58
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cu2ud"]
 material = SubResource("StandardMaterial3D_e0rek")
@@ -152,6 +162,26 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_hxpr8"]
 material = SubResource("StandardMaterial3D_kd2rc")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_70jso"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_r6udf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_qjo7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_jn5p2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_qjo7j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t5j2i")
 
@@ -172,7 +202,7 @@ light_indirect_energy = 0.736
 light_volumetric_fog_energy = 4.96
 
 [node name="Player" parent="." instance=ExtResource("2_aocs0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.114752, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.229135, 0)
 
 [node name="Animal" parent="." instance=ExtResource("4_sk0rl")]
 transform = Transform3D(1, 0.000380868, 3.53152e-05, -0.000382494, 0.995108, 0.0987972, 2.48382e-06, -0.0987973, 0.995108, 0.020071, 0.123025, -0.764067)
@@ -579,7 +609,7 @@ material_override = SubResource("StandardMaterial3D_37xor")
 mesh = SubResource("PlaneMesh_cu2ud")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.63643, 0, 0, 0, 1.63643, 0, 0, 0, 1.63643, -0.00314479, 0.005, -0.0106756)
+transform = Transform3D(1.63643, 0, 0, 0, 1.63643, 0, 0, 0, 1.63643, -0.00314479, 0.000591529, -0.0106756)
 material_override = SubResource("StandardMaterial3D_xgjqx")
 mesh = SubResource("PlaneMesh_cu2ud")
 
@@ -599,7 +629,7 @@ material_override = SubResource("StandardMaterial3D_xgjqx")
 mesh = SubResource("PlaneMesh_cu2ud")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.63643, 0, 0, 0, 1.63643, 0, 0, 0, 1.63643, -0.00314479, 0.005, -0.0106756)
+transform = Transform3D(1.63643, 0, 0, 0, 1.63643, 0, 0, 0, 1.63643, -0.00314479, 0.00289071, -0.0106756)
 material_override = SubResource("StandardMaterial3D_xgjqx")
 mesh = SubResource("PlaneMesh_cu2ud")
 
@@ -4486,3 +4516,83 @@ transform = Transform3D(3.07797, 2.34957, -5.01033, 4.73818e-07, 5.73319, 2.6885
 
 [node name="sm_bush_39" parent="." instance=ExtResource("5_iwd85")]
 transform = Transform3D(3.07797, 2.34957, -5.01033, 4.73818e-07, 5.73319, 2.68855, 5.53389, -1.30684, 2.78677, -2.16268, 0, 0.232021)
+
+[node name="AnimatedSprite3D_fire" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(-0.00795304, 0, 0.0060621, 0, 0.01, 0, -0.0060621, 0, -0.00795304, -0.380953, 0.104766, 0.677934)
+double_sided = false
+alpha_cut = 1
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_70jso")
+autoplay = "default"
+frame_progress = 0.0713016
+
+[node name="OmniLight3D" type="OmniLight3D" parent="AnimatedSprite3D_fire"]
+light_color = Color(0.999997, 0.429804, 0.31997, 1)
+light_energy = 2.796
+light_volumetric_fog_energy = 1.95
+light_specular = 0.0
+light_bake_mode = 1
+distance_fade_begin = 0.0
+distance_fade_length = 402.03
+
+[node name="Sprite3D" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(0.00481776, 0, 0.00133762, 0, 0.005, 0, -0.00133762, 0, 0.00481776, -0.410598, -0.0265217, -0.442745)
+alpha_cut = 1
+texture = ExtResource("29_fmdau")
+
+[node name="Sprite3D8" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(0.00461417, 0, -0.00924935, 0, 0.0103364, 0, 0.00924935, 0, 0.00461417, 1.45162, 0.0630768, -0.122835)
+alpha_cut = 1
+texture = ExtResource("30_2s0fq")
+
+[node name="Sprite3D11" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(-0.00282724, 0, -0.00994222, 0, 0.0103364, 0, 0.00994222, 0, -0.00282724, 1.21396, 0.0630768, 0.897667)
+alpha_cut = 1
+texture = ExtResource("30_2s0fq")
+
+[node name="Sprite3D12" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(0.00199539, -0.000964783, 0.00114566, -7.09787e-05, 0.00184537, 0.00167764, -0.0014961, -0.00137431, 0.00144841, 0.0167462, -0.068418, 0.669945)
+alpha_cut = 1
+texture = ExtResource("31_mcdyy")
+
+[node name="Sprite3D9" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(3.89174e-05, 0, -0.00499985, 0, 0.005, 0, 0.00499985, 0, 3.89174e-05, 0.886544, -0.0400024, 0.521457)
+alpha_cut = 1
+texture = ExtResource("31_jhmjs")
+
+[node name="Sprite3D10" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(0.00480487, 0, 0.00138322, 0, 0.005, 0, -0.00138322, 0, 0.00480487, 0.781823, -0.0400024, -0.429842)
+alpha_cut = 1
+texture = ExtResource("31_jhmjs")
+
+[node name="Sprite3D2" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(0.0057037, 0, 0.00821388, 0, 0.01, 0, -0.00821388, 0, 0.0057037, -1.01188, 0.00328788, 0.0155751)
+alpha_cut = 1
+texture = ExtResource("30_0w614")
+
+[node name="Sprite3D3" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(-0.0104067, 0.0298349, 0.0320403, -0.0428198, -7.61822e-05, -0.013837, -0.00911967, -0.0336879, 0.0284071, -2.84784, 1.92516, -2.1907)
+alpha_cut = 1
+texture = ExtResource("31_4stc0")
+
+[node name="Sprite3D7" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(0.00383971, 0.0215923, -0.0120012, -0.0237887, -4.2326e-05, -0.00768723, -0.00665973, 0.0126004, 0.0205397, 3.64864, 1.63205, -2.71542)
+alpha_cut = 1
+texture = ExtResource("31_4stc0")
+
+[node name="Sprite3D4" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(-0.0183955, -0.0275624, 0.0570782, -0.0628023, -0.000111741, -0.0202943, 0.00857178, -0.0599692, -0.0261959, -3.36495, 2.6498, 1.62337)
+flip_v = true
+alpha_cut = 1
+texture = ExtResource("31_4stc0")
+
+[node name="Sprite3D5" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(0.005813, 0.00741742, -0.029931, -0.000891642, -0.030405, -0.00770807, -0.0308235, 0.00227839, -0.00542168, 3.66816, 1.60122, 1.19861)
+flip_v = true
+alpha_cut = 1
+texture = ExtResource("32_mo6l3")
+
+[node name="Sprite3D6" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
+transform = Transform3D(-0.00775466, -0.00465889, -0.019582, -4.14878e-05, 0.0142833, -0.00743372, 0.0190192, -0.0018684, -0.00800034, 3.21394, 1.41981, 2.41489)
+alpha_cut = 1
+texture = ExtResource("32_mo6l3")
