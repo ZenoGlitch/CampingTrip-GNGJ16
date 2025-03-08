@@ -17,7 +17,7 @@ var facingDir = direction.NORTH
 var gameFocused : bool = false
 
 #camera settings
-var minCamFOV = 40
+var minCamFOV = 20
 var maxCamFOV = 75
 const camZoomSpeed : float = 1.0
 var camAttribs : CameraAttributesPractical
@@ -84,7 +84,7 @@ func _unhandled_input(event: InputEvent):
 			camera.rotate_x(-event.relative.y * mouseSensitivity)
 			
 			var lookSidewaysAngle = 30
-			var lookUpAngle = 15
+			var lookUpAngle = 20
 			var lookDownAngle = 30
 			
 			pivot.rotation.y = clamp(pivot.rotation.y, deg_to_rad(-lookSidewaysAngle), deg_to_rad(lookSidewaysAngle))

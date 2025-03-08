@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://clxiisnrrvim"]
+
+[ext_resource type="Script" path="res://crow.gd" id="1_fchgu"]
+[ext_resource type="Texture2D" uid="uid://iylml4wwd11i" path="res://Assets/3D Models/Crow_Idle2.png" id="2_47sb7"]
+[ext_resource type="Texture2D" uid="uid://b6xf7sj3hpr6b" path="res://Assets/3D Models/Crow_Suspicious1.png" id="3_shsi5"]
+[ext_resource type="Texture2D" uid="uid://bcd205vh47xjq" path="res://Assets/3D Models/Crow_AfterPhoto.png" id="4_3xg6e"]
+[ext_resource type="Texture2D" uid="uid://d240w8d6t1vd5" path="res://Assets/3D Models/Crow_Suspicious2.png" id="6_b3ob3"]
+[ext_resource type="Texture2D" uid="uid://mkeegovxna10" path="res://Assets/3D Models/Crow_AfterPhoto2.png" id="7_4exov"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wj6xs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_47sb7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_b3ob3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4exov")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ef0ah"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_47sb7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_shsi5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3xg6e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Crow" type="Node3D"]
+script = ExtResource("1_fchgu")
+
+[node name="crow1" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.236668, 0, 0)
+flip_h = true
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_wj6xs")
+speed_scale = 0.1
+
+[node name="crow2" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0.214881, 0, 0)
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_ef0ah")
+speed_scale = 0.1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
