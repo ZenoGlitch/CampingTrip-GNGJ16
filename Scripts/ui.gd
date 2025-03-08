@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var scrapbookCanvasLayer = $CanvasLayer
+@onready var cameraCanvasLayer = $CanvasLayer2
+
+
 @onready var pictureCounterLabel = $CanvasLayer/Label
 @onready var photoArr : Array[Sprite2D] = [$CanvasLayer/Sprite1, $CanvasLayer/Sprite2, $CanvasLayer/Sprite3, $CanvasLayer/Sprite4, $CanvasLayer/Sprite5, $CanvasLayer/Sprite6, $CanvasLayer/Sprite7, $CanvasLayer/Sprite8]
 @onready var scrapbook = $CanvasLayer/Scrapbook
@@ -8,16 +12,29 @@ extends Node2D
 @onready var scrapbook4 = $CanvasLayer/Scrapbook4
 @onready var sprite1 = $CanvasLayer/Sprite1
 
+#COLLIDERS
 @onready var sb1area2d = $CanvasLayer/scrapbook1Area2D
 @onready var scrapbookCollider1 = $CanvasLayer/scrapbook1Area2D/CollisionShape2D
 
 @onready var sb2area2d = $CanvasLayer/scraobook2Area2D
 @onready var scrapbookCollider2 = $CanvasLayer/scraobook2Area2D/CollisionShape2D
 
+@onready var sb3area2d = $CanvasLayer/scrapbook3Area2D
+@onready var scrapbookCollider3 = $CanvasLayer/scrapbook3Area2D/CollisionShape2D
+
+@onready var sb4area2d = $CanvasLayer/scrapbook4Area2D
+@onready var scrapbookCollider4 = $CanvasLayer/scrapbook4Area2D/CollisionShape2D
+
+
 var pictureCounter : int = 0
 
 var currentPage : int = 1
 var currentlyGrabbedPhoto : int = -1
+
+var pigeonPicCorrect : bool = false
+var crowPicCorrect : bool = false
+var beePicCorrect : bool = false
+var skunkPicCorrect : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -96,40 +113,58 @@ func CheckFullOverlap(grabbedPhoto : int):
 				var collider1TopY = sb1area2d.position.y - (scrapbookCollider1.shape.size.y / 2)
 				var collider1BottomY = sb1area2d.position.y + (scrapbookCollider1.shape.size.y / 2)
 				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
-					print("uff")
+					pigeonPicCorrect = true
+				else:
+					pigeonPicCorrect = false
 		1:
 			if currentPage == 2:
 				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
 				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
 				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
 				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
-
+				
 				var collider1LeftX = sb2area2d.position.x - (scrapbookCollider2.shape.size.x / 2)
 				var collider1RightX = sb2area2d.position.x + (scrapbookCollider2.shape.size.x / 2)
 				var collider1TopY = sb2area2d.position.y - (scrapbookCollider2.shape.size.y / 2)
 				var collider1BottomY = sb2area2d.position.y + (scrapbookCollider2.shape.size.y / 2)
 
 				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
-					print("Bummmmmm")
+					crowPicCorrect = true
+				else:
+					crowPicCorrect = false
 		2:
-			#if currentPage == 3:
-				#var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
-				#var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
-				#var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
-				#var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
-#
-				#var collider1LeftX = sb2area2d.position.x - (scrapbookCollider2.shape.size.x / 2)
-				#var collider1RightX = sb2area2d.position.x + (scrapbookCollider2.shape.size.x / 2)
-				#var collider1TopY = sb2area2d.position.y - (scrapbookCollider2.shape.size.y / 2)
-				#var collider1BottomY = sb2area2d.position.y + (scrapbookCollider2.shape.size.y / 2)
-#
-				#if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
-					#print("Bummmmmm")
-			pass
+			if currentPage == 3:
+				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
+				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
+				
+				var collider1LeftX = sb3area2d.position.x - (scrapbookCollider3.shape.size.x / 2)
+				var collider1RightX = sb3area2d.position.x + (scrapbookCollider3.shape.size.x / 2)
+				var collider1TopY = sb3area2d.position.y - (scrapbookCollider3.shape.size.y / 2)
+				var collider1BottomY = sb3area2d.position.y + (scrapbookCollider3.shape.size.y / 2)
+
+				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
+					beePicCorrect = true
+				else:
+					beePicCorrect = false
+					
 		3:
-			pass
-	
-	
+			if currentPage == 4:
+				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
+				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
+				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
+				
+				var collider1LeftX = sb4area2d.position.x - (scrapbookCollider4.shape.size.x / 2)
+				var collider1RightX = sb4area2d.position.x + (scrapbookCollider4.shape.size.x / 2)
+				var collider1TopY = sb4area2d.position.y - (scrapbookCollider4.shape.size.y / 2)
+				var collider1BottomY = sb4area2d.position.y + (scrapbookCollider4.shape.size.y / 2)
+
+				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
+					skunkPicCorrect = true
+				else:
+					skunkPicCorrect = false
 	
 #SPRITE SIGNAL CONNECTIONS	
 func _on_sprite_1_picture_grabbed():

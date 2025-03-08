@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_f3t7l"]
 [ext_resource type="PackedScene" uid="uid://bvycicjo0t63q" path="res://Scenes/ui.tscn" id="2_gi2r7"]
+[ext_resource type="Texture2D" uid="uid://bo3ltxqced1qx" path="res://Assets/transparentPlaceholder.png" id="2_hsopl"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cdsc0"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_srr2q"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_f3t7l")
@@ -18,14 +17,16 @@ attributes = SubResource("CameraAttributesPractical_cdsc0")
 far = 455.93
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(154.951, 96.5552)
+position = Vector2(198, 136)
 scale = Vector2(-308.902, 194.11)
-texture = SubResource("PlaceholderTexture2D_srr2q")
+texture = ExtResource("2_hsopl")
 
 [node name="BlurTimer" type="Timer" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="UI" parent="." instance=ExtResource("2_gi2r7")]
+
+[node name="PhotoTimer" type="Timer" parent="."]
 
 [connection signal="pictureTaken" from="." to="UI" method="_on_player_picture_taken"]

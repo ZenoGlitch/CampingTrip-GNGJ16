@@ -6,6 +6,7 @@ extends Node3D
 @onready var timer = $Timer
 @onready var blur_timer = $BlurTimer
 @onready var ui = $UI
+@onready var photoTimer = $PhotoTimer
 
 const deg90InRad = 1.5708
 const mouseSensitivity : float = 0.001
@@ -43,12 +44,15 @@ func _ready():
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	
 	timer.set_wait_time(1)
+	photoTimer.set_wait_time(0.2)
 	
 	InitializeCameraAttributes()
 	connect("blurAmountChanged", OnBlurAmountChanged)
 	connect("pictureTaken", OnPictureTaken)
 	var uiCanvas = ui.get_child(0)
 	uiCanvas.visible = false
+	var uiCanvas2 = ui.get_child(1)
+	uiCanvas2.visible = true
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -101,17 +105,27 @@ func _input(_event: InputEvent):
 			
 	if Input.is_action_just_pressed("TakePhoto"):
 		if gameFocused and not scrapBookOpen:
+			sprite.visible = false
+			var uiCanvas2 = ui.get_child(1)
+			uiCanvas2.visible = false
+			
+			photoTimer.start()
+			await photoTimer.timeout
 			Screenshot()
 	
 	if Input.is_action_just_pressed("OpenScrapbook"):
 		var uiCanvas = ui.get_child(0)
+		var uiCanvas2 = ui.get_child(1)
+		
 		if uiCanvas.visible == false:
+			uiCanvas2.visible = false
 			scrapBookOpen = true
 			uiCanvas.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			LoadAllScreenshots()
 		else:
 			uiCanvas.visible = false
+			uiCanvas2.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			scrapBookOpen = false
 	
@@ -147,6 +161,12 @@ func Screenshot():
 		screenshotCount += 1
 		img.save_png("user://screenshots/screenshot" + str(screenshotCount) + ".png")
 		pictureTaken.emit()
+		photoTimer.start()
+		await photoTimer.timeout
+		sprite.visible = true
+		var uiCanvas2 = ui.get_child(1)
+		uiCanvas2.visible = true
+
 	
 func LoadLastScreenshot():
 	var image = Image.load_from_file("user://screenshots/screenshot" + str(screenshotCount) + ".png")
@@ -180,3 +200,4 @@ func OnBlurAmountChanged():
 func OnPictureTaken():
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	LoadLastScreenshot()
+	
