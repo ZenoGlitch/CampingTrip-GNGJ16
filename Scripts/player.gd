@@ -32,6 +32,11 @@ var screenshotCount : int = 0
 var scrapBookOpen : bool = false
 const screenshotSize : Vector2i = Vector2i(384,216)
 
+var uiScrapbookCanvas : CanvasLayer
+var uiCamCanvas : CanvasLayer
+var uiMainMenuCanvas : CanvasLayer
+var uiLastPhotoCanvas : CanvasLayer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var dir = DirAccess.open("user://")
@@ -41,6 +46,11 @@ func _ready():
 	for n in dir.get_files():
 		screenshotCount += 1
 	
+	uiScrapbookCanvas = ui.get_child(0)
+	uiCamCanvas = ui.get_child(1)
+	uiMainMenuCanvas = ui.get_child(2)
+	uiLastPhotoCanvas = ui.get_child(3)
+	
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	
 	timer.set_wait_time(1)
@@ -49,24 +59,22 @@ func _ready():
 	InitializeCameraAttributes()
 	connect("blurAmountChanged", OnBlurAmountChanged)
 	connect("pictureTaken", OnPictureTaken)
-	var uiCanvas = ui.get_child(0)
-	uiCanvas.visible = false
-	var uiCanvas2 = ui.get_child(1)
-	uiCanvas2.visible = true
+	uiScrapbookCanvas.visible = false
+	uiCamCanvas.visible = true
+	
+	ui.connect("savePhoto", OnPictureSaved)
+	ui.connect("deletePhoto", OnPictureDeleted)
+	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		gameFocused = true
 	pass
 
 func _unhandled_input(event: InputEvent):
-	if event is InputEventMouseButton and not scrapBookOpen:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		if not gameFocused:
-			timer.start()
-			await timer.timeout
-			gameFocused = true
-	elif event.is_action_pressed("ui_cancel") :
+
+	if event.is_action_pressed("ui_cancel") :
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		gameFocused = false
 	
@@ -104,20 +112,22 @@ func _input(_event: InputEvent):
 			blurAmountChanged.emit()
 			
 	if Input.is_action_just_pressed("TakePhoto"):
-		if gameFocused and not scrapBookOpen:
+		if gameFocused and not scrapBookOpen and not uiLastPhotoCanvas.visible:
 			sprite.visible = false
-			var uiCanvas2 = ui.get_child(1)
-			uiCanvas2.visible = false
+			uiCamCanvas.visible = false
 			
 			photoTimer.start()
 			await photoTimer.timeout
 			Screenshot()
+			ui.get_child(3).visible = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if Input.is_action_just_pressed("OpenScrapbook"):
 		var uiCanvas = ui.get_child(0)
 		var uiCanvas2 = ui.get_child(1)
 		
 		if uiCanvas.visible == false:
+			sprite.visible = false
 			uiCanvas2.visible = false
 			scrapBookOpen = true
 			uiCanvas.visible = true
@@ -125,6 +135,7 @@ func _input(_event: InputEvent):
 			LoadAllScreenshots()
 		else:
 			uiCanvas.visible = false
+			sprite.visible = true
 			uiCanvas2.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			scrapBookOpen = false
@@ -160,19 +171,17 @@ func Screenshot():
 		var img = texture.get_image()
 		screenshotCount += 1
 		img.save_png("user://screenshots/screenshot" + str(screenshotCount) + ".png")
+		
+		#ui.setLastPhoto(texture)
 		pictureTaken.emit()
-		photoTimer.start()
-		await photoTimer.timeout
-		sprite.visible = true
-		var uiCanvas2 = ui.get_child(1)
-		uiCanvas2.visible = true
 
 func LoadLastScreenshot():
 	var image = Image.load_from_file("user://screenshots/screenshot" + str(screenshotCount) + ".png")
-	image.flip_x()
+	#image.flip_x()
 	var texture = ImageTexture.create_from_image(image)
-	texture.set_size_override(Vector2i(1,1))
-	$Sprite2D.texture = texture
+	#texture.set_size_override(Vector2i(1,1))
+	#$Sprite2D.texture = texture
+	ui.setLastPhoto(texture)
 
 func LoadAllScreenshots():
 	for n in range(screenshotCount):
@@ -190,7 +199,7 @@ func InitializeCameraAttributes():
 	camera.set_attributes(camAttribs)
 	
 func OnBlurAmountChanged():
-	blur_timer.set_wait_time(0.5)
+	blur_timer.set_wait_time(1)
 	blur_timer.start()
 	await blur_timer.timeout
 	camAttribs.dof_blur_amount = 0.0
@@ -200,3 +209,10 @@ func OnPictureTaken():
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	LoadLastScreenshot()
 	
+func OnPictureSaved():
+	print("PHOTO SAVED")
+	
+func OnPictureDeleted():
+	DirAccess.remove_absolute("user://screenshots/screenshot" +str(screenshotCount)+".png")
+	screenshotCount -= 1
+	ui.pictureCounterLabel.text = str(screenshotCount)
