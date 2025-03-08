@@ -3,7 +3,6 @@ extends Node2D
 @onready var scrapbookCanvasLayer = $CanvasLayer
 @onready var cameraCanvasLayer = $CanvasLayer2
 
-
 @onready var pictureCounterLabel = $CanvasLayer/Label
 @onready var photoArr : Array[Sprite2D] = [$CanvasLayer/Sprite1, $CanvasLayer/Sprite2, $CanvasLayer/Sprite3, $CanvasLayer/Sprite4, $CanvasLayer/Sprite5, $CanvasLayer/Sprite6, $CanvasLayer/Sprite7, $CanvasLayer/Sprite8]
 @onready var scrapbook = $CanvasLayer/Scrapbook
@@ -68,30 +67,54 @@ func FlipPageLeft():
 			return
 		2:
 			scrapbook2.visible = false
+			if crowPicCorrect:
+				photoArr[1].visible = false
 			scrapbook.visible = true
+			if pigeonPicCorrect:
+				photoArr[0].visible = true
 			currentPage = 1
 		3:
 			scrapbook3.visible = false
+			if beePicCorrect:
+				photoArr[2].visible = false
 			scrapbook2.visible = true
+			if crowPicCorrect:
+				photoArr[1].visible = true
 			currentPage = 2
 		4:
 			scrapbook4.visible = false
+			if skunkPicCorrect:
+				photoArr[4].visible = false
 			scrapbook3.visible = true
+			if beePicCorrect:
+				photoArr[2].visible = true
 			currentPage = 3
 
 func FlipPageRight():
 	match currentPage:
 		1: 
 			scrapbook.visible = false
+			if pigeonPicCorrect:
+				photoArr[0].visible = false
 			scrapbook2.visible = true
+			if crowPicCorrect:
+				photoArr[1].visible = true
 			currentPage = 2
 		2:
 			scrapbook2.visible = false
+			if crowPicCorrect:
+				photoArr[1].visible = false
 			scrapbook3.visible = true
+			if beePicCorrect:
+				photoArr[2].visible = true
 			currentPage = 3
 		3:
 			scrapbook3.visible = false
+			if beePicCorrect:
+				photoArr[2].visible = false
 			scrapbook4.visible = true
+			if skunkPicCorrect:
+				photoArr[3].visible = true
 			currentPage = 4
 		4:
 			return
@@ -169,18 +192,21 @@ func CheckFullOverlap(grabbedPhoto : int):
 #SPRITE SIGNAL CONNECTIONS	
 func _on_sprite_1_picture_grabbed():
 	currentlyGrabbedPhoto = 0
+	if pigeonPicCorrect:
+		photoArr[currentlyGrabbedPhoto].allowedToMove = false
 	for s in photoArr:
 		if s == photoArr[currentlyGrabbedPhoto]:
 			continue
 		else:
 			s.grabbed = false
-	CheckFullOverlap(currentlyGrabbedPhoto)
 
 func _on_sprite_1_picture_released():
 	currentlyGrabbedPhoto = -1
 
 func _on_sprite_2_picture_grabbed():
 	currentlyGrabbedPhoto = 1
+	if crowPicCorrect:
+		photoArr[currentlyGrabbedPhoto].allowedToMove = false
 	for s in photoArr:
 		if s == photoArr[currentlyGrabbedPhoto]:
 			continue
@@ -192,6 +218,8 @@ func _on_sprite_2_picture_released():
 
 func _on_sprite_3_picture_grabbed():
 	currentlyGrabbedPhoto = 2
+	if beePicCorrect:
+		photoArr[currentlyGrabbedPhoto].allowedToMove = false
 	for s in photoArr:
 		if s == photoArr[currentlyGrabbedPhoto]:
 			continue
@@ -203,12 +231,13 @@ func _on_sprite_3_picture_released():
 
 func _on_sprite_4_picture_grabbed():
 	currentlyGrabbedPhoto = 3
+	if skunkPicCorrect:
+		photoArr[currentlyGrabbedPhoto].allowedToMove = false
 	for s in photoArr:
 		if s == photoArr[currentlyGrabbedPhoto]:
 			continue
 		else:
 			s.grabbed = false
-	pass # Replace with function body.
 
 func _on_sprite_4_picture_released():
 	currentlyGrabbedPhoto = -1

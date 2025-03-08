@@ -5,13 +5,15 @@ var mouseOffset : Vector2 = Vector2(0, 0)
 signal pictureGrabbed
 signal pictureReleased
 
+var allowedToMove : bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if grabbed:
+	if grabbed and allowedToMove:
 		followMouse()
 
 func _input(event):
