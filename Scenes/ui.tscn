@@ -8,12 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://bo3ltxqced1qx" path="res://Assets/transparentPlaceholder.png" id="3_xmlcn"]
 [ext_resource type="Texture2D" uid="uid://bc3r8kx5ixc5m" path="res://Assets/ScrapBook PNGs/scrapbook_bees.PNG" id="4_8nwdx"]
 [ext_resource type="Texture2D" uid="uid://bqv3wfa0b7f04" path="res://Assets/ScrapBook PNGs/scrapbook_skunk.PNG" id="5_dvbmg"]
-[ext_resource type="Texture2D" uid="uid://8gvqft4ofpyq" path="res://Assets/Camera_ui.PNG" id="8_e48dm"]
 [ext_resource type="Texture2D" uid="uid://cyo33xtt5i6ur" path="res://Assets/ScrapBook PNGs/FlipPageArrowLeft.PNG" id="9_jayer"]
 [ext_resource type="Texture2D" uid="uid://csp7kf7q5vovi" path="res://Assets/ScrapBook PNGs/FlipPageArrowRight.PNG" id="10_5n4ta"]
 [ext_resource type="Texture2D" uid="uid://1bmccsv7shfo" path="res://Assets/ScrapBook PNGs/TabToCloseScrapbookPrompt.PNG" id="11_25br8"]
 [ext_resource type="AudioStream" uid="uid://ylx6jj24lat6" path="res://Assets/Audio/page-turn.wav" id="12_mpguc"]
 [ext_resource type="Texture2D" uid="uid://buk00hgmcd4am" path="res://Assets/3D Models/StartPages_scrapbook.PNG" id="13_3ywhx"]
+[ext_resource type="Texture2D" uid="uid://b5a0m67xvq1nn" path="res://Assets/Camera_ui2.PNG" id="13_h505s"]
 [ext_resource type="FontFile" uid="uid://cakgjvlgxrfyj" path="res://Assets/SueEllenFrancisco-Regular.ttf" id="14_ph2ay"]
 [ext_resource type="Texture2D" uid="uid://dbcxsbeultygw" path="res://Assets/ScrapBook PNGs/Forestwithdad_endPage.PNG" id="16_s8582"]
 
@@ -193,7 +193,7 @@ visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="CameraCanvas"]
 position = Vector2(960, 540)
-texture = ExtResource("8_e48dm")
+texture = ExtResource("13_h505s")
 
 [node name="MainMenuCanvas" type="CanvasLayer" parent="."]
 visible = false
