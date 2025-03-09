@@ -5,6 +5,7 @@ extends Node2D
 @onready var cameraCanvas = $CameraCanvas
 @onready var mainMenuCanvas = $MainMenuCanvas
 @onready var lastPhotoCanvas = $LastPhotoCanvas
+@onready var endScreenCanvas = $EndScreenCanvas
 
 #PHOTOS
 @onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
@@ -15,6 +16,7 @@ extends Node2D
 @onready var scrapbook3 = $ScrapbookCanvas/Scrapbook3
 @onready var scrapbook4 = $ScrapbookCanvas/Scrapbook4
 @onready var sprite1 = $ScrapbookCanvas/Sprite1
+@onready var flipPageSound = $ScrapbookCanvas/FlipPageSound
 
 #COLLIDERS
 @onready var sb1area2d = $ScrapbookCanvas/scrapbook1Area2D
@@ -53,6 +55,7 @@ func _ready():
 	cameraCanvas.visible = false
 	lastPhotoCanvas.visible = false
 	mainMenuCanvas.visible = true
+	endScreenCanvas.visible = false
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,16 +67,13 @@ func setPhotoArrTexture(index : int, tex : Texture):
 	photoArr[index].texture = tex
 
 func _on_flip_page_left_button_pressed():
-	#TODO: add page flip here
-	#also make sure that pictures places on the correct pages disappear when switching to a different page
 	FlipPageLeft()
 	
 func _on_flip_page_right_button_pressed():
-	#TODO: add page flip here
-	#also make sure that pictures places on the correct pages disappear when switching to a different page
 	FlipPageRight()
 
 func FlipPageLeft():
+	flipPageSound.play(0.30)
 	match currentPage:
 		1: 
 			return
@@ -85,6 +85,7 @@ func FlipPageLeft():
 			if pigeonPicCorrect:
 				photoArr[0].visible = true
 			currentPage = 1
+			
 		3:
 			scrapbook3.visible = false
 			if beePicCorrect:
@@ -93,6 +94,7 @@ func FlipPageLeft():
 			if crowPicCorrect:
 				photoArr[1].visible = true
 			currentPage = 2
+			
 		4:
 			scrapbook4.visible = false
 			if skunkPicCorrect:
@@ -101,8 +103,10 @@ func FlipPageLeft():
 			if beePicCorrect:
 				photoArr[2].visible = true
 			currentPage = 3
+			
 
 func FlipPageRight():
+	flipPageSound.play(0.30)
 	match currentPage:
 		1: 
 			scrapbook.visible = false
@@ -112,6 +116,7 @@ func FlipPageRight():
 			if crowPicCorrect:
 				photoArr[1].visible = true
 			currentPage = 2
+			
 		2:
 			scrapbook2.visible = false
 			if crowPicCorrect:
@@ -120,6 +125,7 @@ func FlipPageRight():
 			if beePicCorrect:
 				photoArr[2].visible = true
 			currentPage = 3
+			
 		3:
 			scrapbook3.visible = false
 			if beePicCorrect:
@@ -128,6 +134,7 @@ func FlipPageRight():
 			if skunkPicCorrect:
 				photoArr[3].visible = true
 			currentPage = 4
+			
 		4:
 			return
 
@@ -203,7 +210,7 @@ func CheckFullOverlap(grabbedPhoto : int):
 
 func CheckAllPicturesCorrect():
 	if pigeonPicCorrect and crowPicCorrect and beePicCorrect and skunkPicCorrect:
-		print("YOU WON THE GAME") 
+		endScreenCanvas.visible = true
 	
 func setLastPhoto(tex : ImageTexture, idx : int):
 	tex.set_size_override(Vector2(1600, 900))
@@ -264,7 +271,6 @@ func _on_sprite_4_picture_grabbed():
 func _on_sprite_4_picture_released():
 	currentlyGrabbedPhoto = -1
 
-
 func _on_start_game_button_pressed():
 	mainMenuCanvas.visible = false
 	cameraCanvas.visible = true
@@ -285,4 +291,6 @@ func _on_delete_photo_button_pressed():
 	lastPhotoCanvas.visible = false
 	cameraCanvas.visible = true
 	deletePhoto.emit()
-	
+
+func _on_quit_game_button_pressed():
+	get_tree().quit()
