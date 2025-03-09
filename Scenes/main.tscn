@@ -4466,7 +4466,7 @@ transform = Transform3D(1.95415, 0, 0, 0, 1.95415, 0, 0, 0, 1.95415, 0.480729, -
 [node name="ForestWithDadLofiLoop" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000705257, 0.462994, 0.00115466)
 stream = ExtResource("19_t73a1")
-volume_db = -66.796
+volume_db = -48.717
 max_db = 1.0
 autoplay = true
 
@@ -4614,7 +4614,7 @@ distance_fade_length = 402.03
 [node name="FireCracklingSound" type="AudioStreamPlayer3D" parent="AnimatedSprite3D_fire"]
 transform = Transform3D(485.742, 0, 0.000198364, 0, 485.741, 0, -0.000183105, 0, 485.742, 0, 0, 0)
 stream = ExtResource("38_8vn1q")
-volume_db = -5.479
+volume_db = -21.75
 autoplay = true
 
 [node name="Skunk" parent="." instance=ExtResource("37_n6qg0")]

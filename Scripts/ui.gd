@@ -210,7 +210,9 @@ func CheckFullOverlap(grabbedPhoto : int):
 
 func CheckAllPicturesCorrect():
 	if pigeonPicCorrect and crowPicCorrect and beePicCorrect and skunkPicCorrect:
+		scrapbookCanvas.visible = false
 		endScreenCanvas.visible = true
+		
 	
 func setLastPhoto(tex : ImageTexture, idx : int):
 	tex.set_size_override(Vector2(1600, 900))
