@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgrl70lsfotbm"]
+[gd_scene load_steps=6 format=3 uid="uid://cgrl70lsfotbm"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_f3t7l"]
 [ext_resource type="PackedScene" uid="uid://bvycicjo0t63q" path="res://Scenes/ui.tscn" id="2_gi2r7"]
 [ext_resource type="Texture2D" uid="uid://bo3ltxqced1qx" path="res://Assets/transparentPlaceholder.png" id="2_hsopl"]
+[ext_resource type="AudioStream" uid="uid://5c84m14hpbnd" path="res://Assets/Audio/camera-click.wav" id="4_0abg3"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cdsc0"]
 
@@ -36,5 +37,9 @@ texture = ExtResource("2_hsopl")
 [node name="BeePhotoTimer" type="Timer" parent="."]
 
 [node name="SkunkPhotoTimer" type="Timer" parent="."]
+
+[node name="CameraClick" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_0abg3")
+volume_db = -25.07
 
 [connection signal="pictureTaken" from="." to="UI" method="_on_player_picture_taken"]

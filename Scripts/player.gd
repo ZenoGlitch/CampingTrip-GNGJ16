@@ -7,6 +7,9 @@ extends Node3D
 @onready var blur_timer = $BlurTimer
 @onready var ui = $UI
 @onready var photoTimer = $PhotoTimer
+@onready var cameraClick = $CameraClick
+
+
 
 const deg90InRad = 1.5708
 const mouseSensitivity : float = 0.001
@@ -198,7 +201,7 @@ func Screenshot():
 		#var texture = viewport.get_texture()
 		#var img = texture.get_image()
 		screenshotCount += 1
-		
+		cameraClick.play()
 		var sussyPigeonCaptured : bool = false
 		var sussyCrowCaptured : bool = false
 		var sussyBeeCaptured : bool = false

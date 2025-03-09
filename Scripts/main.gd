@@ -1,7 +1,6 @@
 extends Node3D
 
 @onready var player = $Player
-@onready var animal = $Animal
 
 @onready var pigeon = $Pigeon
 @onready var crow = $Crow
@@ -24,14 +23,8 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	toggleAnimalAnimation()
 	pass
 	
-func toggleAnimalAnimation():
-	if player.facingDir == player.direction.NORTH:
-		animal.animated_sprite_3d.play()
-	else:
-		animal.animated_sprite_3d.stop()
 
 func OnPigeonSus(isPigeonSus):
 	player.pigeonsAreSus = isPigeonSus

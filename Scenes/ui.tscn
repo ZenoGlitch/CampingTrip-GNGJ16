@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bvycicjo0t63q"]
+[gd_scene load_steps=20 format=3 uid="uid://bvycicjo0t63q"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_yf5oc"]
 [ext_resource type="Texture2D" uid="uid://cravmvd0c4ye7" path="res://Assets/ScrapBook PNGs/scrapbook_pigeons.PNG" id="2_3cxg4"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://caw2outlmahck" path="res://Assets/3D Models/ui_pageTurn_left.png" id="9_8pofv"]
 [ext_resource type="Texture2D" uid="uid://3l8mcodj37us" path="res://Assets/3D Models/ui_pageTurn_right.png" id="10_o8y0g"]
 [ext_resource type="Texture2D" uid="uid://b84ajkvt1nh3j" path="res://Assets/3D Models/ui_closeScrapbook.png" id="11_4tj2p"]
+[ext_resource type="Texture2D" uid="uid://buk00hgmcd4am" path="res://Assets/3D Models/StartPages_scrapbook.PNG" id="13_3ywhx"]
+[ext_resource type="FontFile" uid="uid://cakgjvlgxrfyj" path="res://Assets/SueEllenFrancisco-Regular.ttf" id="14_ph2ay"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7egbm"]
 
@@ -27,13 +29,11 @@ size = Vector2(1220.74, 877.567)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ao4"]
 size = Vector2(1220.74, 657.195)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pk60o"]
-size = Vector2(1920, 1080)
-
 [node name="UI" type="Node2D"]
 script = ExtResource("1_yf5oc")
 
 [node name="ScrapbookCanvas" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="GreyedOutBackground" type="Sprite2D" parent="ScrapbookCanvas"]
 position = Vector2(960, 540)
@@ -196,11 +196,13 @@ visible = false
 
 [node name="Background" type="Sprite2D" parent="MainMenuCanvas"]
 position = Vector2(960, 540)
-texture = SubResource("PlaceholderTexture2D_pk60o")
+texture = ExtResource("2_ci6xd")
 
 [node name="Logo" type="Sprite2D" parent="MainMenuCanvas"]
 z_index = 1
-position = Vector2(960, 540)
+position = Vector2(960, 476)
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("13_3ywhx")
 
 [node name="Title" type="Sprite2D" parent="MainMenuCanvas"]
 z_index = 1
@@ -208,16 +210,16 @@ position = Vector2(960, 740)
 
 [node name="StartGameButton" type="Button" parent="MainMenuCanvas"]
 z_index = 1
-offset_left = 798.0
-offset_top = 872.0
-offset_right = 1895.0
-offset_bottom = 1153.0
-scale = Vector2(0.297659, 0.297276)
-theme_override_font_sizes/font_size = 200
+offset_left = 826.0
+offset_top = 911.0
+offset_right = 1923.0
+offset_bottom = 1407.0
+scale = Vector2(0.297659, 0.257276)
+theme_override_fonts/font = ExtResource("14_ph2ay")
+theme_override_font_sizes/font_size = 250
 text = "Start Game"
 
 [node name="LastPhotoCanvas" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="BackgroundTransparent" type="Sprite2D" parent="LastPhotoCanvas"]
 position = Vector2(960, 540)
@@ -232,7 +234,8 @@ offset_left = 1117.0
 offset_top = 877.0
 offset_right = 1752.0
 offset_bottom = 1158.0
-scale = Vector2(0.279978, 0.250834)
+scale = Vector2(0.319983, 0.250834)
+theme_override_fonts/font = ExtResource("14_ph2ay")
 theme_override_font_sizes/font_size = 200
 text = "Delete"
 
@@ -241,7 +244,8 @@ offset_left = 582.0
 offset_top = 877.0
 offset_right = 1038.0
 offset_bottom = 1158.0
-scale = Vector2(0.28, 0.25)
+scale = Vector2(0.36, 0.25)
+theme_override_fonts/font = ExtResource("14_ph2ay")
 theme_override_font_sizes/font_size = 200
 text = "Save
 "
