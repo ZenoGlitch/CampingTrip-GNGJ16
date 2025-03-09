@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dca86t7mk5ui0"]
+[gd_scene load_steps=71 format=3 uid="uid://dca86t7mk5ui0"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="Texture2D" uid="uid://5krnbwrdu32m" path="res://Assets/Sky_texture (2).png" id="2_a20lf"]
@@ -42,6 +42,9 @@
 [ext_resource type="PackedScene" uid="uid://m7i7hn5d0hj8" path="res://Scenes/pigeon.tscn" id="40_gmrvm"]
 [ext_resource type="PackedScene" uid="uid://n42uelmq6rax" path="res://Assets/3D Models/sm_fireplace.fbx" id="41_bgd2u"]
 [ext_resource type="PackedScene" uid="uid://bk0w14b6edjhv" path="res://Assets/3D Models/sm_tent.fbx" id="42_0s7o8"]
+[ext_resource type="Texture2D" uid="uid://i8qdyxpjgqd5" path="res://Assets/3D Models/Pigeon_Idle.png" id="43_a54wc"]
+[ext_resource type="Script" path="res://Scripts/pigeon_non_photo.gd" id="44_s4l1l"]
+[ext_resource type="Script" path="res://Scripts/pigeon_non_photo_2.gd" id="45_gtto7"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hb7kf"]
 panorama = ExtResource("2_a20lf")
@@ -188,6 +191,96 @@ animations = [{
 "name": &"default",
 "speed": 7.0
 }]
+
+[sub_resource type="Animation" id="Animation_65e4j"]
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.9, 1.06667, 2.26667, 2.4, 2.56667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.320806, 0.0329583, -0.431245), Vector3(0.298925, 0.0329583, -0.446384), Vector3(0.28804, 0.0400614, -0.453985), Vector3(0.285415, 0.0314962, -0.4558), Vector3(0.252295, 0.0321109, -0.478686), Vector3(0.249662, 0.0378884, -0.480506), Vector3(0.246077, 0.0317547, -0.482983), Vector3(0.206644, 0.0329583, -0.510231)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.5, 0.633333, 1.23333, 1.43333, 1.6, 1.73333, 1.86667, 2, 2.13333, 2.66667, 2.86667, 3.03333, 3.16667, 3.3, 3.43333, 3.56667, 3.7, 3.83333, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.4846, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d1kq5"]
+resource_name = "move"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.9, 1.06667, 2.26667, 2.4, 2.56667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.320806, 0.0329583, -0.431245), Vector3(0.298925, 0.0329583, -0.446384), Vector3(0.28804, 0.0400614, -0.453985), Vector3(0.285415, 0.0314962, -0.4558), Vector3(0.252295, 0.0321109, -0.478686), Vector3(0.249662, 0.0378884, -0.480506), Vector3(0.246077, 0.0317547, -0.482983), Vector3(0.206644, 0.0329583, -0.510231)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.5, 0.633333, 1.23333, 1.43333, 1.6, 1.73333, 1.86667, 2, 2.13333, 2.66667, 2.86667, 3.03333, 3.16667, 3.3, 3.43333, 3.56667, 3.7, 3.83333, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.4846, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g2xam"]
+resource_name = "move"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.568105, 0.0330487, -0.340161), Vector3(-0.442526, 0.0330487, -0.44496)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.866667, 1.03333, 1.23333, 1.4, 1.6, 1.76667, 1.96667, 2.13333, 2.3, 2.46667, 2.63333, 2.8, 2.96667, 3.13333, 3.3, 3.46667, 3.63333, 3.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g0576"]
+_data = {
+"RESET": SubResource("Animation_65e4j"),
+"move": SubResource("Animation_g2xam"),
+"move2": SubResource("Animation_d1kq5")
+}
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t5j2i")
@@ -4628,3 +4721,28 @@ transform = Transform3D(6.05207, 0, 0, 0, 6.05207, 0, 0, 0, 6.05207, -0.486508, 
 
 [node name="sm_tent" parent="." instance=ExtResource("42_0s7o8")]
 transform = Transform3D(3.3442, 0, 8.6532, 0, 9.27694, 0, -8.6532, 0, 3.3442, -0.724725, 0.00578693, 0.234922)
+
+[node name="PigeonNonPhoto" type="Sprite3D" parent="."]
+transform = Transform3D(-0.00172877, 0, 0.00207597, 0, 0.00270154, 0, -0.00207597, 0, -0.00172877, 0.320806, 0.0329583, -0.431245)
+flip_h = true
+texture = ExtResource("43_a54wc")
+script = ExtResource("44_s4l1l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PigeonNonPhoto"]
+libraries = {
+"": SubResource("AnimationLibrary_g0576")
+}
+
+[node name="PigeonNonPhoto2" type="Sprite3D" parent="."]
+transform = Transform3D(-0.00172877, 0, 0.00207597, 0, 0.00270154, 0, -0.00207597, 0, -0.00172877, 0.320806, 0.0329583, -0.431245)
+flip_h = true
+texture = ExtResource("43_a54wc")
+script = ExtResource("45_gtto7")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="PigeonNonPhoto2"]
+libraries = {
+"": SubResource("AnimationLibrary_g0576")
+}
+
+[connection signal="animation_finished" from="PigeonNonPhoto/AnimationPlayer" to="PigeonNonPhoto" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="PigeonNonPhoto2/AnimationPlayer2" to="PigeonNonPhoto2" method="_on_animation_player_animation_finished"]
