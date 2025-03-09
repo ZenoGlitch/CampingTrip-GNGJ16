@@ -219,34 +219,6 @@ tracks/1/keys = {
 "values": [Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.4846, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_d1kq5"]
-resource_name = "move"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8, 0.9, 1.06667, 2.26667, 2.4, 2.56667, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.320806, 0.0329583, -0.431245), Vector3(0.298925, 0.0329583, -0.446384), Vector3(0.28804, 0.0400614, -0.453985), Vector3(0.285415, 0.0314962, -0.4558), Vector3(0.252295, 0.0321109, -0.478686), Vector3(0.249662, 0.0378884, -0.480506), Vector3(0.246077, 0.0317547, -0.482983), Vector3(0.206644, 0.0329583, -0.510231)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.366667, 0.5, 0.633333, 1.23333, 1.43333, 1.6, 1.73333, 1.86667, 2, 2.13333, 2.66667, 2.86667, 3.03333, 3.16667, 3.3, 3.43333, 3.56667, 3.7, 3.83333, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.4846, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_g2xam"]
 resource_name = "move"
 length = 4.0
@@ -273,6 +245,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0), Vector3(0.0309018, 1.0285, -0.293256), Vector3(0, 0.848841, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d1kq5"]
+resource_name = "move"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.9, 1.06667, 2.26667, 2.4, 2.56667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.320806, 0.0329583, -0.431245), Vector3(0.298925, 0.0329583, -0.446384), Vector3(0.28804, 0.0400614, -0.453985), Vector3(0.285415, 0.0314962, -0.4558), Vector3(0.252295, 0.0321109, -0.478686), Vector3(0.249662, 0.0378884, -0.480506), Vector3(0.246077, 0.0317547, -0.482983), Vector3(0.206644, 0.0329583, -0.510231)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.5, 0.633333, 1.23333, 1.43333, 1.6, 1.73333, 1.86667, 2, 2.13333, 2.66667, 2.86667, 3.03333, 3.16667, 3.3, 3.43333, 3.56667, 3.7, 3.83333, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0.00670787, 2.21645, 0.14712), Vector3(0, 2.26519, 0), Vector3(0, 2.4846, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g0576"]
@@ -4725,6 +4725,7 @@ transform = Transform3D(3.3442, 0, 8.6532, 0, 9.27694, 0, -8.6532, 0, 3.3442, -0
 [node name="PigeonNonPhoto" type="Sprite3D" parent="."]
 transform = Transform3D(-0.00172877, 0, 0.00207597, 0, 0.00270154, 0, -0.00207597, 0, -0.00172877, 0.320806, 0.0329583, -0.431245)
 flip_h = true
+alpha_cut = 1
 texture = ExtResource("43_a54wc")
 script = ExtResource("44_s4l1l")
 
@@ -4736,6 +4737,7 @@ libraries = {
 [node name="PigeonNonPhoto2" type="Sprite3D" parent="."]
 transform = Transform3D(-0.00172877, 0, 0.00207597, 0, 0.00270154, 0, -0.00207597, 0, -0.00172877, 0.320806, 0.0329583, -0.431245)
 flip_h = true
+alpha_cut = 1
 texture = ExtResource("43_a54wc")
 script = ExtResource("45_gtto7")
 
