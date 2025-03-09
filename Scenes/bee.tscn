@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1rugh788spng"]
+
+[ext_resource type="Texture2D" uid="uid://d4iom372iusmx" path="res://Assets/3D Models/Bee_Idle.png" id="1_lsgm6"]
+[ext_resource type="Script" path="res://Scripts/bee.gd" id="1_vmpfc"]
+[ext_resource type="Texture2D" uid="uid://c24crlanid3gn" path="res://Assets/3D Models/Bee_Drunk2.png" id="2_j8d1l"]
+[ext_resource type="Texture2D" uid="uid://dyratci1dfu7y" path="res://Assets/3D Models/Bee_AfterPhoto.png" id="3_46ytn"]
+[ext_resource type="Texture2D" uid="uid://vhptyst2kk8x" path="res://Assets/3D Models/Bee_Idle2.png" id="4_k1rfa"]
+[ext_resource type="Texture2D" uid="uid://c177uvwvg07b0" path="res://Assets/3D Models/Bee_Drunk1.png" id="5_j34cy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_un6p3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lsgm6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_j8d1l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_46ytn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5lkam"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_k1rfa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_j34cy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_46ytn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bee" type="Node3D"]
+script = ExtResource("1_vmpfc")
+
+[node name="Bee1" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0.289473, 0, 0)
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_un6p3")
+
+[node name="Bee2" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.299343, 0, 0)
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_5lkam")
+
+[node name="AnimationTimer" type="Timer" parent="."]
+
+[node name="UpdateTimer" type="Timer" parent="."]

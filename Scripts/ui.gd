@@ -4,7 +4,6 @@ extends Node2D
 @onready var scrapbookCanvas = $ScrapbookCanvas
 @onready var cameraCanvas = $CameraCanvas
 @onready var mainMenuCanvas = $MainMenuCanvas
-@onready var greyedOutBackground = $ScrapbookCanvas/GreyedOutBackground
 @onready var lastPhotoCanvas = $LastPhotoCanvas
 
 #PHOTOS
@@ -58,9 +57,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-
 	CheckFullOverlap(currentlyGrabbedPhoto)
-
+	CheckAllPicturesCorrect()
 	
 func setPhotoArrTexture(index : int, tex : Texture):
 	photoArr[index].texture = tex
@@ -98,7 +96,7 @@ func FlipPageLeft():
 		4:
 			scrapbook4.visible = false
 			if skunkPicCorrect:
-				photoArr[4].visible = false
+				photoArr[3].visible = false
 			scrapbook3.visible = true
 			if beePicCorrect:
 				photoArr[2].visible = true
@@ -202,6 +200,10 @@ func CheckFullOverlap(grabbedPhoto : int):
 					skunkPicCorrect = true
 				else:
 					skunkPicCorrect = false
+
+func CheckAllPicturesCorrect():
+	if pigeonPicCorrect and crowPicCorrect and beePicCorrect and skunkPicCorrect:
+		print("YOU WON THE GAME") 
 	
 func setLastPhoto(tex : ImageTexture, idx : int):
 	tex.set_size_override(Vector2(1600, 900))
@@ -279,6 +281,8 @@ func _on_save_photo_button_pressed():
 
 func _on_delete_photo_button_pressed():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pictureCounter -= 1
 	lastPhotoCanvas.visible = false
 	cameraCanvas.visible = true
 	deletePhoto.emit()
+	

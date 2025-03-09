@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://clxiisnrrvim"]
 
-[ext_resource type="Script" path="res://crow.gd" id="1_fchgu"]
+[ext_resource type="Script" path="res://Scripts/crow.gd" id="1_fchgu"]
 [ext_resource type="Texture2D" uid="uid://iylml4wwd11i" path="res://Assets/3D Models/Crow_Idle2.png" id="2_47sb7"]
 [ext_resource type="Texture2D" uid="uid://b6xf7sj3hpr6b" path="res://Assets/3D Models/Crow_Suspicious1.png" id="3_shsi5"]
 [ext_resource type="Texture2D" uid="uid://bcd205vh47xjq" path="res://Assets/3D Models/Crow_AfterPhoto.png" id="4_3xg6e"]

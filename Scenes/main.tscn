@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://dca86t7mk5ui0"]
+[gd_scene load_steps=62 format=3 uid="uid://dca86t7mk5ui0"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="Texture2D" uid="uid://5krnbwrdu32m" path="res://Assets/Sky_texture (2).png" id="2_a20lf"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://nj2b52h2sv2l" path="res://Assets/3D Models/sm_grass_02.fbx" id="17_dvetc"]
 [ext_resource type="Texture2D" uid="uid://7u6acfntipc1" path="res://Assets/Grass_flat_02.png" id="17_qrfnb"]
 [ext_resource type="PackedScene" uid="uid://clxiisnrrvim" path="res://Scenes/crow.tscn" id="18_o406a"]
+[ext_resource type="PackedScene" uid="uid://c1rugh788spng" path="res://Scenes/bee.tscn" id="18_oiwob"]
 [ext_resource type="PackedScene" uid="uid://c5oh47pky4ekv" path="res://Assets/3D Models/sm_grass_03.fbx" id="18_tc4tk"]
 [ext_resource type="AudioStream" uid="uid://b5km526w43vs" path="res://Assets/Audio/Forest with dad lofi loop.wav" id="19_t73a1"]
 [ext_resource type="Texture2D" uid="uid://bv2mb37i8ykvk" path="res://fireflyVFX_png.png" id="20_wu5bl"]
@@ -36,6 +37,9 @@
 [ext_resource type="Texture2D" uid="uid://cp2sgvmur48cx" path="res://Assets/3D Models/Bush1.png" id="31_jhmjs"]
 [ext_resource type="Texture2D" uid="uid://d1jv370e0uxdy" path="res://Assets/3D Models/Pigeon_Idle2.png" id="31_mcdyy"]
 [ext_resource type="Texture2D" uid="uid://0iqwl3cuhwpl" path="res://Assets/3D Models/Cloud2.png" id="32_mo6l3"]
+[ext_resource type="Script" path="res://Scripts/clouds_pivot.gd" id="33_frvnj"]
+[ext_resource type="PackedScene" uid="uid://dd3ldbxkr3afp" path="res://Scenes/skunk.tscn" id="37_n6qg0"]
+[ext_resource type="PackedScene" uid="uid://m7i7hn5d0hj8" path="res://Scenes/pigeon.tscn" id="40_gmrvm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hb7kf"]
 panorama = ExtResource("2_a20lf")
@@ -614,8 +618,11 @@ transform = Transform3D(1.63643, 0, 0, 0, 1.63643, 0, 0, 0, 1.63643, -0.00314479
 material_override = SubResource("StandardMaterial3D_xgjqx")
 mesh = SubResource("PlaneMesh_cu2ud")
 
+[node name="Bee" parent="." instance=ExtResource("18_oiwob")]
+transform = Transform3D(0.00157094, 0, -0.192724, 0, 0.192731, 0, 0.192724, 0, 0.00157094, 0.647089, 0.0457756, -0.00722677)
+
 [node name="Crow" parent="." instance=ExtResource("18_o406a")]
-transform = Transform3D(-0.102175, 0, -0.263997, 0, 0.28308, 0, 0.263997, 0, -0.102175, 0.782321, 0.044078, 0.0226516)
+transform = Transform3D(-0.281743, 0, -0.0274763, 0, 0.28308, 0, 0.0274763, 0, -0.281743, 0.0949784, 0.044078, 1.21704)
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.652179, 0, -0.655992, 0, 0.925021, 0, 0.655992, 0, -0.652179, 1.10072, 0.005, -0.589169)
@@ -4521,6 +4528,72 @@ transform = Transform3D(3.07797, 2.34957, -5.01033, 4.73818e-07, 5.73319, 2.6885
 [node name="sm_bush_39" parent="." instance=ExtResource("5_iwd85")]
 transform = Transform3D(3.07797, 2.34957, -5.01033, 4.73818e-07, 5.73319, 2.68855, 5.53389, -1.30684, 2.78677, -2.16268, 0, 0.232021)
 
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-0.00464246, 0, 0.00185676, 0, 0.005, 0, -0.00185676, 0, -0.00464246, -0.322799, 0.0782443, 1.27896)
+alpha_cut = 1
+texture = ExtResource("29_fmdau")
+
+[node name="Sprite3D8" type="Sprite3D" parent="."]
+transform = Transform3D(0.00193738, 0, 0.0101532, 0, 0.0103364, 0, -0.0101532, 0, 0.00193738, -1.6099, 0.167843, -0.104362)
+alpha_cut = 1
+texture = ExtResource("30_2s0fq")
+
+[node name="Sprite3D11" type="Sprite3D" parent="."]
+transform = Transform3D(0.00827559, 0, 0.00619319, 0, 0.0103364, 0, -0.00619319, 0, 0.00827559, -0.802246, 0.167843, -0.7719)
+alpha_cut = 1
+texture = ExtResource("30_2s0fq")
+
+[node name="Sprite3D12" type="Sprite3D" parent="."]
+transform = Transform3D(-0.00249389, -6.58247e-05, -3.31074e-05, -7.09787e-05, 0.00184537, 0.00167764, -1.9771e-05, 0.00167786, -0.00184644, 0.0118562, 0.036348, 0.134972)
+alpha_cut = 1
+texture = ExtResource("31_mcdyy")
+
+[node name="Sprite3D9" type="Sprite3D" parent="."]
+transform = Transform3D(0.00300001, 0, 0.004, 0, 0.005, 0, -0.004, 0, 0.00300001, -0.769913, 0.0647636, -0.274215)
+alpha_cut = 1
+texture = ExtResource("31_jhmjs")
+
+[node name="Sprite3D10" type="Sprite3D" parent="."]
+transform = Transform3D(-0.00465986, 0, 0.00181268, 0, 0.005, 0, -0.00181268, 0, -0.00465986, -1.26331, 0.0647636, 0.54584)
+alpha_cut = 1
+texture = ExtResource("31_jhmjs")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(-0.00951552, 0, -0.00307489, 0, 0.01, 0, 0.00307489, 0, -0.00951552, 0.433241, 0.108054, 1.27896)
+alpha_cut = 1
+texture = ExtResource("30_0w614")
+
+[node name="CloudsPivot" type="Node3D" parent="."]
+transform = Transform3D(0.045, 0, 0, 0, 0.045, 0, 0, 0, 0.0450001, 0, 0, 0)
+script = ExtResource("33_frvnj")
+
+[node name="CloudSprite3D3" type="Sprite3D" parent="CloudsPivot"]
+transform = Transform3D(0.0610679, -0.981106, -0.18358, -0.951551, -0.00169294, -0.307489, 0.301368, 0.193464, -0.933675, 12.3538, 45.1095, 92.1465)
+alpha_cut = 1
+texture = ExtResource("31_4stc0")
+
+[node name="CloudSprite3D7" type="Sprite3D" parent="CloudsPivot"]
+transform = Transform3D(-0.157576, -0.211866, 0.488799, -0.528638, -0.000940577, -0.170827, 0.0659741, -0.513569, -0.201334, -109.53, 38.5959, 13.9039)
+alpha_cut = 1
+texture = ExtResource("31_4stc0")
+
+[node name="CloudSprite3D4" type="Sprite3D" parent="CloudsPivot"]
+transform = Transform3D(0.440585, -0.320743, -1.36166, -1.39561, -0.00248313, -0.450984, 0.0963191, 1.43116, -0.305948, 72.8735, 61.2126, 31.705)
+flip_v = true
+alpha_cut = 1
+texture = ExtResource("31_4stc0")
+
+[node name="CloudSprite3D5" type="Sprite3D" parent="CloudsPivot"]
+transform = Transform3D(-0.517969, -0.100398, 0.455946, -0.0198143, -0.675666, -0.17129, 0.466447, -0.140189, 0.499029, -57.1477, 37.9108, -55.5333)
+flip_v = true
+alpha_cut = 1
+texture = ExtResource("32_mo6l3")
+
+[node name="CloudSprite3D6" type="Sprite3D" parent="CloudsPivot"]
+transform = Transform3D(0.393265, 0.0571687, 0.238306, -0.000921951, 0.317407, -0.165194, -0.231668, 0.0957824, 0.405189, -32.7351, 33.8795, -70.9102)
+alpha_cut = 1
+texture = ExtResource("32_mo6l3")
+
 [node name="AnimatedSprite3D_fire" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(-0.00795304, 0, 0.0060621, 0, 0.01, 0, -0.0060621, 0, -0.00795304, -0.380953, 0.104766, 0.677934)
 double_sided = false
@@ -4539,64 +4612,8 @@ light_bake_mode = 1
 distance_fade_begin = 0.0
 distance_fade_length = 402.03
 
-[node name="Sprite3D" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(0.00481776, 0, 0.00133762, 0, 0.005, 0, -0.00133762, 0, 0.00481776, -0.410598, -0.0265217, -0.442745)
-alpha_cut = 1
-texture = ExtResource("29_fmdau")
+[node name="Skunk" parent="." instance=ExtResource("37_n6qg0")]
+transform = Transform3D(-0.0222815, 0, -0.27543, 0, 0.276329, 0, 0.27543, 0, -0.0222815, -0.899306, 0.0444569, -0.170231)
 
-[node name="Sprite3D8" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(0.00461417, 0, -0.00924935, 0, 0.0103364, 0, 0.00924935, 0, 0.00461417, 1.45162, 0.0630768, -0.122835)
-alpha_cut = 1
-texture = ExtResource("30_2s0fq")
-
-[node name="Sprite3D11" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(-0.00282724, 0, -0.00994222, 0, 0.0103364, 0, 0.00994222, 0, -0.00282724, 1.21396, 0.0630768, 0.897667)
-alpha_cut = 1
-texture = ExtResource("30_2s0fq")
-
-[node name="Sprite3D12" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(0.00199539, -0.000964783, 0.00114566, -7.09787e-05, 0.00184537, 0.00167764, -0.0014961, -0.00137431, 0.00144841, 0.0167462, -0.068418, 0.669945)
-alpha_cut = 1
-texture = ExtResource("31_mcdyy")
-
-[node name="Sprite3D9" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(3.89174e-05, 0, -0.00499985, 0, 0.005, 0, 0.00499985, 0, 3.89174e-05, 0.886544, -0.0400024, 0.521457)
-alpha_cut = 1
-texture = ExtResource("31_jhmjs")
-
-[node name="Sprite3D10" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(0.00480487, 0, 0.00138322, 0, 0.005, 0, -0.00138322, 0, 0.00480487, 0.781823, -0.0400024, -0.429842)
-alpha_cut = 1
-texture = ExtResource("31_jhmjs")
-
-[node name="Sprite3D2" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(0.0057037, 0, 0.00821388, 0, 0.01, 0, -0.00821388, 0, 0.0057037, -1.01188, 0.00328788, 0.0155751)
-alpha_cut = 1
-texture = ExtResource("30_0w614")
-
-[node name="Sprite3D3" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(-0.0104067, 0.0298349, 0.0320403, -0.0428198, -7.61822e-05, -0.013837, -0.00911967, -0.0336879, 0.0284071, -2.84784, 1.92516, -2.1907)
-alpha_cut = 1
-texture = ExtResource("31_4stc0")
-
-[node name="Sprite3D7" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(0.00383971, 0.0215923, -0.0120012, -0.0237887, -4.2326e-05, -0.00768723, -0.00665973, 0.0126004, 0.0205397, 3.64864, 1.63205, -2.71542)
-alpha_cut = 1
-texture = ExtResource("31_4stc0")
-
-[node name="Sprite3D4" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(-0.0183955, -0.0275624, 0.0570782, -0.0628023, -0.000111741, -0.0202943, 0.00857178, -0.0599692, -0.0261959, -3.36495, 2.6498, 1.62337)
-flip_v = true
-alpha_cut = 1
-texture = ExtResource("31_4stc0")
-
-[node name="Sprite3D5" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(0.005813, 0.00741742, -0.029931, -0.000891642, -0.030405, -0.00770807, -0.0308235, 0.00227839, -0.00542168, 3.66816, 1.60122, 1.19861)
-flip_v = true
-alpha_cut = 1
-texture = ExtResource("32_mo6l3")
-
-[node name="Sprite3D6" type="Sprite3D" parent="AnimatedSprite3D_fire/OmniLight3D"]
-transform = Transform3D(-0.00775466, -0.00465889, -0.019582, -4.14878e-05, 0.0142833, -0.00743372, 0.0190192, -0.0018684, -0.00800034, 3.21394, 1.41981, 2.41489)
-alpha_cut = 1
-texture = ExtResource("32_mo6l3")
+[node name="Pigeon" parent="." instance=ExtResource("40_gmrvm")]
+transform = Transform3D(0.274822, 0, 0, 0, 0.274822, 0, 0, 0, 0.274822, 0, 0.0456233, -0.593882)

@@ -17,7 +17,7 @@ var facingDir = direction.NORTH
 var gameFocused : bool = false
 
 #camera settings
-var minCamFOV = 20
+var minCamFOV = 15
 var maxCamFOV = 75
 const camZoomSpeed : float = 1.0
 var camAttribs : CameraAttributesPractical
@@ -45,6 +45,17 @@ var skunksAreSus : bool = false
 var photoToLoad : int = -1
 var photoSlotsTaken : Array[int] = []
 
+signal susPigeonPhotoTaken
+signal susCrowPhotoTaken
+signal susBeePhotoTaken
+signal susSkunkPhotoTaken
+
+@onready var pigeonPhotoTimer = $PigeonPhotoTimer
+@onready var crowPhotoTimer = $CrowPhotoTimer
+@onready var beePhotoTimer = $BeePhotoTimer
+@onready var skunkPhotoTimer = $SkunkPhotoTimer
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var dir = DirAccess.open("user://")
@@ -68,6 +79,12 @@ func _ready():
 	
 	timer.set_wait_time(1)
 	photoTimer.set_wait_time(0.2)
+	
+	pigeonPhotoTimer.set_wait_time(0.5)
+	crowPhotoTimer.set_wait_time(0.5)
+	beePhotoTimer.set_wait_time(0.5)
+	skunkPhotoTimer.set_wait_time(0.5)
+	
 	
 	InitializeCameraAttributes()
 	connect("blurAmountChanged", OnBlurAmountChanged)
@@ -131,13 +148,9 @@ func _input(_event: InputEvent):
 			
 			photoTimer.start()
 			await photoTimer.timeout
-			
-			
-			
-			
+
 			Screenshot()
-			ui.get_child(3).visible = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
 	
 	if Input.is_action_just_pressed("OpenScrapbook"):
 
@@ -181,44 +194,115 @@ func RotateRight():
 
 func Screenshot():
 	if screenshotCount <= 7:
-		var viewport = camera.get_viewport()
-		var texture = viewport.get_texture()
-		var img = texture.get_image()
+		#var viewport = camera.get_viewport()
+		#var texture = viewport.get_texture()
+		#var img = texture.get_image()
 		screenshotCount += 1
+		
+		var sussyPigeonCaptured : bool = false
+		var sussyCrowCaptured : bool = false
+		var sussyBeeCaptured : bool = false
+		var sussySkunkCaptured :bool = false
 		
 		if pigeonsAreSus and facingDir == direction.NORTH:
 			photoToLoad = 1
-			
+			susPigeonPhotoTaken.emit()
+			pigeonPhotoTimer.start()
+			sussyPigeonCaptured = true
 			photoSlotsTaken.append(1)
-		elif crowsAreSus and facingDir == direction.EAST:
-			photoToLoad = 2
-
-			photoSlotsTaken.append(2)
-		elif beesAreSus and facingDir == direction.WEST:
-			photoToLoad = 3
-
-			photoSlotsTaken.append(3)
-		elif skunksAreSus and facingDir == direction.SOUTH:
-			photoToLoad = 4
+			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
 			
+		elif crowsAreSus and facingDir == direction.SOUTH:
+			photoToLoad = 2
+			susCrowPhotoTaken.emit()
+			crowPhotoTimer.start()
+			sussyCrowCaptured = true
+			photoSlotsTaken.append(2)
+			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			
+		elif beesAreSus and facingDir == direction.EAST:
+			photoToLoad = 3
+			susBeePhotoTaken.emit()
+			beePhotoTimer.start()
+			sussyBeeCaptured = true
+			photoSlotsTaken.append(3)
+			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			
+		elif skunksAreSus and facingDir == direction.WEST:
+			photoToLoad = 4
+			susSkunkPhotoTaken.emit()
+			skunkPhotoTimer.start()
+			sussySkunkCaptured = true
 			photoSlotsTaken.append(4)
-			pass
+
+			
 		elif not photoSlotsTaken.has(5):
 			photoToLoad = 5
-
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
 			photoSlotsTaken.append(5)
+			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			
 		elif not photoSlotsTaken.has(6):
 			photoToLoad = 6
-
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
 			photoSlotsTaken.append(6)
+			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			
 		elif not photoSlotsTaken.has(7):
 			photoToLoad = 7
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
 			photoSlotsTaken.append(7)
+			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			
 		elif not photoSlotsTaken.has(8):
 			photoToLoad = 8
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
 			photoSlotsTaken.append(8)
+			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
 			
-		img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+		if sussyPigeonCaptured:
+			await pigeonPhotoTimer.timeout
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			sussyPigeonCaptured = false
+			
+		if sussyCrowCaptured:
+			await crowPhotoTimer.timeout
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			sussyCrowCaptured = false
+			
+		if sussyBeeCaptured:
+			await beePhotoTimer.timeout
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			sussyBeeCaptured = false
+			
+		if sussySkunkCaptured:
+			await skunkPhotoTimer.timeout
+			var viewport = camera.get_viewport()
+			var texture = viewport.get_texture()
+			var img = texture.get_image()
+			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
+			sussySkunkCaptured = false
 			
 		pictureTaken.emit()
 
@@ -255,6 +339,8 @@ func OnBlurAmountChanged():
 func OnPictureTaken():
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	LoadLastScreenshot()
+	ui.get_child(3).visible = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 func OnPictureSaved():
 	print("PHOTO SAVED")

@@ -29,4 +29,12 @@ texture = ExtResource("2_hsopl")
 
 [node name="PhotoTimer" type="Timer" parent="."]
 
+[node name="PigeonPhotoTimer" type="Timer" parent="."]
+
+[node name="CrowPhotoTimer" type="Timer" parent="."]
+
+[node name="BeePhotoTimer" type="Timer" parent="."]
+
+[node name="SkunkPhotoTimer" type="Timer" parent="."]
+
 [connection signal="pictureTaken" from="." to="UI" method="_on_player_picture_taken"]

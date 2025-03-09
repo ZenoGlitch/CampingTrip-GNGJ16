@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://m7i7hn5d0hj8"]
+
+[ext_resource type="Script" path="res://Scripts/pigeon.gd" id="1_jcf68"]
+[ext_resource type="Texture2D" uid="uid://i8qdyxpjgqd5" path="res://Assets/3D Models/Pigeon_Idle.png" id="2_ldo07"]
+[ext_resource type="Texture2D" uid="uid://dafh7qbqmgvhw" path="res://Assets/3D Models/Pigeon_Poker1.png" id="3_d4yg5"]
+[ext_resource type="Texture2D" uid="uid://b46nxweisryci" path="res://Assets/3D Models/Pigeon_Afterphoto.png" id="4_mw5lk"]
+[ext_resource type="Texture2D" uid="uid://cks85u1bc47s4" path="res://Assets/3D Models/Pigeon_Poker2.png" id="5_d0p27"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_25lqe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ldo07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d4yg5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mw5lk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lxux8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ldo07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_d0p27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mw5lk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Pigeon" type="Node3D"]
+script = ExtResource("1_jcf68")
+
+[node name="Pigeon1" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.268254, 0, 0)
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_25lqe")
+
+[node name="Pigeon2" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0.207639, 0, 0)
+alpha_cut = 1
+sprite_frames = SubResource("SpriteFrames_lxux8")
+
+[node name="AnimationTimer" type="Timer" parent="."]
+
+[node name="UpdateTimer" type="Timer" parent="."]
