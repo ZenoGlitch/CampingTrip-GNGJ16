@@ -44,6 +44,7 @@ var lastPhotoIndex = -1
 
 signal savePhoto
 signal deletePhoto
+signal deleteAllPhotos
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,12 +66,6 @@ func _process(_delta):
 	
 func setPhotoArrTexture(index : int, tex : Texture):
 	photoArr[index].texture = tex
-
-func _on_flip_page_left_button_pressed():
-	FlipPageLeft()
-	
-func _on_flip_page_right_button_pressed():
-	FlipPageRight()
 
 func FlipPageLeft():
 	flipPageSound.play(0.30)
@@ -212,7 +207,6 @@ func CheckAllPicturesCorrect():
 	if pigeonPicCorrect and crowPicCorrect and beePicCorrect and skunkPicCorrect:
 		scrapbookCanvas.visible = false
 		endScreenCanvas.visible = true
-		
 	
 func setLastPhoto(tex : ImageTexture, idx : int):
 	tex.set_size_override(Vector2(1600, 900))
@@ -220,7 +214,7 @@ func setLastPhoto(tex : ImageTexture, idx : int):
 	lastPhotoIndex = idx
 
 
-#SPRITE SIGNAL CONNECTIONS	
+#region SPRITE SIGNAL CONNECTIONS	
 func _on_sprite_1_picture_grabbed():
 	currentlyGrabbedPhoto = 0
 	if pigeonPicCorrect:
@@ -273,10 +267,62 @@ func _on_sprite_4_picture_grabbed():
 func _on_sprite_4_picture_released():
 	currentlyGrabbedPhoto = -1
 
+func _on_sprite_5_picture_grabbed():
+	currentlyGrabbedPhoto = 4
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+
+func _on_sprite_5_picture_released():
+	currentlyGrabbedPhoto = -1
+
+func _on_sprite_6_picture_grabbed():
+	currentlyGrabbedPhoto = 5
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+
+func _on_sprite_6_picture_released():
+	currentlyGrabbedPhoto = -1
+	
+func _on_sprite_7_picture_grabbed():
+	currentlyGrabbedPhoto = 6
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+			
+func _on_sprite_7_picture_released():
+	currentlyGrabbedPhoto = -1
+	
+func _on_sprite_8_picture_grabbed():
+	currentlyGrabbedPhoto = 7
+	for s in photoArr:
+		if s == photoArr[currentlyGrabbedPhoto]:
+			continue
+		else:
+			s.grabbed = false
+
+func _on_sprite_8_picture_released():
+	currentlyGrabbedPhoto = -1
+#endregion
+
+#region UI BUTTONS
 func _on_start_game_button_pressed():
 	mainMenuCanvas.visible = false
 	cameraCanvas.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _on_flip_page_left_button_pressed():
+	FlipPageLeft()
+	
+func _on_flip_page_right_button_pressed():
+	FlipPageRight()
 	
 func _on_save_photo_button_pressed():
 	var tex = lastPhoto.texture
@@ -296,3 +342,14 @@ func _on_delete_photo_button_pressed():
 
 func _on_quit_game_button_pressed():
 	get_tree().quit()
+	
+func _on_delete_all_photos_button_pressed():
+	deleteAllPhotos.emit()
+	var img = Image.load_from_file("res://Assets/transparentPlaceholder.png")
+	var tex = ImageTexture.create_from_image(img)
+	tex.set_size_override(Vector2(1600, 900))
+	lastPhoto.texture = tex
+	for n in photoArr:
+		tex.set_size_override(Vector2(384,216))
+		n.texture = tex
+#endregion

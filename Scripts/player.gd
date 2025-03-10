@@ -97,6 +97,7 @@ func _ready():
 	
 	ui.connect("savePhoto", OnPictureSaved)
 	ui.connect("deletePhoto", OnPictureDeleted)
+	ui.connect("deleteAllPhotos", OnDeleteAllPhotos)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -155,7 +156,7 @@ func _input(_event: InputEvent):
 			Screenshot()
 
 	
-	if Input.is_action_just_pressed("OpenScrapbook"):
+	if Input.is_action_just_pressed("OpenScrapbook") and ui.lastPhotoCanvas.visible == false:
 
 		if uiScrapbookCanvas.visible == false:
 			sprite.visible = false
@@ -354,3 +355,14 @@ func OnPictureDeleted():
 	photoSlotsTaken.remove_at(photoSlotsTaken.find(photoToLoad))
 	screenshotCount -= 1
 	ui.pictureCounterLabel.text = str(screenshotCount)
+	
+func OnDeleteAllPhotos():
+	for m in photoSlotsTaken:
+		DirAccess.remove_absolute("user://screenshots/screenshot" +str(m) + ".png")
+		photoSlotsTaken.clear()
+		screenshotCount = 0
+		ui.pictureCounterLabel.text = str(screenshotCount)
+		
+	
+	
+	pass
