@@ -70,8 +70,8 @@ func _ready():
 	
 	for m in dir.get_files():
 		for n in range(8):
-			if m.ends_with(str(n)+".png"):
-				photoSlotsTaken.append(n)
+			if m.ends_with(str(n+1)+".png"):
+				photoSlotsTaken.append(n+1)
 	
 	uiScrapbookCanvas = ui.get_child(0)
 	uiCamCanvas = ui.get_child(1)
@@ -320,7 +320,6 @@ func LoadLastScreenshot():
 
 func LoadAllScreenshots():
 	for m in photoSlotsTaken:
-			
 		var img = Image.load_from_file("user://screenshots/screenshot" + str(m) + ".png")
 		var texture = ImageTexture.create_from_image(img)
 		texture.set_size_override(screenshotSize)
@@ -359,10 +358,7 @@ func OnPictureDeleted():
 func OnDeleteAllPhotos():
 	for m in photoSlotsTaken:
 		DirAccess.remove_absolute("user://screenshots/screenshot" +str(m) + ".png")
-		photoSlotsTaken.clear()
-		screenshotCount = 0
-		ui.pictureCounterLabel.text = str(screenshotCount)
-		
 	
-	
-	pass
+	photoSlotsTaken.clear()
+	screenshotCount = 0
+	ui.pictureCounterLabel.text = str(screenshotCount)
