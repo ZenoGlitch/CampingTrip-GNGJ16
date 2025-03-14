@@ -57,6 +57,7 @@ signal susSkunkPhotoTaken
 @onready var crowPhotoTimer = $CrowPhotoTimer
 @onready var beePhotoTimer = $BeePhotoTimer
 @onready var skunkPhotoTimer = $SkunkPhotoTimer
+@onready var sussyPhotoTimer = $SussyPhotoTimer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -72,6 +73,12 @@ func _ready():
 		for n in range(8):
 			if m.ends_with(str(n+1)+".png"):
 				photoSlotsTaken.append(n+1)
+			
+	LoadAllScreenshots()
+	
+	for p in ui.photoArr2:
+		if p.sprite.texture != p.placeHolderTexture:
+			p.visible = true
 	
 	uiScrapbookCanvas = ui.get_child(0)
 	uiCamCanvas = ui.get_child(1)
@@ -88,6 +95,7 @@ func _ready():
 	beePhotoTimer.set_wait_time(0.5)
 	skunkPhotoTimer.set_wait_time(0.5)
 	
+	sussyPhotoTimer.set_wait_time(0.5)
 	
 	InitializeCameraAttributes()
 	connect("blurAmountChanged", OnBlurAmountChanged)
@@ -98,13 +106,12 @@ func _ready():
 	ui.connect("savePhoto", OnPictureSaved)
 	ui.connect("deletePhoto", OnPictureDeleted)
 	ui.connect("deleteAllPhotos", OnDeleteAllPhotos)
-	
+	ui.connect("deleteScrapbookPhoto", OnDeleteScrapbookPhoto)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		gameFocused = true
-	
 
 func _unhandled_input(event: InputEvent):
 
@@ -156,7 +163,7 @@ func _input(_event: InputEvent):
 			Screenshot()
 
 	
-	if Input.is_action_just_pressed("OpenScrapbook") and ui.lastPhotoCanvas.visible == false:
+	if Input.is_action_just_pressed("OpenScrapbook") and ui.lastPhotoCanvas.visible == false and ui.mainMenuCanvas.visible == false:
 
 		if uiScrapbookCanvas.visible == false:
 			sprite.visible = false
@@ -198,124 +205,77 @@ func RotateRight():
 
 func Screenshot():
 	if screenshotCount <= 7:
-		#var viewport = camera.get_viewport()
-		#var texture = viewport.get_texture()
-		#var img = texture.get_image()
 		screenshotCount += 1
 		cameraClick.play()
 		var sussyPigeonCaptured : bool = false
 		var sussyCrowCaptured : bool = false
 		var sussyBeeCaptured : bool = false
 		var sussySkunkCaptured :bool = false
+			
+		var idx : int = -1
+		for m in ui.photoArr2:
+			if m.visible == false:
+				idx = m.ID - 1
+				break
+			else:
+				continue
+		
+		photoSlotsTaken.append(idx + 1)
 		
 		if pigeonsAreSus and facingDir == direction.NORTH:
-			photoToLoad = 1
 			susPigeonPhotoTaken.emit()
-			pigeonPhotoTimer.start()
+			sussyPhotoTimer.start()
+			ui.photoArr2[idx].isPigeonPic = true
+			ui.photoArr2[idx].starsAmount += 1
 			sussyPigeonCaptured = true
-			photoSlotsTaken.append(1)
-			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			
-		elif crowsAreSus and facingDir == direction.SOUTH:
-			photoToLoad = 2
-			susCrowPhotoTaken.emit()
-			crowPhotoTimer.start()
-			sussyCrowCaptured = true
-			photoSlotsTaken.append(2)
-			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			
-		elif beesAreSus and facingDir == direction.EAST:
-			photoToLoad = 3
-			susBeePhotoTaken.emit()
-			beePhotoTimer.start()
-			sussyBeeCaptured = true
-			photoSlotsTaken.append(3)
-			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			
-		elif skunksAreSus and facingDir == direction.WEST:
-			photoToLoad = 4
-			susSkunkPhotoTaken.emit()
-			skunkPhotoTimer.start()
-			sussySkunkCaptured = true
-			photoSlotsTaken.append(4)
 
+		if crowsAreSus and facingDir == direction.SOUTH:
+			susCrowPhotoTaken.emit()
+			sussyPhotoTimer.start()
+			ui.photoArr2[idx].isCrowPic = true
+			ui.photoArr2[idx].starsAmount += 1
+			sussyCrowCaptured = true
+
+		if beesAreSus and facingDir == direction.EAST:
+			susBeePhotoTaken.emit()
+			sussyPhotoTimer.start()
+			ui.photoArr2[idx].isBeePic = true
+			ui.photoArr2[idx].starsAmount += 1
+			sussyBeeCaptured = true
+
+		if skunksAreSus and facingDir == direction.WEST:
+			susSkunkPhotoTaken.emit()
+			sussyPhotoTimer.start()
+			ui.photoArr2[idx].isSkunkPic = true
+			ui.photoArr2[idx].starsAmount += 1
+			sussySkunkCaptured = true
 			
-		elif not photoSlotsTaken.has(5):
-			photoToLoad = 5
+		if camAttribs.dof_blur_amount == 0.0:
+			ui.photoArr2[idx].starsAmount += 1
+		if camera.fov < 30 :
+			ui.photoArr2[idx].starsAmount += 1
+		
+		if sussyPigeonCaptured or sussyCrowCaptured or sussyBeeCaptured or sussySkunkCaptured:
+			await sussyPhotoTimer.timeout
 			var viewport = camera.get_viewport()
 			var texture = viewport.get_texture()
 			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			photoSlotsTaken.append(5)
-			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			
-		elif not photoSlotsTaken.has(6):
-			photoToLoad = 6
+			img.save_png("user://screenshots/screenshot" + str(idx + 1) + ".png")
+			ui.photoArr2[idx].visible = true
+			photoToLoad = idx + 1
+		else:
 			var viewport = camera.get_viewport()
 			var texture = viewport.get_texture()
 			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			photoSlotsTaken.append(6)
-			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			
-		elif not photoSlotsTaken.has(7):
-			photoToLoad = 7
-			var viewport = camera.get_viewport()
-			var texture = viewport.get_texture()
-			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			photoSlotsTaken.append(7)
-			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			
-		elif not photoSlotsTaken.has(8):
-			photoToLoad = 8
-			var viewport = camera.get_viewport()
-			var texture = viewport.get_texture()
-			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			photoSlotsTaken.append(8)
-			#img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			
-		if sussyPigeonCaptured:
-			await pigeonPhotoTimer.timeout
-			var viewport = camera.get_viewport()
-			var texture = viewport.get_texture()
-			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			sussyPigeonCaptured = false
-			
-		if sussyCrowCaptured:
-			await crowPhotoTimer.timeout
-			var viewport = camera.get_viewport()
-			var texture = viewport.get_texture()
-			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			sussyCrowCaptured = false
-			
-		if sussyBeeCaptured:
-			await beePhotoTimer.timeout
-			var viewport = camera.get_viewport()
-			var texture = viewport.get_texture()
-			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			sussyBeeCaptured = false
-			
-		if sussySkunkCaptured:
-			await skunkPhotoTimer.timeout
-			var viewport = camera.get_viewport()
-			var texture = viewport.get_texture()
-			var img = texture.get_image()
-			img.save_png("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-			sussySkunkCaptured = false
+			img.save_png("user://screenshots/screenshot" + str(idx + 1) + ".png")
+			ui.photoArr2[idx].visible = true
+			photoToLoad = idx + 1
 			
 		pictureTaken.emit()
 
 func LoadLastScreenshot():
 	var image = Image.load_from_file("user://screenshots/screenshot" + str(photoToLoad) + ".png")
-	#image.flip_x()
 	var texture = ImageTexture.create_from_image(image)
-	#texture.set_size_override(Vector2i(1,1))
-	#$Sprite2D.texture = texture
 	ui.setLastPhoto(texture, photoToLoad)
 
 func LoadAllScreenshots():
@@ -349,9 +309,19 @@ func OnPictureSaved():
 	print("PHOTO SAVED")
 	ui.lastPhotoIndex = photoToLoad
 	
-func OnPictureDeleted():
-	DirAccess.remove_absolute("user://screenshots/screenshot" +str(photoToLoad)+".png")
-	photoSlotsTaken.remove_at(photoSlotsTaken.find(photoToLoad))
+func OnPictureDeleted(photoToDelete : int):
+	ui.photoArr2[photoToDelete -1].visible = false
+	DirAccess.remove_absolute("user://screenshots/screenshot" +str(photoToDelete)+".png")
+	photoSlotsTaken.remove_at(photoSlotsTaken.find(photoToDelete))
+	screenshotCount -= 1
+	ui.pictureCounterLabel.text = str(screenshotCount)
+	
+func OnDeleteScrapbookPhoto(photoToDelete : int):
+	ui.photoArr2[photoToDelete -1].visible = false
+	ui.photoArr2[photoToDelete -1].fullyResetPhoto()
+	
+	DirAccess.remove_absolute("user://screenshots/screenshot" +str(photoToDelete)+".png")
+	photoSlotsTaken.remove_at(photoSlotsTaken.find(photoToDelete))
 	screenshotCount -= 1
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	

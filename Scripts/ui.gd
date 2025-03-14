@@ -9,6 +9,8 @@ extends Node2D
 
 #PHOTOS
 @onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
+@onready var photoArr2 : Array[Photo] = [$ScrapbookCanvas/Photo1, $ScrapbookCanvas/Photo2, $ScrapbookCanvas/Photo3, $ScrapbookCanvas/Photo4, $ScrapbookCanvas/Photo5, $ScrapbookCanvas/Photo6, $ScrapbookCanvas/Photo7, $ScrapbookCanvas/Photo8]
+const maxPhotosAmount : int = 8
 
 #SCRAPBOOK STUFF
 @onready var scrapbook = $ScrapbookCanvas/Scrapbook
@@ -45,6 +47,7 @@ var lastPhotoIndex = -1
 signal savePhoto
 signal deletePhoto
 signal deleteAllPhotos
+signal deleteScrapbookPhoto
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -58,14 +61,24 @@ func _ready():
 	mainMenuCanvas.visible = true
 	endScreenCanvas.visible = false
 	
+	var newID = 0
+	for m in photoArr2:
+		newID += 1
+		m.connect("scrapbookPhotoDeleted", OnScrapbookPhotoDeleted)
+		m.connect("pictureReleased", OnPictureReleased)
+		m.ID = newID
+		m.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	CheckFullOverlap(currentlyGrabbedPhoto)
+	if scrapbookCanvas.visible and currentlyGrabbedPhoto != -1:
+		CheckAllPicturesPlacement(currentlyGrabbedPhoto)
+	
 	CheckAllPicturesCorrect()
 	
 func setPhotoArrTexture(index : int, tex : Texture):
-	photoArr[index].texture = tex
+	photoArr2[index].sprite.texture = tex
+	#photoArr2[index].visible = true
 
 func FlipPageLeft():
 	flipPageSound.play(0.30)
@@ -75,28 +88,40 @@ func FlipPageLeft():
 		2:
 			scrapbook2.visible = false
 			if crowPicCorrect:
-				photoArr[1].visible = false
+				for m in photoArr2:
+					if m.isCrowPic:
+						m.visible = false
 			scrapbook.visible = true
 			if pigeonPicCorrect:
-				photoArr[0].visible = true
+				for m in photoArr2:
+					if m.isPigeonPic:
+						m.visible = true
 			currentPage = 1
 			
 		3:
 			scrapbook3.visible = false
 			if beePicCorrect:
-				photoArr[2].visible = false
+				for m in photoArr2:
+					if m.isBeePic:
+						m.visible = false
 			scrapbook2.visible = true
 			if crowPicCorrect:
-				photoArr[1].visible = true
+				for m in photoArr2:
+					if m.isCrowPic:
+						m.visible = true
 			currentPage = 2
 			
 		4:
 			scrapbook4.visible = false
 			if skunkPicCorrect:
-				photoArr[3].visible = false
+				for m in photoArr2:
+					if m.isSkunkPic:
+						m.visible = false
 			scrapbook3.visible = true
 			if beePicCorrect:
-				photoArr[2].visible = true
+				for m in photoArr2:
+					if m.isBeePic:
+						m.visible = true
 			currentPage = 3
 			
 
@@ -106,102 +131,86 @@ func FlipPageRight():
 		1: 
 			scrapbook.visible = false
 			if pigeonPicCorrect:
-				photoArr[0].visible = false
+				for m in photoArr2:
+					if m.isPigeonPic:
+						m.visible = false
 			scrapbook2.visible = true
+			
 			if crowPicCorrect:
-				photoArr[1].visible = true
+				for m in photoArr2:
+					if m.isCrowPic:
+						m.visible = true
 			currentPage = 2
 			
 		2:
 			scrapbook2.visible = false
 			if crowPicCorrect:
-				photoArr[1].visible = false
+				for m in photoArr2:
+					if m.isCrowPic:
+						m.visible = false
 			scrapbook3.visible = true
+			
 			if beePicCorrect:
-				photoArr[2].visible = true
+				for m in photoArr2:
+					if m.isBeePic:
+						m.visible = true
 			currentPage = 3
 			
 		3:
 			scrapbook3.visible = false
 			if beePicCorrect:
-				photoArr[2].visible = false
+				for m in photoArr2:
+					if m.isBeePic:
+						m.visible = false
 			scrapbook4.visible = true
+			
 			if skunkPicCorrect:
-				photoArr[3].visible = true
+				for m in photoArr2:
+					if m.isSkunkPic:
+						m.visible = true
 			currentPage = 4
 			
 		4:
 			return
 
-func CheckFullOverlap(grabbedPhoto : int):
+func CheckOverlap(grabbedPhoto : int, area : Area2D, collider : CollisionShape2D):
+	var spriteLeftX = photoArr2[grabbedPhoto].position.x - (photoArr2[grabbedPhoto].sprite.texture.get_width() / 2)
+	var spriteRightX = photoArr2[grabbedPhoto].position.x + (photoArr2[grabbedPhoto].sprite.texture.get_width() / 2)
+	var spriteTopY = photoArr2[grabbedPhoto].position.y - (photoArr2[grabbedPhoto].sprite.texture.get_height() / 2)
+	var spriteBottomY = photoArr2[grabbedPhoto].position.y + (photoArr2[grabbedPhoto].sprite.texture.get_height() / 2)
 	
-	match grabbedPhoto:
-		-1:
-			return
-		0:
-			if currentPage == 1:
-				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
-				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
-				
-				var collider1LeftX = sb1area2d.position.x - (scrapbookCollider1.shape.size.x / 2)
-				var collider1RightX = sb1area2d.position.x + (scrapbookCollider1.shape.size.x / 2)
-				var collider1TopY = sb1area2d.position.y - (scrapbookCollider1.shape.size.y / 2)
-				var collider1BottomY = sb1area2d.position.y + (scrapbookCollider1.shape.size.y / 2)
-				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
-					pigeonPicCorrect = true
-				else:
-					pigeonPicCorrect = false
+	var collider1LeftX = area.position.x - (collider.shape.size.x / 2)
+	var collider1RightX = area.position.x + (collider.shape.size.x / 2)
+	var collider1TopY = area.position.y - (collider.shape.size.y / 2)
+	var collider1BottomY = area.position.y + (collider.shape.size.y / 2)
+
+	if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
+		return true
+	else:
+		return false
+
+func CheckAllPicturesPlacement(grabbedPhoto : int):
+	match currentPage:
 		1:
-			if currentPage == 2:
-				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
-				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
-				
-				var collider1LeftX = sb2area2d.position.x - (scrapbookCollider2.shape.size.x / 2)
-				var collider1RightX = sb2area2d.position.x + (scrapbookCollider2.shape.size.x / 2)
-				var collider1TopY = sb2area2d.position.y - (scrapbookCollider2.shape.size.y / 2)
-				var collider1BottomY = sb2area2d.position.y + (scrapbookCollider2.shape.size.y / 2)
-
-				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
-					crowPicCorrect = true
-				else:
-					crowPicCorrect = false
+			if photoArr2[grabbedPhoto].isPigeonPic:
+				if CheckOverlap(grabbedPhoto, sb1area2d, scrapbookCollider1):
+					photoArr2[grabbedPhoto].allowedToMove = false
+					pigeonPicCorrect = true
 		2:
-			if currentPage == 3:
-				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
-				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
-				
-				var collider1LeftX = sb3area2d.position.x - (scrapbookCollider3.shape.size.x / 2)
-				var collider1RightX = sb3area2d.position.x + (scrapbookCollider3.shape.size.x / 2)
-				var collider1TopY = sb3area2d.position.y - (scrapbookCollider3.shape.size.y / 2)
-				var collider1BottomY = sb3area2d.position.y + (scrapbookCollider3.shape.size.y / 2)
-
-				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
-					beePicCorrect = true
-				else:
-					beePicCorrect = false
-					
+			if photoArr2[grabbedPhoto].isCrowPic:
+				if CheckOverlap(grabbedPhoto, sb2area2d, scrapbookCollider2):
+					photoArr2[grabbedPhoto].allowedToMove = false
+					crowPicCorrect = true
 		3:
-			if currentPage == 4:
-				var spriteLeftX = photoArr[grabbedPhoto].position.x - (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteRightX = photoArr[grabbedPhoto].position.x + (photoArr[grabbedPhoto].texture.get_width() / 2)
-				var spriteTopY = photoArr[grabbedPhoto].position.y - (photoArr[grabbedPhoto].texture.get_height() / 2)
-				var spriteBottomY = photoArr[grabbedPhoto].position.y + (photoArr[grabbedPhoto].texture.get_height() / 2)
-				
-				var collider1LeftX = sb4area2d.position.x - (scrapbookCollider4.shape.size.x / 2)
-				var collider1RightX = sb4area2d.position.x + (scrapbookCollider4.shape.size.x / 2)
-				var collider1TopY = sb4area2d.position.y - (scrapbookCollider4.shape.size.y / 2)
-				var collider1BottomY = sb4area2d.position.y + (scrapbookCollider4.shape.size.y / 2)
-
-				if spriteLeftX > collider1LeftX and spriteRightX < collider1RightX and spriteTopY > collider1TopY and spriteBottomY < collider1BottomY:
+			if photoArr2[grabbedPhoto].isBeePic:
+				if CheckOverlap(grabbedPhoto, sb3area2d, scrapbookCollider3):
+					photoArr2[grabbedPhoto].allowedToMove = false
+					beePicCorrect = true
+		4:
+			if photoArr2[grabbedPhoto].isSkunkPic:
+				if CheckOverlap(grabbedPhoto, sb4area2d, scrapbookCollider4):
+					photoArr2[grabbedPhoto].allowedToMove = false
 					skunkPicCorrect = true
-				else:
-					skunkPicCorrect = false
 
 func CheckAllPicturesCorrect():
 	if pigeonPicCorrect and crowPicCorrect and beePicCorrect and skunkPicCorrect:
@@ -213,104 +222,12 @@ func setLastPhoto(tex : ImageTexture, idx : int):
 	lastPhoto.texture = tex
 	lastPhotoIndex = idx
 
-
-#region SPRITE SIGNAL CONNECTIONS	
-func _on_sprite_1_picture_grabbed():
-	currentlyGrabbedPhoto = 0
-	if pigeonPicCorrect:
-		photoArr[currentlyGrabbedPhoto].allowedToMove = false
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
+func ungrabOtherPhotos(photoArrIdx : int):
+	for i in photoArr2:
+		if i == photoArr2[photoArrIdx]:
 			continue
 		else:
-			s.grabbed = false
-
-func _on_sprite_1_picture_released():
-	currentlyGrabbedPhoto = -1
-
-func _on_sprite_2_picture_grabbed():
-	currentlyGrabbedPhoto = 1
-	if crowPicCorrect:
-		photoArr[currentlyGrabbedPhoto].allowedToMove = false
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
-			continue
-		else:
-			s.grabbed = false
-
-func _on_sprite_2_picture_released():
-	currentlyGrabbedPhoto = -1
-
-func _on_sprite_3_picture_grabbed():
-	currentlyGrabbedPhoto = 2
-	if beePicCorrect:
-		photoArr[currentlyGrabbedPhoto].allowedToMove = false
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
-			continue
-		else:
-			s.grabbed = false
-
-func _on_sprite_3_picture_released():
-	currentlyGrabbedPhoto = -1
-
-func _on_sprite_4_picture_grabbed():
-	currentlyGrabbedPhoto = 3
-	if skunkPicCorrect:
-		photoArr[currentlyGrabbedPhoto].allowedToMove = false
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
-			continue
-		else:
-			s.grabbed = false
-
-func _on_sprite_4_picture_released():
-	currentlyGrabbedPhoto = -1
-
-func _on_sprite_5_picture_grabbed():
-	currentlyGrabbedPhoto = 4
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
-			continue
-		else:
-			s.grabbed = false
-
-func _on_sprite_5_picture_released():
-	currentlyGrabbedPhoto = -1
-
-func _on_sprite_6_picture_grabbed():
-	currentlyGrabbedPhoto = 5
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
-			continue
-		else:
-			s.grabbed = false
-
-func _on_sprite_6_picture_released():
-	currentlyGrabbedPhoto = -1
-	
-func _on_sprite_7_picture_grabbed():
-	currentlyGrabbedPhoto = 6
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
-			continue
-		else:
-			s.grabbed = false
-			
-func _on_sprite_7_picture_released():
-	currentlyGrabbedPhoto = -1
-	
-func _on_sprite_8_picture_grabbed():
-	currentlyGrabbedPhoto = 7
-	for s in photoArr:
-		if s == photoArr[currentlyGrabbedPhoto]:
-			continue
-		else:
-			s.grabbed = false
-
-func _on_sprite_8_picture_released():
-	currentlyGrabbedPhoto = -1
-#endregion
+			i.grabbed = false
 
 #region UI BUTTONS
 func _on_start_game_button_pressed():
@@ -328,7 +245,8 @@ func _on_save_photo_button_pressed():
 	var tex = lastPhoto.texture
 	tex.set_size_override(Vector2(384,216))
 	savePhoto.emit()
-	photoArr[lastPhotoIndex-1].texture = lastPhoto.texture
+	photoArr2[lastPhotoIndex-1].sprite.texture = tex
+	photoArr2[lastPhotoIndex-1].visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	lastPhotoCanvas.visible = false
 	cameraCanvas.visible = true
@@ -338,18 +256,64 @@ func _on_delete_photo_button_pressed():
 	pictureCounter -= 1
 	lastPhotoCanvas.visible = false
 	cameraCanvas.visible = true
-	deletePhoto.emit()
+	deletePhoto.emit(lastPhotoIndex)
 
 func _on_quit_game_button_pressed():
 	get_tree().quit()
 	
 func _on_delete_all_photos_button_pressed():
 	deleteAllPhotos.emit()
-	var img = Image.load_from_file("res://Assets/transparentPlaceholder.png")
-	var tex = ImageTexture.create_from_image(img)
-	tex.set_size_override(Vector2(1600, 900))
-	lastPhoto.texture = tex
-	for n in photoArr:
-		tex.set_size_override(Vector2(384,216))
-		n.texture = tex
+	#var img = Image.load_from_file("res://Assets/transparentPlaceholder.png")
+	#var tex = ImageTexture.create_from_image(img)
+	var tex = load("res://Assets/transparentPlaceholder.png")
+
+	#tex.set_size_override(Vector2(1600, 900))
+	#lastPhoto.texture = tex
+
+	for m in photoArr2:
+		#tex.set_size_override(Vector2(384,216))
+		m.fullyResetPhoto()
+		#m.sprite.texture = tex
+		
+#endregion
+
+
+#region PHOTO SIGNAL CONNECTIONS
+func OnScrapbookPhotoDeleted(ID):
+	#deletePhoto.emit(ID)
+	deleteScrapbookPhoto.emit(ID)
+func OnPictureReleased():
+	currentlyGrabbedPhoto = -1
+
+func _on_photo_1_picture_grabbed():
+	currentlyGrabbedPhoto = 0
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
+	
+func _on_photo_2_picture_grabbed():
+	currentlyGrabbedPhoto = 1
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
+	
+func _on_photo_3_picture_grabbed():
+	currentlyGrabbedPhoto = 2
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
+
+func _on_photo_4_picture_grabbed():
+	currentlyGrabbedPhoto = 3
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
+	
+func _on_photo_5_picture_grabbed():
+	currentlyGrabbedPhoto = 4
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
+	
+func _on_photo_6_picture_grabbed():
+	currentlyGrabbedPhoto = 5
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
+
+func _on_photo_7_picture_grabbed():
+	currentlyGrabbedPhoto = 6
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
+	
+func _on_photo_8_picture_grabbed():
+	currentlyGrabbedPhoto = 7
+	ungrabOtherPhotos(currentlyGrabbedPhoto)
 #endregion

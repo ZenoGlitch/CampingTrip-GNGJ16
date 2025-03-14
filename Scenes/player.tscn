@@ -42,4 +42,6 @@ texture = ExtResource("2_hsopl")
 stream = ExtResource("4_0abg3")
 volume_db = -25.07
 
+[node name="SussyPhotoTimer" type="Timer" parent="."]
+
 [connection signal="pictureTaken" from="." to="UI" method="_on_player_picture_taken"]

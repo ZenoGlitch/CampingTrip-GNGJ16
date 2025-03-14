@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvycicjo0t63q"]
+[gd_scene load_steps=22 format=3 uid="uid://bvycicjo0t63q"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_yf5oc"]
 [ext_resource type="Texture2D" uid="uid://cravmvd0c4ye7" path="res://Assets/ScrapBook PNGs/scrapbook_pigeons.PNG" id="2_3cxg4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bo3ltxqced1qx" path="res://Assets/transparentPlaceholder.png" id="3_xmlcn"]
 [ext_resource type="Texture2D" uid="uid://bc3r8kx5ixc5m" path="res://Assets/ScrapBook PNGs/scrapbook_bees.PNG" id="4_8nwdx"]
 [ext_resource type="Texture2D" uid="uid://bqv3wfa0b7f04" path="res://Assets/ScrapBook PNGs/scrapbook_skunk.PNG" id="5_dvbmg"]
+[ext_resource type="PackedScene" uid="uid://siqlv4rdtwlk" path="res://Scenes/photo.tscn" id="7_i1pix"]
 [ext_resource type="Texture2D" uid="uid://cyo33xtt5i6ur" path="res://Assets/ScrapBook PNGs/FlipPageArrowLeft.PNG" id="9_jayer"]
 [ext_resource type="Texture2D" uid="uid://csp7kf7q5vovi" path="res://Assets/ScrapBook PNGs/FlipPageArrowRight.PNG" id="10_5n4ta"]
 [ext_resource type="Texture2D" uid="uid://1bmccsv7shfo" path="res://Assets/ScrapBook PNGs/TabToCloseScrapbookPrompt.PNG" id="11_25br8"]
@@ -18,16 +19,16 @@
 [ext_resource type="Texture2D" uid="uid://dbcxsbeultygw" path="res://Assets/ScrapBook PNGs/Forestwithdad_endPage.PNG" id="16_s8582"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dg4s"]
-size = Vector2(1220.74, 657.195)
+size = Vector2(490, 260)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1p5n"]
-size = Vector2(1220.74, 657.195)
+size = Vector2(500, 270)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dh5f"]
-size = Vector2(1220.74, 877.567)
+size = Vector2(500, 400)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ao4"]
-size = Vector2(1220.74, 657.195)
+size = Vector2(500, 280)
 
 [node name="UI" type="Node2D"]
 script = ExtResource("1_yf5oc")
@@ -52,26 +53,25 @@ scale = Vector2(0.388, 0.388)
 texture = ExtResource("2_3cxg4")
 
 [node name="scrapbook1Area2D" type="Area2D" parent="ScrapbookCanvas"]
+visible = false
 z_index = 1
 position = Vector2(742, 524)
-scale = Vector2(0.388, 0.388)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScrapbookCanvas/scrapbook1Area2D"]
-visible = false
 shape = SubResource("RectangleShape2D_2dg4s")
 
 [node name="Scrapbook2" type="Sprite2D" parent="ScrapbookCanvas"]
+visible = false
 position = Vector2(984, 477)
 scale = Vector2(0.388, 0.388)
 texture = ExtResource("3_wiyu7")
 
 [node name="scraobook2Area2D" type="Area2D" parent="ScrapbookCanvas"]
+visible = false
 z_index = 1
 position = Vector2(743, 451)
-scale = Vector2(0.388, 0.388)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScrapbookCanvas/scraobook2Area2D"]
-visible = false
 shape = SubResource("RectangleShape2D_e1p5n")
 
 [node name="Scrapbook3" type="Sprite2D" parent="ScrapbookCanvas"]
@@ -81,26 +81,55 @@ scale = Vector2(0.388, 0.388)
 texture = ExtResource("4_8nwdx")
 
 [node name="scrapbook3Area2D" type="Area2D" parent="ScrapbookCanvas"]
+visible = false
 position = Vector2(740, 494)
-scale = Vector2(0.388, 0.388)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScrapbookCanvas/scrapbook3Area2D"]
-visible = false
 shape = SubResource("RectangleShape2D_5dh5f")
 
 [node name="Scrapbook4" type="Sprite2D" parent="ScrapbookCanvas"]
-visible = false
 position = Vector2(984, 477)
 scale = Vector2(0.388, 0.388)
 texture = ExtResource("5_dvbmg")
 
 [node name="scrapbook4Area2D" type="Area2D" parent="ScrapbookCanvas"]
 position = Vector2(741, 480)
-scale = Vector2(0.388, 0.388)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScrapbookCanvas/scrapbook4Area2D"]
 scale = Vector2(1, 1.30928)
 shape = SubResource("RectangleShape2D_o5ao4")
+
+[node name="Photo1" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(231, 190)
+rotation = -0.0571356
+
+[node name="Photo2" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(221, 437)
+rotation = 0.0241598
+
+[node name="Photo3" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(232, 691)
+rotation = -0.0325048
+
+[node name="Photo4" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(216, 938)
+rotation = -0.0531206
+
+[node name="Photo5" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(1720, 218)
+rotation = -0.0477765
+
+[node name="Photo6" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(1725, 458)
+rotation = 0.0121023
+
+[node name="Photo7" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(1724, 700)
+rotation = -0.0935536
+
+[node name="Photo8" parent="ScrapbookCanvas" instance=ExtResource("7_i1pix")]
+position = Vector2(1709, 940)
+rotation = 0.055077
 
 [node name="Sprite1" type="Sprite2D" parent="ScrapbookCanvas"]
 z_index = 2
@@ -286,6 +315,14 @@ theme_override_fonts/font = ExtResource("14_ph2ay")
 theme_override_font_sizes/font_size = 200
 text = "Quit Game"
 
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo1" to="." method="_on_photo_1_picture_grabbed"]
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo2" to="." method="_on_photo_2_picture_grabbed"]
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo3" to="." method="_on_photo_3_picture_grabbed"]
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo4" to="." method="_on_photo_4_picture_grabbed"]
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo5" to="." method="_on_photo_5_picture_grabbed"]
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo6" to="." method="_on_photo_6_picture_grabbed"]
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo7" to="." method="_on_photo_7_picture_grabbed"]
+[connection signal="pictureGrabbed" from="ScrapbookCanvas/Photo8" to="." method="_on_photo_8_picture_grabbed"]
 [connection signal="pictureGrabbed" from="ScrapbookCanvas/Sprite1" to="." method="_on_sprite_1_picture_grabbed"]
 [connection signal="pictureReleased" from="ScrapbookCanvas/Sprite1" to="." method="_on_sprite_1_picture_released"]
 [connection signal="pictureGrabbed" from="ScrapbookCanvas/Sprite2" to="." method="_on_sprite_2_picture_grabbed"]

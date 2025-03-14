@@ -45,7 +45,7 @@ func OnSusPigeonPhoto():
 	pigeon.pigeon1.set_flip_h(true)
 	pigeon.pigeon2.set_frame(2)
 	pigeon.sussyPhotoCaptured = true
-	await player.pigeonPhotoTimer.timeout
+	await player.sussyPhotoTimer.timeout
 	pigeon.pigeon1.set_frame(0)
 	pigeon.pigeon1.set_flip_h(true)
 	pigeon.pigeon2.set_frame(0)
@@ -55,7 +55,7 @@ func OnSusCrowPhoto():
 	crow.crow1.set_frame(2)
 	crow.crow2.set_frame(2)
 	crow.sussyPhotoCaptured = true
-	await player.crowPhotoTimer.timeout
+	await player.sussyPhotoTimer.timeout
 	crow.crow1.set_frame(0)
 	crow.crow2.set_frame(0)
 	crow.sussyPhotoCaptured = false
@@ -65,7 +65,7 @@ func OnSusBeePhoto():
 	bee.bee1.set_flip_h(true)
 	bee.bee2.set_frame(2)
 	bee.sussyPhotoCaptured = true
-	await player.beePhotoTimer.timeout
+	await player.sussyPhotoTimer.timeout
 	bee.bee1.set_frame(0)
 	bee.bee2.set_frame(0)
 	bee.sussyPhotoCaptured = false
@@ -73,6 +73,6 @@ func OnSusBeePhoto():
 func OnSusSkunkPhoto():
 	skunk.skunk.set_frame(2)
 	skunk.sussyPhotoCaptured = true
-	await player.skunkPhotoTimer.timeout
+	await player.sussyPhotoTimer.timeout
 	skunk.skunk.set_frame(0)
 	skunk.sussyPhotoCaptured = false
