@@ -42,9 +42,18 @@ func _ready():
 func _process(_delta):
 	if self.grabbed and self.allowedToMove:
 		self.followMouse()
-	if self.visible and self.starsAmount > 0 and self.starsAmount <= 3:
-		for i in range(self.starsAmount):
-			self.starArr[i].visible = true
+	if self.visible:
+		deletePhotoButton.visible = true
+		assert(self.starsAmount >= 0 and self.starsAmount <=3, "starsAmount is out of bounds")
+		if self.starsAmount > 0 and self.starsAmount <= 3:
+			for i in range(self.starsAmount):
+				self.starArr[i].visible = true
+				starArr.size()
+	else:
+		deletePhotoButton.visible = false
+		for i in starArr.size():
+			starArr[i].visible = false
+			
 
 func _input(event):
 	if Input.is_action_just_pressed("TakePhoto") and self.visible and sprite.texture.resource_path != "res://Assets/transparentPlaceholder.png":
@@ -84,12 +93,13 @@ func fullyResetPhoto():
 	self.grabbed = false
 
 func _on_area_2d_mouse_entered():
-	if self.sprite.texture != placeHolderTexture:
-		self.deletePhotoButton.visible = true
-
+	#if self.sprite.texture != placeHolderTexture:
+		#self.deletePhotoButton.visible = true
+	pass
+	
 func _on_area_2d_mouse_exited():
-	self.deletePhotoButton.visible = false
-
+	#self.deletePhotoButton.visible = false
+	pass
 func _on_delete_photo_button_pressed():
 	fullyResetPhoto()
 	self.scrapbookPhotoDeleted.emit(ID)

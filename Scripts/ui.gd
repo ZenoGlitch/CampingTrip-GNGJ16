@@ -78,7 +78,6 @@ func _process(_delta):
 	
 func setPhotoArrTexture(index : int, tex : Texture):
 	photoArr2[index].sprite.texture = tex
-	#photoArr2[index].visible = true
 
 func FlipPageLeft():
 	flipPageSound.play(0.30)
@@ -123,7 +122,6 @@ func FlipPageLeft():
 					if m.isBeePic:
 						m.visible = true
 			currentPage = 3
-			
 
 func FlipPageRight():
 	flipPageSound.play(0.30)
@@ -263,24 +261,15 @@ func _on_quit_game_button_pressed():
 	
 func _on_delete_all_photos_button_pressed():
 	deleteAllPhotos.emit()
-	#var img = Image.load_from_file("res://Assets/transparentPlaceholder.png")
-	#var tex = ImageTexture.create_from_image(img)
-	var tex = load("res://Assets/transparentPlaceholder.png")
-
-	#tex.set_size_override(Vector2(1600, 900))
-	#lastPhoto.texture = tex
-
+	#var tex = load("res://Assets/transparentPlaceholder.png")
 	for m in photoArr2:
-		#tex.set_size_override(Vector2(384,216))
 		m.fullyResetPhoto()
-		#m.sprite.texture = tex
 		
 #endregion
 
 
 #region PHOTO SIGNAL CONNECTIONS
 func OnScrapbookPhotoDeleted(ID):
-	#deletePhoto.emit(ID)
 	deleteScrapbookPhoto.emit(ID)
 func OnPictureReleased():
 	currentlyGrabbedPhoto = -1
