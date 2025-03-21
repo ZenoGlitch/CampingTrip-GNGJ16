@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://siqlv4rdtwlk"]
+[gd_scene load_steps=6 format=3 uid="uid://siqlv4rdtwlk"]
 
 [ext_resource type="Script" path="res://Scripts/photo2.gd" id="1_sn55f"]
 [ext_resource type="Texture2D" uid="uid://bo3ltxqced1qx" path="res://Assets/transparentPlaceholder.png" id="2_2oa2f"]
+[ext_resource type="Texture2D" uid="uid://cvvaxb57rns1u" path="res://Assets/Star.png" id="3_6u7vn"]
+[ext_resource type="Texture2D" uid="uid://drowxkx0qdj7" path="res://Assets/Bin.png" id="4_8m7q1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y2mje"]
 size = Vector2(384, 216)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bkenl"]
 
 [node name="Photo" type="Node2D"]
 script = ExtResource("1_sn55f")
@@ -21,27 +21,30 @@ shape = SubResource("RectangleShape2D_y2mje")
 
 [node name="StarSprite1" type="Sprite2D" parent="PhotoSprite"]
 position = Vector2(-173, 91)
-scale = Vector2(26.48, 24.16)
-texture = SubResource("PlaceholderTexture2D_bkenl")
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("3_6u7vn")
 
 [node name="StarSprite2" type="Sprite2D" parent="PhotoSprite"]
 position = Vector2(-141, 91)
-scale = Vector2(26.48, 24.16)
-texture = SubResource("PlaceholderTexture2D_bkenl")
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("3_6u7vn")
 
 [node name="StarSprite3" type="Sprite2D" parent="PhotoSprite"]
 position = Vector2(-109, 91)
-scale = Vector2(26.48, 24.16)
-texture = SubResource("PlaceholderTexture2D_bkenl")
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("3_6u7vn")
 
 [node name="DeletePhotoButton" type="Button" parent="PhotoSprite"]
-offset_left = 164.0
-offset_top = -102.0
-offset_right = 296.0
-offset_bottom = 179.0
-scale = Vector2(0.152295, 0.0673539)
+offset_left = 145.0
+offset_top = -108.0
+offset_right = 1085.0
+offset_bottom = 812.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/icon_hover_color = Color(0.517184, 0.517184, 0.517184, 1)
 theme_override_font_sizes/font_size = 200
-text = "X"
+icon = ExtResource("4_8m7q1")
+flat = true
+expand_icon = true
 
 [connection signal="mouse_entered" from="PhotoSprite/Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="PhotoSprite/Area2D" to="." method="_on_area_2d_mouse_exited"]
