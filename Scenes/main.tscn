@@ -349,6 +349,33 @@ _data = {
 "RESET": SubResource("Animation_k26gg")
 }
 
+[sub_resource type="Animation" id="Animation_0qran"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.702951, 0.196603, -0.0396127)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.53168, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_4t5yp"]
 resource_name = "bee2_move"
 length = 5.0
@@ -376,33 +403,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 1.53168, 0), Vector3(0, 1.53168, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_0qran"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.702951, 0.196603, -0.0396127)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.53168, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dfbxi"]
@@ -4378,7 +4378,7 @@ alpha_cut = 1
 texture = ExtResource("47_o6c6i")
 
 [node name="BeeNonPhoto4" type="Sprite3D" parent="."]
-transform = Transform3D(-0.000164428, 3.55647e-12, -0.000986389, -0.000102506, 0.000994586, 1.70875e-05, 0.000981048, 0.000103921, -0.000163538, 0.740378, 0.0883013, -0.279365)
+transform = Transform3D(0.000291768, 4.64845e-05, -0.000955359, -0.000102506, 0.000994586, 1.70875e-05, 0.00095098, 9.29449e-05, 0.000294953, 0.709981, 0.0851253, -0.279365)
 alpha_cut = 1
 texture = ExtResource("48_fi8vf")
 
