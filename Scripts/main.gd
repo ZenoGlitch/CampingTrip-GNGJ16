@@ -9,7 +9,7 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Hello GN!")
+	get_window().set_title("I'm in the forest with my dad and the frogs are watching")
 	
 	pigeon.connect("pigeonsAreSus", OnPigeonSus)
 	crow.connect("crowsAreSus", OnCrowsSus)
