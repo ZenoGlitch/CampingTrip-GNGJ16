@@ -1,6 +1,6 @@
 extends Sprite3D
 
-@onready var animation_player = $"../BeeAnimationPlayer"
+@onready var animation_player = $BeeAnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
