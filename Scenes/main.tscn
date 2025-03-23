@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://dca86t7mk5ui0"]
+[gd_scene load_steps=78 format=3 uid="uid://dca86t7mk5ui0"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_t5j2i"]
 [ext_resource type="Texture2D" uid="uid://5krnbwrdu32m" path="res://Assets/Sky_texture (2).png" id="2_a20lf"]
@@ -47,6 +47,7 @@
 [ext_resource type="Script" path="res://Scripts/pigeon_non_photo_2.gd" id="45_gtto7"]
 [ext_resource type="Texture2D" uid="uid://csn0c5gx1fqkl" path="res://Assets/3D Models/Crow_Idle.png" id="46_4vmst"]
 [ext_resource type="Texture2D" uid="uid://d4iom372iusmx" path="res://Assets/3D Models/Bee_Idle.png" id="47_o6c6i"]
+[ext_resource type="Script" path="res://Scenes/bee_non_photo.gd" id="48_dn4o7"]
 [ext_resource type="Texture2D" uid="uid://vhptyst2kk8x" path="res://Assets/3D Models/Bee_Idle2.png" id="48_fi8vf"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hb7kf"]
@@ -283,6 +284,68 @@ _data = {
 "RESET": SubResource("Animation_65e4j"),
 "move": SubResource("Animation_g2xam"),
 "move2": SubResource("Animation_d1kq5")
+}
+
+[sub_resource type="Animation" id="Animation_kx4xi"]
+resource_name = "Bee1_move"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BeeNonPhoto:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.7, 1, 1.3, 1.63333, 1.86667, 2.13333, 2.43333, 2.93333, 3.16667, 3.43333, 3.76667, 4.2, 4.56667, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.661288, 0.160997, -0.139548), Vector3(0.661288, 0.164843, -0.133269), Vector3(0.661288, 0.175147, -0.123533), Vector3(0.661288, 0.185837, -0.135965), Vector3(0.661288, 0.208714, -0.107312), Vector3(0.661288, 0.191626, -0.125883), Vector3(0.661288, 0.213732, -0.148538), Vector3(0.661288, 0.204239, -0.171335), Vector3(0.661288, 0.211433, -0.19212), Vector3(0.661288, 0.194452, -0.177572), Vector3(0.661288, 0.200934, -0.160633), Vector3(0.661288, 0.178832, -0.151709), Vector3(0.661288, 0.18652, -0.137366), Vector3(0.661288, 0.160563, -0.157382), Vector3(0.661288, 0.174626, -0.136276), Vector3(0.661288, 0.160997, -0.139548)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BeeNonPhoto:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4, 1.46667, 2.5, 2.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.61583, 0), Vector3(0, 1.61583, 0), Vector3(0, -1.36521, 0), Vector3(0, -1.25272, 0), Vector3(0, 1.61583, 0), Vector3(0, 1.61583, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k26gg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BeeNonPhoto:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.661288, 0.160997, -0.139548)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BeeNonPhoto:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.61583, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5qsrp"]
+_data = {
+"Bee1_move": SubResource("Animation_kx4xi"),
+"RESET": SubResource("Animation_k26gg")
 }
 
 [node name="Main" type="Node3D"]
@@ -4227,6 +4290,7 @@ texture = ExtResource("46_4vmst")
 transform = Transform3D(-4.50143e-05, 0, 0.000998986, 0, 0.001, 0, -0.000998986, 0, -4.50143e-05, 0.661288, 0.160997, -0.139548)
 alpha_cut = 1
 texture = ExtResource("47_o6c6i")
+script = ExtResource("48_dn4o7")
 
 [node name="BeeNonPhoto2" type="Sprite3D" parent="."]
 transform = Transform3D(3.91028e-05, 0, 0.000999235, 0, 0.001, 0, -0.000999235, 0, 3.91028e-05, 0.702951, 0.196603, -0.0396127)
@@ -4242,6 +4306,11 @@ texture = ExtResource("47_o6c6i")
 transform = Transform3D(-0.000164428, 3.55647e-12, -0.000986389, -0.000102506, 0.000994586, 1.70875e-05, 0.000981048, 0.000103921, -0.000163538, 0.740378, 0.0883013, -0.279365)
 alpha_cut = 1
 texture = ExtResource("48_fi8vf")
+
+[node name="BeeAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5qsrp")
+}
 
 [connection signal="animation_finished" from="PigeonNonPhoto/AnimationPlayer" to="PigeonNonPhoto" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="PigeonNonPhoto2/AnimationPlayer2" to="PigeonNonPhoto2" method="_on_animation_player_animation_finished"]
