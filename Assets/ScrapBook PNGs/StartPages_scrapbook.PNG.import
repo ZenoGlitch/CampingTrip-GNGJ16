@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://buk00hgmcd4am"
-path="res://.godot/imported/StartPages_scrapbook.PNG-f5b59b475a6d32223ad9a8b2e7010b3d.ctex"
+path="res://.godot/imported/StartPages_scrapbook.PNG-7fffcf83b539976b9c69ed1d1b1c73bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/3D Models/StartPages_scrapbook.PNG"
-dest_files=["res://.godot/imported/StartPages_scrapbook.PNG-f5b59b475a6d32223ad9a8b2e7010b3d.ctex"]
+source_file="res://Assets/ScrapBook PNGs/StartPages_scrapbook.PNG"
+dest_files=["res://.godot/imported/StartPages_scrapbook.PNG-7fffcf83b539976b9c69ed1d1b1c73bb.ctex"]
 
 [params]
 

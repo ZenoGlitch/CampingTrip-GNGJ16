@@ -1,11 +1,18 @@
 extends Node2D
 
+
 #CANVASES
 @onready var scrapbookCanvas = $ScrapbookCanvas
 @onready var cameraCanvas = $CameraCanvas
 @onready var mainMenuCanvas = $MainMenuCanvas
 @onready var lastPhotoCanvas = $LastPhotoCanvas
 @onready var endScreenCanvas = $EndScreenCanvas
+
+#MAIN MENU AND TUTORIAL REFERENCES
+@onready var logo = $MainMenuCanvas/Logo
+@onready var tutorialPage = $MainMenuCanvas/TutorialPage
+@onready var startGameButton = $MainMenuCanvas/StartGameButton
+@onready var closeTutorialButton = $MainMenuCanvas/CloseTutorialButton
 
 #PHOTOS
 #@onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
@@ -60,6 +67,8 @@ func _ready():
 	#endScreenCanvas.visible = false
 	#mainMenuCanvas.visible = true
 	
+	tutorialPage.hide()
+	closeTutorialButton.hide()
 	scrapbook2.hide()
 	scrapbook3.hide()
 	scrapbook4.hide()
@@ -237,7 +246,14 @@ func ungrabOtherPhotos(photoArrIdx : int):
 
 #region UI BUTTONS
 func _on_start_game_button_pressed():
-	mainMenuCanvas.visible = false
+	#mainMenuCanvas.hide()
+	logo.hide()
+	startGameButton.hide()
+	tutorialPage.show()
+	closeTutorialButton.show()
+
+func _on_close_tutorial_button_pressed():
+	mainMenuCanvas.hide()
 	cameraCanvas.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 

@@ -223,7 +223,7 @@ func Screenshot():
 		
 		photoSlotsTaken.append(idx + 1)
 		
-		#This line is only here to ensure that the star amount is actually reset, but should be done before this point.
+		#This line is only here to ensure that the star amount is actually reset, but should be done already before this point.
 		ui.photoArr2[idx].starsAmount = 0
 		
 		if Global.pigeonsAreSus and facingDir == direction.NORTH:
