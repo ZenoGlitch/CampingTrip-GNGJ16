@@ -17,6 +17,7 @@ config/custom_user_dir_name="CampingTrip"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/image="res://Assets/LogoTEMP2.png"
 config/icon="res://Assets/3D Models/Pigeon_Idle2.png"
+config/windows_native_icon="res://Assets/Pigeon_Idle2.ico"
 
 [autoload]
 
