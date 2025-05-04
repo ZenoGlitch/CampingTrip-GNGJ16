@@ -45,8 +45,10 @@ func _process(_delta):
 		pigeon1.set_flip_h(false)
 	
 	if pigeon1.get_frame() == 1 and pigeon2.get_frame() == 1:
-		pigeonsAreSus.emit(true)
+		#pigeonsAreSus.emit(true)
+		Global.pigeonsAreSus = true
 	else:
-		pigeonsAreSus.emit(false)
+		#pigeonsAreSus.emit(false)
+		Global.pigeonsAreSus = false
 
 	updateTimer.start()

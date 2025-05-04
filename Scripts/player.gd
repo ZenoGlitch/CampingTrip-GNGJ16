@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var pivot = $CameraPivot
 @onready var camera = $CameraPivot/Camera3D
-@onready var sprite = $Sprite2D
+#@onready var sprite = $Sprite2D
 @onready var timer = $Timer
 @onready var blur_timer = $BlurTimer
 @onready var ui = $UI
@@ -40,10 +40,10 @@ var uiCamCanvas : CanvasLayer
 var uiMainMenuCanvas : CanvasLayer
 var uiLastPhotoCanvas : CanvasLayer
 
-var crowsAreSus : bool = false
-var pigeonsAreSus : bool = false
-var beesAreSus : bool = false
-var skunksAreSus : bool = false
+#var crowsAreSus : bool = false
+#var pigeonsAreSus : bool = false
+#var beesAreSus : bool = false
+#var skunksAreSus : bool = false
 
 var photoToLoad : int = -1
 var photoSlotsTaken : Array[int] = []
@@ -154,7 +154,7 @@ func _input(_event: InputEvent):
 			
 	if Input.is_action_just_pressed("TakePhoto"):
 		if gameFocused and not scrapBookOpen and not uiLastPhotoCanvas.visible:
-			sprite.visible = false
+			#sprite.visible = false
 			uiCamCanvas.visible = false
 			
 			photoTimer.start()
@@ -166,7 +166,7 @@ func _input(_event: InputEvent):
 	if Input.is_action_just_pressed("OpenScrapbook") and ui.lastPhotoCanvas.visible == false and ui.mainMenuCanvas.visible == false:
 
 		if uiScrapbookCanvas.visible == false:
-			sprite.visible = false
+			#sprite.visible = false
 			uiCamCanvas.visible = false
 			scrapBookOpen = true
 			uiScrapbookCanvas.visible = true
@@ -174,7 +174,7 @@ func _input(_event: InputEvent):
 			LoadAllScreenshots()
 		else:
 			uiScrapbookCanvas.visible = false
-			sprite.visible = true
+			#sprite.visible = true
 			uiCamCanvas.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			scrapBookOpen = false
@@ -214,36 +214,40 @@ func Screenshot():
 			
 		var idx : int = -1
 		for m in ui.photoArr2:
-			if m.visible == false:
+			if m.photoSlotOccupied == false:
 				idx = m.ID - 1
+				m.photoSlotOccupied = true
 				break
 			else:
 				continue
 		
 		photoSlotsTaken.append(idx + 1)
 		
-		if pigeonsAreSus and facingDir == direction.NORTH:
+		#This line is only here to ensure that the star amount is actually reset, but should be done before this point.
+		ui.photoArr2[idx].starsAmount = 0
+		
+		if Global.pigeonsAreSus and facingDir == direction.NORTH:
 			susPigeonPhotoTaken.emit()
 			sussyPhotoTimer.start()
 			ui.photoArr2[idx].isPigeonPic = true
 			ui.photoArr2[idx].starsAmount += 1
 			sussyPigeonCaptured = true
 
-		if crowsAreSus and facingDir == direction.SOUTH:
+		if Global.crowsAreSus and facingDir == direction.SOUTH:
 			susCrowPhotoTaken.emit()
 			sussyPhotoTimer.start()
 			ui.photoArr2[idx].isCrowPic = true
 			ui.photoArr2[idx].starsAmount += 1
 			sussyCrowCaptured = true
 
-		if beesAreSus and facingDir == direction.EAST:
+		if Global.beesAreSus and facingDir == direction.EAST:
 			susBeePhotoTaken.emit()
 			sussyPhotoTimer.start()
 			ui.photoArr2[idx].isBeePic = true
 			ui.photoArr2[idx].starsAmount += 1
 			sussyBeeCaptured = true
 
-		if skunksAreSus and facingDir == direction.WEST:
+		if Global.skunksAreSus and facingDir == direction.WEST:
 			susSkunkPhotoTaken.emit()
 			sussyPhotoTimer.start()
 			ui.photoArr2[idx].isSkunkPic = true
@@ -306,11 +310,13 @@ func OnPictureTaken():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 func OnPictureSaved():
-	print("PHOTO SAVED")
+	#print("PHOTO SAVED")
 	ui.lastPhotoIndex = photoToLoad
 	
 func OnPictureDeleted(photoToDelete : int):
 	ui.photoArr2[photoToDelete -1].visible = false
+	ui.photoArr2[photoToDelete -1].fullyResetPhoto()
+	
 	DirAccess.remove_absolute("user://screenshots/screenshot" +str(photoToDelete)+".png")
 	photoSlotsTaken.remove_at(photoSlotsTaken.find(photoToDelete))
 	screenshotCount -= 1
@@ -326,9 +332,13 @@ func OnDeleteScrapbookPhoto(photoToDelete : int):
 	ui.pictureCounterLabel.text = str(screenshotCount)
 	
 func OnDeleteAllPhotos():
+	for n in ui.photoArr2:
+		n.fullyResetPhoto()
+		
 	for m in photoSlotsTaken:
 		DirAccess.remove_absolute("user://screenshots/screenshot" +str(m) + ".png")
 	
+		
 	photoSlotsTaken.clear()
 	screenshotCount = 0
 	ui.pictureCounterLabel.text = str(screenshotCount)

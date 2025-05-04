@@ -41,8 +41,10 @@ func _process(_delta):
 	bee2.set_frame(randomNr)
 	
 	if bee1.get_frame() == 1 and bee2.get_frame() == 1:
-		beesAreSus.emit(true)
+		#beesAreSus.emit(true)
+		Global.beesAreSus = true
 	else:
-		beesAreSus.emit(false)
+		#beesAreSus.emit(false)
+		Global.beesAreSus = false
 
 	updateTimer.start()

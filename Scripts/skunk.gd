@@ -35,9 +35,11 @@ func _process(_delta):
 	skunk.set_frame(randomNr)
 	
 	if skunk.get_frame() == 1:
-		skunksAreSus.emit(true)
+		#skunksAreSus.emit(true)
+		Global.skunksAreSus = true
 	else:
-		skunksAreSus.emit(false)
+		#skunksAreSus.emit(false)
+		Global.skunksAreSus = false
 
 	updateTimer.start()
 	

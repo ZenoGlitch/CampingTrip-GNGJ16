@@ -29,16 +29,16 @@ func _process(_delta):
 	
 
 func OnPigeonSus(isPigeonSus):
-	player.pigeonsAreSus = isPigeonSus
+	Global.pigeonsAreSus = isPigeonSus
 
 func OnCrowsSus(isCrowSus):
-	player.crowsAreSus = isCrowSus
+	Global.crowsAreSus = isCrowSus
 
 func OnBeesSus(isBeeSus):
-	player.beesAreSus = isBeeSus
+	Global.beesAreSus = isBeeSus
 
 func OnSkunkSus(isSkunkSus):
-	player.skunksAreSus = isSkunkSus
+	Global.skunksAreSus = isSkunkSus
 
 func OnSusPigeonPhoto():
 	pigeon.pigeon1.set_frame(2)

@@ -8,7 +8,7 @@ extends Node2D
 @onready var endScreenCanvas = $EndScreenCanvas
 
 #PHOTOS
-@onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
+#@onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
 @onready var photoArr2 : Array[Photo] = [$ScrapbookCanvas/Photo1, $ScrapbookCanvas/Photo2, $ScrapbookCanvas/Photo3, $ScrapbookCanvas/Photo4, $ScrapbookCanvas/Photo5, $ScrapbookCanvas/Photo6, $ScrapbookCanvas/Photo7, $ScrapbookCanvas/Photo8]
 const maxPhotosAmount : int = 8
 
@@ -17,7 +17,7 @@ const maxPhotosAmount : int = 8
 @onready var scrapbook2 = $ScrapbookCanvas/Scrapbook2
 @onready var scrapbook3 = $ScrapbookCanvas/Scrapbook3
 @onready var scrapbook4 = $ScrapbookCanvas/Scrapbook4
-@onready var sprite1 = $ScrapbookCanvas/Sprite1
+#@onready var sprite1 = $ScrapbookCanvas/Sprite1
 @onready var flipPageSound = $ScrapbookCanvas/FlipPageSound
 
 #COLLIDERS
@@ -51,15 +51,23 @@ signal deleteScrapbookPhoto
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	scrapbook2.visible = false
-	scrapbook3.visible = false
-	scrapbook4.visible = false
+	#scrapbook2.visible = false
+	#scrapbook3.visible = false
+	#scrapbook4.visible = false
+	#scrapbookCanvas.visible = false
+	#cameraCanvas.visible = false
+	#lastPhotoCanvas.visible = false
+	#endScreenCanvas.visible = false
+	#mainMenuCanvas.visible = true
 	
-	scrapbookCanvas.visible = false
-	cameraCanvas.visible = false
-	lastPhotoCanvas.visible = false
-	mainMenuCanvas.visible = true
-	endScreenCanvas.visible = false
+	scrapbook2.hide()
+	scrapbook3.hide()
+	scrapbook4.hide()
+	scrapbookCanvas.hide()
+	cameraCanvas.hide()
+	lastPhotoCanvas.hide()
+	endScreenCanvas.hide()
+	mainMenuCanvas.show()
 	
 	var newID = 0
 	for m in photoArr2:

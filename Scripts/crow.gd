@@ -41,9 +41,11 @@ func _process(_delta):
 	crow2.set_frame(randomNr)
 	
 	if crow1.get_frame() == 1 and crow2.get_frame() == 1:
-		crowsAreSus.emit(true)
+		#crowsAreSus.emit(true)
+		Global.crowsAreSus = true
 	else:
-		crowsAreSus.emit(false)
+		#crowsAreSus.emit(false)
+		Global.crowsAreSus = false
 
 	updateTimer.start()
 		

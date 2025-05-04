@@ -17,6 +17,10 @@ config/custom_user_dir_name="CampingTrip"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://Scripts/global.gd"
+
 [display]
 
 window/size/viewport_width=1920

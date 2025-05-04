@@ -15,10 +15,10 @@ var grabbed : bool = false
 var mouseOffset : Vector2 = Vector2(0, 0)
 var allowedToMove : bool = true
 var starsAmount : int = 0
+var photoSlotOccupied = false
 
 signal pictureGrabbed
 signal pictureReleased
-
 
 var ID : int = -1
 
@@ -44,11 +44,11 @@ func _process(_delta):
 		self.followMouse()
 	if self.visible:
 		deletePhotoButton.visible = true
-		assert(self.starsAmount >= 0 and self.starsAmount <=3, "starsAmount is out of bounds")
+		#assert(self.starsAmount >= 0 and self.starsAmount <=3, "starsAmount is out of bounds")
 		if self.starsAmount > 0 and self.starsAmount <= 3:
 			for i in range(self.starsAmount):
 				self.starArr[i].visible = true
-				starArr.size()
+				#starArr.size()
 	else:
 		deletePhotoButton.visible = false
 		for i in starArr.size():
@@ -88,6 +88,7 @@ func fullyResetPhoto():
 	self.isBeePic = false
 	self.isSkunkPic = false
 	self.visible = false
+	self.photoSlotOccupied = false
 	self.position = originalPosition
 	self.allowedToMove = true
 	self.grabbed = false
