@@ -244,8 +244,8 @@ texture = ExtResource("2_ci6xd")
 
 [node name="Logo" type="Sprite2D" parent="MainMenuCanvas"]
 z_index = 1
-position = Vector2(960, 476)
-scale = Vector2(0.27, 0.27)
+position = Vector2(990, 430)
+scale = Vector2(0.247193, 0.240864)
 texture = ExtResource("15_qxqm8")
 
 [node name="TutorialPage" type="Sprite2D" parent="MainMenuCanvas"]
@@ -256,11 +256,14 @@ texture = ExtResource("13_3ywhx")
 
 [node name="StartGameButton" type="Button" parent="MainMenuCanvas"]
 z_index = 1
-offset_left = 826.0
-offset_top = 911.0
-offset_right = 1923.0
-offset_bottom = 1407.0
+clip_contents = true
+offset_left = 852.0
+offset_top = 815.0
+offset_right = 1823.0
+offset_bottom = 1311.0
 scale = Vector2(0.297659, 0.257276)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("14_ph2ay")
 theme_override_font_sizes/font_size = 250
 text = "Start Game"
@@ -276,6 +279,16 @@ scale = Vector2(0.297659, 0.257276)
 theme_override_fonts/font = ExtResource("14_ph2ay")
 theme_override_font_sizes/font_size = 250
 text = "Close Tutorial"
+
+[node name="MainMenuQuitGameButton" type="Button" parent="MainMenuCanvas"]
+offset_left = 921.0
+offset_top = 945.0
+offset_right = 1425.0
+offset_bottom = 1441.0
+scale = Vector2(0.297659, 0.257276)
+theme_override_fonts/font = ExtResource("14_ph2ay")
+theme_override_font_sizes/font_size = 250
+text = "Quit"
 
 [node name="LastPhotoCanvas" type="CanvasLayer" parent="."]
 visible = false
@@ -360,6 +373,7 @@ text = "Quit Game"
 [connection signal="pressed" from="ScrapbookCanvas/DeleteAllPhotosButton" to="." method="_on_delete_all_photos_button_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/CloseTutorialButton" to="." method="_on_close_tutorial_button_pressed"]
+[connection signal="pressed" from="MainMenuCanvas/MainMenuQuitGameButton" to="." method="_on_main_menu_quit_game_button_pressed"]
 [connection signal="pressed" from="LastPhotoCanvas/DeletePhotoButton" to="." method="_on_delete_photo_button_pressed"]
 [connection signal="pressed" from="LastPhotoCanvas/SavePhotoButton" to="." method="_on_save_photo_button_pressed"]
 [connection signal="pressed" from="EndScreenCanvas/QuitGameButton" to="." method="_on_quit_game_button_pressed"]

@@ -13,6 +13,7 @@ extends Node2D
 @onready var tutorialPage = $MainMenuCanvas/TutorialPage
 @onready var startGameButton = $MainMenuCanvas/StartGameButton
 @onready var closeTutorialButton = $MainMenuCanvas/CloseTutorialButton
+@onready var mainMenuQuitGameButton = $MainMenuCanvas/MainMenuQuitGameButton
 
 #PHOTOS
 #@onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
@@ -246,11 +247,14 @@ func ungrabOtherPhotos(photoArrIdx : int):
 
 #region UI BUTTONS
 func _on_start_game_button_pressed():
-	#mainMenuCanvas.hide()
 	logo.hide()
 	startGameButton.hide()
+	mainMenuQuitGameButton.hide()
 	tutorialPage.show()
 	closeTutorialButton.show()
+	
+func _on_main_menu_quit_game_button_pressed():
+	get_tree().quit()
 
 func _on_close_tutorial_button_pressed():
 	mainMenuCanvas.hide()

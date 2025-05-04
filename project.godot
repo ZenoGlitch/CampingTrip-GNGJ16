@@ -10,12 +10,13 @@ config_version=5
 
 [application]
 
-config/name="CampingTrip"
+config/name="I am in the forest with my dad and the frogs are watching"
 run/main_scene="res://Scenes/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="CampingTrip"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="res://Assets/LogoTEMP2.png"
+config/icon="res://Assets/3D Models/Pigeon_Idle2.png"
 
 [autoload]
 
