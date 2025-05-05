@@ -1,6 +1,5 @@
 extends Node2D
 
-
 #CANVASES
 @onready var scrapbookCanvas = $ScrapbookCanvas
 @onready var cameraCanvas = $CameraCanvas
@@ -16,7 +15,6 @@ extends Node2D
 @onready var mainMenuQuitGameButton = $MainMenuCanvas/MainMenuQuitGameButton
 
 #PHOTOS
-#@onready var photoArr : Array[Sprite2D] = [$ScrapbookCanvas/Sprite1, $ScrapbookCanvas/Sprite2, $ScrapbookCanvas/Sprite3, $ScrapbookCanvas/Sprite4, $ScrapbookCanvas/Sprite5, $ScrapbookCanvas/Sprite6, $ScrapbookCanvas/Sprite7, $ScrapbookCanvas/Sprite8]
 @onready var photoArr2 : Array[Photo] = [$ScrapbookCanvas/Photo1, $ScrapbookCanvas/Photo2, $ScrapbookCanvas/Photo3, $ScrapbookCanvas/Photo4, $ScrapbookCanvas/Photo5, $ScrapbookCanvas/Photo6, $ScrapbookCanvas/Photo7, $ScrapbookCanvas/Photo8]
 const maxPhotosAmount : int = 8
 
@@ -25,7 +23,6 @@ const maxPhotosAmount : int = 8
 @onready var scrapbook2 = $ScrapbookCanvas/Scrapbook2
 @onready var scrapbook3 = $ScrapbookCanvas/Scrapbook3
 @onready var scrapbook4 = $ScrapbookCanvas/Scrapbook4
-#@onready var sprite1 = $ScrapbookCanvas/Sprite1
 @onready var flipPageSound = $ScrapbookCanvas/FlipPageSound
 
 #COLLIDERS
@@ -40,6 +37,7 @@ const maxPhotosAmount : int = 8
 
 var pictureCounter : int = 0
 @onready var pictureCounterLabel = $ScrapbookCanvas/Label
+@onready var memoryFullWarningLabel = $CameraCanvas/MemoryFullWarningLabel
 
 var currentPage : int = 1
 var currentlyGrabbedPhoto : int = -1
@@ -59,15 +57,6 @@ signal deleteScrapbookPhoto
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#scrapbook2.visible = false
-	#scrapbook3.visible = false
-	#scrapbook4.visible = false
-	#scrapbookCanvas.visible = false
-	#cameraCanvas.visible = false
-	#lastPhotoCanvas.visible = false
-	#endScreenCanvas.visible = false
-	#mainMenuCanvas.visible = true
-	
 	tutorialPage.hide()
 	closeTutorialButton.hide()
 	scrapbook2.hide()
@@ -75,6 +64,7 @@ func _ready():
 	scrapbook4.hide()
 	scrapbookCanvas.hide()
 	cameraCanvas.hide()
+	memoryFullWarningLabel.hide()
 	lastPhotoCanvas.hide()
 	endScreenCanvas.hide()
 	mainMenuCanvas.show()
@@ -231,6 +221,7 @@ func CheckAllPicturesPlacement(grabbedPhoto : int):
 func CheckAllPicturesCorrect():
 	if pigeonPicCorrect and crowPicCorrect and beePicCorrect and skunkPicCorrect:
 		scrapbookCanvas.visible = false
+		Global.gameState = Global.GameState.ENDED
 		endScreenCanvas.visible = true
 	
 func setLastPhoto(tex : ImageTexture, idx : int):
@@ -260,6 +251,7 @@ func _on_close_tutorial_button_pressed():
 	mainMenuCanvas.hide()
 	cameraCanvas.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Global.gameState = Global.GameState.RUNNING
 
 func _on_flip_page_left_button_pressed():
 	FlipPageLeft()

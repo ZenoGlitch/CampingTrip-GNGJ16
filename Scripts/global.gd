@@ -1,5 +1,8 @@
 extends Node
 
+enum GameState {MAIN_MENU, RUNNING, ENDED} 
+var gameState : GameState = GameState.MAIN_MENU
+
 var crowsAreSus : bool = false
 var pigeonsAreSus : bool = false
 var beesAreSus : bool = false

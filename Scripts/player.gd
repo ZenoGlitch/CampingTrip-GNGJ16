@@ -30,7 +30,16 @@ const blurAmount : float = 0.05
 signal blurAmountChanged
 signal pictureTaken
 
-var screenshotCount : int = 0
+var screenshotCount : int = 0 :
+	set(value) : 
+		screenshotCount = value
+		clamp(screenshotCount, 0, 8)
+		if screenshotCount == 8:
+			ui.memoryFullWarningLabel.show()
+		else :
+			ui.memoryFullWarningLabel.hide()
+	get() : 
+		return screenshotCount
 
 var scrapBookOpen : bool = false
 const screenshotSize : Vector2i = Vector2i(384,216)
