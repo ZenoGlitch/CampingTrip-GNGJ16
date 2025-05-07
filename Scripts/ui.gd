@@ -6,13 +6,13 @@ extends Node2D
 @onready var mainMenuCanvas = $MainMenuCanvas
 @onready var lastPhotoCanvas = $LastPhotoCanvas
 @onready var endScreenCanvas = $EndScreenCanvas
+@onready var creditsCanvas = $MainMenuCanvas/CreditsCanvas
 
-#MAIN MENU AND TUTORIAL REFERENCES
+#MAIN MENU, CREDITS, AND TUTORIAL REFERENCES
 @onready var logo = $MainMenuCanvas/Logo
 @onready var tutorialPage = $MainMenuCanvas/TutorialPage
-@onready var startGameButton = $MainMenuCanvas/StartGameButton
 @onready var closeTutorialButton = $MainMenuCanvas/CloseTutorialButton
-@onready var mainMenuQuitGameButton = $MainMenuCanvas/MainMenuQuitGameButton
+@onready var mainMenuButtonContainer = $MainMenuCanvas/MainMenuButtonContainer
 
 #PHOTOS
 @onready var photoArr2 : Array[Photo] = [$ScrapbookCanvas/Photo1, $ScrapbookCanvas/Photo2, $ScrapbookCanvas/Photo3, $ScrapbookCanvas/Photo4, $ScrapbookCanvas/Photo5, $ScrapbookCanvas/Photo6, $ScrapbookCanvas/Photo7, $ScrapbookCanvas/Photo8]
@@ -67,6 +67,7 @@ func _ready():
 	memoryFullWarningLabel.hide()
 	lastPhotoCanvas.hide()
 	endScreenCanvas.hide()
+	creditsCanvas.hide()
 	mainMenuCanvas.show()
 	
 	var newID = 0
@@ -237,12 +238,22 @@ func ungrabOtherPhotos(photoArrIdx : int):
 			i.grabbed = false
 
 #region UI BUTTONS
+
 func _on_start_game_button_pressed():
 	logo.hide()
-	startGameButton.hide()
-	mainMenuQuitGameButton.hide()
+	mainMenuButtonContainer.hide()
 	tutorialPage.show()
 	closeTutorialButton.show()
+	
+func _on_credits_button_pressed():
+	logo.hide()
+	mainMenuButtonContainer.hide()
+	creditsCanvas.show()
+	
+func _on_back_to_main_button_pressed():
+	logo.show()
+	mainMenuButtonContainer.show()
+	creditsCanvas.hide()
 	
 func _on_main_menu_quit_game_button_pressed():
 	get_tree().quit()
